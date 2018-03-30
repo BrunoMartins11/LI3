@@ -10,7 +10,7 @@
 //Data
 //PostTypeID
 //UserBio
-//Vote number = UpVotes - DownVotes
+//Vote number = UpVotes - DownVotes = Score
 //Numero de respostas de uma pergunta
 //Score da resposta
 //User reputation
