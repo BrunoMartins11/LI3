@@ -29,11 +29,11 @@ gpointer pointer_last_posts(long id){
 //retorna um array com o posts
 long last_posts(long id){
     long posts[MAX];
-    int i = 0:
+    int i = 0;
     gpointer IDpost = pointer_last_posts(id);
     while(IDpost != NULL){
     	posts[i] = IDpost->postID;
-    	i++
+    	i++;
     	IDpost = IDpost->next;
     }
     reverse(posts);
