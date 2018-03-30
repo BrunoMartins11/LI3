@@ -1,7 +1,11 @@
 #include <stdlib.h>
 #include <date.h>
+#include <string.h>
+#include <stdio.h>
+#include <glib.h>
+#include "posts.h"
 
-typedef struct posts{	//esta struct tem campos de perguntas e respostas, 
+struct posts{	//esta struct tem campos de perguntas e respostas, 
 						//para que consiga conter ambos, tornando possivel ter perguntas e respostas no mesmo array(por exemplo).	
 	long postID;		
 	char* postTitle;
@@ -14,6 +18,10 @@ typedef struct posts{	//esta struct tem campos de perguntas e respostas,
 	char** tags;		//basicamente um array de strings. As tags sao strings.
 	long ownerID;		//ID do user referente ao post.
 	
-}POST;
+};
 
 	
+char* get_title(POST p){
+	char* ret=g_strdup(p->postTitle);
+	return ret;
+}
