@@ -20,8 +20,68 @@ struct posts{	//esta struct tem campos de perguntas e respostas,
 	
 };
 
-	
-char* get_title(POST p){
-	char* ret=g_strdup(p->postTitle);
-	return ret;
+POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID){
+	POST p = malloc(sizeof posts);
+	postID;		
+	p->postTitle = postTitle;
+	p->postType = postType; 		//1 -> pergunta, 2-> resposta.
+	p->parentID = parentID; 		// 0 no caso de ser uma pergunta.
+	p->score = score;
+	p->data = data;
+	p->answerCount = answerCount;
+	p->commentCount = commentCount;
+	p->tags = tags;		//basicamente um array de strings. As tags sao strings.
+	p->ownerID = ownerID;
 }
+
+char* get_title(POST p){
+	if(p)
+	return p->postTitle;
+	return NULL;
+}
+
+long get_post(POST p){
+	if (p) return p->postID;
+	return NULL;
+}
+
+int get_post_type(POST p){
+	if(p) return p->postType;
+	return NULL;
+}
+
+long get_parentID(POST p){
+	if(p) return p->parentID;
+	return NULL;
+}
+
+long get_score(POST p){
+	if(p) return p->score;
+	return NULL;
+}
+
+Date get_date(POST p){ //definir
+	if (p) return p->data;
+	return NULL;
+}
+
+long get_awnserC(POST p){
+	if (p) return p->answerCount;
+	return NULL;
+}
+
+long get_commentC(POST p){
+	if (p) return p->commentCount;
+	return NULL;
+}
+
+long get_owner(POST p){
+	if(p) return p->commentCount;
+	return NULL;	
+} 
+
+char** get_tags(POST p){ //a definir
+
+}
+
+//falta o free
