@@ -67,7 +67,7 @@ long get_score(POST p){
 	return NULL;
 }
 
-Date get_date(POST p){ //definir
+Date get_date(POST p){ 
 	if (p) return p->data;
 	return NULL;
 }
@@ -87,8 +87,9 @@ long get_owner(POST p){
 	return NULL;	
 } 
 
-char** get_tags(POST p){ 
-
+char** get_tags(POST p){//a definir 
+	if (p) return p->tags;
+	return NULL;
 }
 
 void free_post(POST p){
