@@ -2,7 +2,7 @@
 #define __PROFILE__
 typedef struct profile* PROFILE;
 
-PROFILE make_profile(long id, long rep, char *name, char *aboutme)
+PROFILE make_profile(long id, long rep, char *name, char *aboutme);
 long get_id(PROFILE p);
 long get_rep(PROFILE p);
 char* get_name(PROFILE p);

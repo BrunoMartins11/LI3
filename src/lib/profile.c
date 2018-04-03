@@ -15,7 +15,7 @@ struct profile{
 };
 
 PROFILE make_profile(long id, long rep, char *name, char *aboutme){
-	PROFILE p = malloc(sizeof PROFILE);
+	PROFILE p = malloc(sizeof (struct profile));
 	p->id = id;
 	p->rep = rep;
 	p->name = g_strdup(name);
@@ -23,23 +23,23 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 }
 
 long get_id(PROFILE p){
-	if (p) return p->id;
-	 return NULL;
+	return p->id;
+	
 }
 
 long get_rep(PROFILE p){
-	if (p) return p->rep;
-	 return NULL;
+	return p->rep;
+	
 }
 
 char* get_name(PROFILE p){
-	if (p) return p->name;
-	return NULL;
+	return p->name;
+	
 }
 
 char* get_profile(PROFILE p){
-	if (p) return p->aboutme;
-	return NULL;
+	return p->aboutme;
+	
 }
 
 void free_profile(PROFILE p){

@@ -13,7 +13,7 @@
 //Vote number = UpVotes - DownVotes = Score
 //Numero de respostas de uma pergunta
 //Score da resposta
-//User reputation
+//User reputationTCD_community * TAD_community;
 //Numero de comentarios das respostas
 //Tags, e numero de vezes que cada uma e usada.
 

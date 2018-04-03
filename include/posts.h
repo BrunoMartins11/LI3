@@ -2,7 +2,7 @@
 #define __POSTS_H__
 
 typedef struct posts *POST;
-POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID){
+POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID);
 char* get_title(POST p);
 long get_post(POST p);
 int get_post_type(POST p);
