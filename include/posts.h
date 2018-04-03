@@ -13,5 +13,5 @@ long get_awnserC(POST p);
 long get_commentC(POST p);
 long get_owner(POST p);
 char** get_tags(POST p);
-
+void free_post(POST p);
 #endif
