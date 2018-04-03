@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <glib.h>
 #include "posts.h"
+#include "date.h"
 
 struct posts{	//esta struct tem campos de perguntas e respostas, 
 						//para que consiga conter ambos, tornando possivel ter perguntas e respostas no mesmo array(por exemplo).	
@@ -21,10 +22,9 @@ struct posts{	//esta struct tem campos de perguntas e respostas,
 };
 
 POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID){
-	POST p = malloc(sizeof posts);
-	p->postID = postID;
-	p->postTitle = malloc(sizeof char);		
-	p->postTitle = postTitle;
+	POST p = malloc(sizeof (struct posts));
+	p->postID = postID;	
+	p->postTitle = g_strdup(postTitle);
 	p->postType = postType; 		
 	p->parentID = parentID; 		
 	p->score = score;
@@ -87,10 +87,11 @@ char** get_tags(POST p){
 }
 
 void free_post(POST p){
+	int i=0;
 	if (p){
-		if (data) free_date(p->data);
+		if (p->data) free_date(p->data);
 		free(p->postTitle);
-		while(tags[i]){
+		while(p->tags[i]){
 			free(p->tags[i]);
 			i++;
 		}
