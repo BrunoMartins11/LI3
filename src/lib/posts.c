@@ -22,7 +22,8 @@ struct posts{	//esta struct tem campos de perguntas e respostas,
 
 POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID){
 	POST p = malloc(sizeof posts);
-	postID;		
+	postID;
+	p->postTitle = malloc(sizeof char);		
 	p->postTitle = postTitle;
 	p->postType = postType; 		//1 -> pergunta, 2-> resposta.
 	p->parentID = parentID; 		// 0 no caso de ser uma pergunta.
@@ -30,8 +31,14 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
 	p->data = data;
 	p->answerCount = answerCount;
 	p->commentCount = commentCount;
-	p->tags = tags;		//basicamente um array de strings. As tags sao strings.
+	p->tags=malloc(sizeof(char)*strlen(tags));//nao sei se esta certo
+	while(i<strlen(tags)){
+		p->tags[i] = tags[i];
+		i++;
+	}	
+	p->tags = tags;
 	p->ownerID = ownerID;
+    return p;
 }
 
 char* get_title(POST p){
@@ -80,8 +87,19 @@ long get_owner(POST p){
 	return NULL;	
 } 
 
-char** get_tags(POST p){ //a definir
+char** get_tags(POST p){ 
 
 }
 
-//falta o free
+void free_post(POST p){
+	if (p){
+		free_date(p->data);
+		free(p->postTitle);
+		while(i<strlen(p->tags)){
+			free(p->tags[i]);
+			i++;
+		}
+		free(p->tags);
+		free(p);
+	}
+}
