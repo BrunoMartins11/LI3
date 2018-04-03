@@ -1,3 +1,11 @@
+#include <stdlib.h>
+#include <date.h>
+#include <string.h>
+#include <stdio.h>
+#include <glib.h>
+#include "profile.h"
+
+
 struct profile{
 	long id;
 	char *name;
@@ -10,8 +18,8 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 	PROFILE p = malloc(sizeof PROFILE);
 	p->id = id;
 	p->rep = rep;
-	p->name = g_mystrdup(name);
-	p->aboutme = g_mystrdup(aboutme);
+	p->name = g_strdup(name);
+	p->aboutme = g_strdup(aboutme);
 }
 
 long get_id(PROFILE p){
@@ -30,7 +38,7 @@ char* get_name(PROFILE p){
 }
 
 char* get_profile(PROFILE p){
-	if (p) return p-> aboutme;
+	if (p) return p->aboutme;
 	return NULL;
 }
 

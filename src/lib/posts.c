@@ -25,8 +25,8 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
 	postID;
 	p->postTitle = malloc(sizeof char);		
 	p->postTitle = postTitle;
-	p->postType = postType; 		//1 -> pergunta, 2-> resposta.
-	p->parentID = parentID; 		// 0 no caso de ser uma pergunta.
+	p->postType = postType; 		
+	p->parentID = parentID; 		
 	p->score = score;
 	p->data = data;
 	p->answerCount = answerCount;
@@ -47,7 +47,7 @@ char* get_title(POST p){
 	return NULL;
 }
 
-long get_post(POST p){
+long get_postID(POST p){
 	if (p) return p->postID;
 	return NULL;
 }
@@ -87,7 +87,7 @@ long get_owner(POST p){
 	return NULL;	
 } 
 
-char** get_tags(POST p){//a definir 
+char** get_tags(POST p){
 	if (p) return p->tags;
 	return NULL;
 }
