@@ -1,5 +1,6 @@
 #ifndef __POSTS_H__
 #define __POSTS_H__
+#include "date.h"
 
 typedef struct posts *POST;
 POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID);
