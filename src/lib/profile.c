@@ -42,7 +42,7 @@ char* get_profile(PROFILE p){
 	
 }
 
-void free_profile(PROFILE p){
+void* free_profile(PROFILE p){
 	if (p) {
 		free(p->name);
 		free(p->aboutme);

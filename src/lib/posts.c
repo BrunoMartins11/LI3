@@ -31,7 +31,9 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
 	p->data = data;
 	p->answerCount = answerCount;
 	p->commentCount = commentCount;
-	p->tags = g_strdup(tags);
+	for(int i=0; tags[i]; i++) 
+		p->tags[i]=g_strdup(tags[i]);
+	p->tags = tags;
 	p->ownerID = ownerID;
     return p;
 }
@@ -81,12 +83,13 @@ long get_owner(POST p){
 		
 } 
 
-char** get_tags(POST p){
-	return g_strdup(p->tags);
+char** get_tags(POST p){ //erraddo compor
+	return p->tags;
 	
 }
 
-void free_post(POST p){
+void free_post(void* po){
+	POST p = (POST)po;
 	int i=0;
 	if (p){
 		if (p->data) free_date(p->data);
