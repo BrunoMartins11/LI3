@@ -22,7 +22,7 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 	TAD_community com = (TAD_community) user_data;
 
 	while(atributos != NULL && atributos[0] != NULL){
-		
+		if()
 		atributos += 2; // 0 = atributo, 1 = valor do atributo
 	}
 }
