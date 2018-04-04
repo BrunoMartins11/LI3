@@ -24,7 +24,7 @@ long get_postID_date(POSTDATE p){
 	return p->postID;
 }
 
-void free_postDate(POSTDATE p){
+void free_postDate(POSTDATE p){	
 	free_date(p->data);
-	free(p->postID);
+
 }

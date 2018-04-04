@@ -20,6 +20,7 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 	p->rep = rep;
 	p->name = g_strdup(name);
 	p->aboutme = g_strdup(aboutme);
+	return p;
 }
 
 long get_id(PROFILE p){
@@ -42,7 +43,8 @@ char* get_profile(PROFILE p){
 	
 }
 
-void* free_profile(PROFILE p){
+void free_profile(void* po){
+	PROFILE p = (PROFILE)po;
 	if (p) {
 		free(p->name);
 		free(p->aboutme);

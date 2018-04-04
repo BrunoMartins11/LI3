@@ -7,5 +7,5 @@ long get_id(PROFILE p);
 long get_rep(PROFILE p);
 char* get_name(PROFILE p);
 char* get_profile(PROFILE p); 
-void* free_profile(PROFILE u);
+void free_profile(void* p);
 #endif

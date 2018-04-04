@@ -101,4 +101,5 @@ void free_post(void* po){
 		free(p->tags);
 		free(p);
 	}
+	return;
 }
