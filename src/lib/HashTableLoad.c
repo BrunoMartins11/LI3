@@ -10,6 +10,7 @@
 #include "profile.h"
 #include "posts.h"
 #include "tags.h"
+#include "HashTableLoad.h"
 
 struct TCD_community{
 	GHashTable *profile;
