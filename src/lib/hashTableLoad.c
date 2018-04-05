@@ -10,7 +10,7 @@
 #include "profile.h"
 #include "posts.h"
 #include "tags.h"
-#include "HashTableLoad.h"
+#include "hashTableLoad.h"
 
 struct TCD_community{
 	GHashTable *profile;
@@ -18,7 +18,9 @@ struct TCD_community{
 	GHashTable *postDate;
 	GHashTable *tags;
 };
-
+TAD_community init(){
+	return create_struct();
+}
 TAD_community create_struct(){
 	TAD_community m = malloc(sizeof (struct TCD_community));
 	m->profile = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_profile); 

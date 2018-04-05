@@ -33,7 +33,6 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
 	p->commentCount = commentCount;
 	for(int i=0; tags[i]; i++) 
 		p->tags[i]=g_strdup(tags[i]);
-	p->tags = tags;
 	p->ownerID = ownerID;
     return p;
 }
