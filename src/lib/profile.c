@@ -11,6 +11,7 @@ struct profile{
 	char *name;
 	char *aboutme;
 	long rep;
+	int postCount;
 };
 
 PROFILE make_profile(long id, long rep, char *name, char *aboutme){
@@ -21,6 +22,12 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 	p->aboutme = g_strdup(aboutme);
 	return p;
 }
+
+void increment_profile_post_count(PROFILE p){
+
+	postCount += 1;
+}
+
 
 long get_profile_id(PROFILE p){
 	return p->id;

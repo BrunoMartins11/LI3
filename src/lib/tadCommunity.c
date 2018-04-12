@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <glib.h>
-#include "posts.h"
-#include "profile.h"
 #include "interface.h"
 #include "date.h"
 #include "postDate.h"
@@ -18,9 +16,13 @@ struct TCD_community{
 	GHashTable *postDate;
 	GHashTable *tags;
 };
+
+
 TAD_community init(){
 	return create_struct();
 }
+
+
 TAD_community create_struct(){
 	TAD_community m = malloc(sizeof (struct TCD_community));
 	m->profile = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_profile); 
@@ -30,23 +32,29 @@ TAD_community create_struct(){
 	return m;
 }
 
+
 POST get_community_post(TAD_Community m, long id){
 	
 	return (POST)g_hash_table_lookup(m->posts,&id);
 }
+
 
 void add_community_post(TAD_Community m, long id, POST p){
 	
 	long* idp = malloc(sizeof(long));
 	*idp = get_post_id(p);
 
+	increment_profile_post_count(get_community_profile(m, id));
+
 	g_hash_table_insert(m->posts,idp,p);
 }
+
 
 PROFILE get_community_profile(TAD_Community m, long id){
 	
 	return (PROFILE)g_hash_table_lookup(m->profile,&id);
 }
+
 
 void add_community_profile(TAD_Community m, long id, PROFILE p){
 
@@ -56,10 +64,12 @@ void add_community_profile(TAD_Community m, long id, PROFILE p){
 	g_hash_table_insert(m->profile,idp,p);
 }
 
+
 TAG get_community_tag(TAD_Community m, char* id){
 	
 	return (TAG)g_hash_table_lookup(m->tags,&id);
 }
+
 
 void add_community_tag(TAD_Community m, long id, TAG t){
 

@@ -18,7 +18,7 @@ STR_pair get_info(POST p){
 		return create_str_pair(get_profile_name(u), NULL);
 	}
 
-	return  create_str_pair(get_profile_name(u), get_title(p));
+	return  create_str_pair(get_profile_name(u), get_post_title(p));
 }
 
 STR_pair info_from_post(TAD_community com, long id){
