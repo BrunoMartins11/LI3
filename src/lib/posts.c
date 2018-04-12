@@ -78,7 +78,7 @@ long get_commentC(POST p){
 }
 
 long get_owner(POST p){
-	return p->commentCount;
+	return p->ownerID;
 		
 } 
 

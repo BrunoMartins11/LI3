@@ -20,20 +20,24 @@ gpointer get_postq(TAD_community com, long postID){
 
 // recebe o apontador calculado na funçao anterior e retorna a string com o nome e titulo do post
 STR_pair get_info(TAD_community com, gpointer pID){
+
 	POST p = (POST)pID;
-	long own = get_owner(p);
-	gconstpointer uh = (gconstpointer)&own;
+	long ownerID = get_owner(p);
 	GHashTable* hash_user = get_profile_hash(com);
-	guint hash = g_int64_hash(uh);
-	gconstpointer hashaux = (gconstpointer)&hash;
-	PROFILE u = (PROFILE)g_hash_table_lookup(hash_user, hashaux);
-	if(get_title(p) == NULL) return NULL;
-	return create_str_pair(get_name(u), get_title(p));
+	PROFILE u = (PROFILE)g_hash_table_lookup(hash_user, &ownerID);
+	
+	if(get_title(p) == NULL){
+		return create_str_pair("aqui devia ser o nome", NULL);
+	}
+
+	return  create_str_pair("devia ser o nome", get_title(p));
 }
 
 STR_pair info_from_post(TAD_community com, long id){
+
 	gpointer p = get_postq(com,id);
-	if(!p) printf("fuck you\n");
+	
+	if(!p) return NULL;
 	POST po =(POST)p;
 	if (get_post_type(po) == 2){
 		gpointer pID;	
