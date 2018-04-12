@@ -19,7 +19,7 @@ char* get_tag_name(TAG t){
 	return g_strdup(t->name);
 }
 
-long get_tagID(TAG t){
+long get_tag_id(TAG t){
 	return t->tagID;
 }
 

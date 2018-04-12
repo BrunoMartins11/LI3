@@ -37,12 +37,12 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
     return p;
 }
 
-char* get_title(POST p){
+char* get_post_title(POST p){
 	return g_strdup(p->postTitle);
 	
 }
 
-long get_postID(POST p){
+long get_post_id(POST p){
 	return p->postID;
 	
 }
@@ -52,37 +52,37 @@ int get_post_type(POST p){
 	
 }
 
-long get_parentID(POST p){
+long get_post_parentID(POST p){
 	return p->parentID;
 	
 }
 
-long get_score(POST p){
+long get_post_score(POST p){
 	return p->score;
 	
 }
 
-Date get_date(POST p){ 
+Date get_post_date(POST p){ 
 	return p->data;
 	
 }
 
-long get_awnserC(POST p){
+long get_post_awnser_count(POST p){
 	return p->answerCount;
 	
 }
 
-long get_commentC(POST p){
+long get_post_comment_count(POST p){
 	return p->commentCount;
 	
 }
 
-long get_owner(POST p){
+long get_post_owner(POST p){
 	return p->ownerID;
 		
 } 
 
-char** get_tags(POST p){ //erraddo compor
+char** get_post_tags(POST p){ //erraddo compor
 	return p->tags;
 	
 }

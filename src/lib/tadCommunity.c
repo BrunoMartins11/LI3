@@ -10,7 +10,7 @@
 #include "profile.h"
 #include "posts.h"
 #include "tags.h"
-#include "hashTableLoad.h"
+#include "tadCommunity.h"
 
 struct TCD_community{
 	GHashTable *profile;
@@ -30,23 +30,33 @@ TAD_community create_struct(){
 	return m;
 }
 
-GHashTable* get_profile_hash(TAD_community m){
-	return m->profile;
+POST get_community_post(TAD_Community m, long id){
 	
+	return (POST)g_hash_table_lookup(m->posts,&id);
 }
 
-GHashTable* get_posts_hash(TAD_community m){
-	return m->posts;
+void set_community_post(TAD_Community m, long id, POST p){
+	g_hash_table_insert(m->posts,id,p);
+}
+
+PROFILE get_community_profile(TAD_Community m, long id){
 	
+	return (PROFILE)g_hash_table_lookup(m->profile,&id);
 }
 
-GHashTable* get_postDate_hash(TAD_community m){
-	return m->postDate;
+void set_community_profile(TAD_Community m, long id, PROFILE p){
+	g_hash_table_insert(m->profile,id,p);
 }
 
-GHashTable* get_tags_hash(TAD_community m){
-	return m->tags;
+TAG get_community_tag(TAD_Community m, char* id){
+	
+	return (TAG)g_hash_table_lookup(m->tags,&id);
 }
+
+void set_community_tag(TAD_Community m, long id, TAG t){
+	g_hash_table_insert(m->tags,id,t);
+}
+
 
 
 void clean_hash_table(TAD_community m){

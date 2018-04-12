@@ -23,22 +23,22 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 	return p;
 }
 
-long get_id(PROFILE p){
+long get_profile_id(PROFILE p){
 	return p->id;
 	
 }
 
-long get_rep(PROFILE p){
+long get_profile_rep(PROFILE p){
 	return p->rep;
 	
 }
 
-char* get_name(PROFILE p){
+char* get_profile_name(PROFILE p){
 	return p->name;
 	
 }
 
-char* get_profile(PROFILE p){
+char* get_profile_about(PROFILE p){
 	return p->aboutme;
 	
 }
