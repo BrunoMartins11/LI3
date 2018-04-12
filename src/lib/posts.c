@@ -93,11 +93,11 @@ void free_post(void* po){
 	if (p){
 		if (p->data) free_date(p->data);
 		free(p->postTitle);
-		while(p->tags[i]){
-			free(p->tags[i]);
-			i++;
-		}
-		free(p->tags);
+		//while(p->tags[i]){
+			//free(p->tags[i]);
+		//	i++;
+		//}
+		//free(p->tags);
 		free(p);
 	}
 	return;

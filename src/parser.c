@@ -4,20 +4,9 @@
 #include "posts.h"
 #include "hashTableLoad.h"
 #include "interface.h"
+#include "profile.h"
 
-//PostID
-//PostTitle
-//UserName
-//Em caso de resposta, retornar titulo e user da pergunta correspondente
-//Numero de posts dos users(perguntas ou respostas)
-//Data
-//PostTypeID
-//UserBio
-//Numero de respostas de uma pergunta
-//Score da resposta
-//User reputationTCD_community * TAD_community;
-//Numero de comentarios das respostas
-//Tags, e numero de vezes que cada uma e usada.
+
 
 Date parse_date(char* d){
 	
@@ -30,20 +19,20 @@ Date parse_date(char* d){
 
 void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos){
 
-	TAD_community com = (TAD_community) user_data;
 	POST newpost;
-	long postID = 0;		
-	char* postTitle= NULL;
-	int postType = 0; 		
-	long parentID = 0; 		
-	long score = 0;
-	Date data = NULL;
-	long answerCount = 0;
+	TAD_community com = (TAD_community) user_data;
+	long postID       = 0;		
+	char* postTitle   = NULL;
+	int postType      = 0; 		
+	long parentID     = 0; 		
+	long score        = 0;
+	Date data         = NULL;
+	long answerCount  = 0;
 	long commentCount = 0;
-	char** tags = malloc(sizeof(char*));      
-	tags[0] = NULL;
-	long ownerID = -2;
-	char* ptrtol = NULL;
+	char** tags       = malloc(sizeof(char*));      
+	tags[0]           = NULL;
+	long ownerID      = -2;
+	char* ptrtol      = NULL;
 
 	while(atributos != NULL && atributos[0] != NULL){
 		
@@ -97,17 +86,70 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 }
 
 
+void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos){
+
+	PROFILE newuser;
+	TAD_community com = (TAD_community) user_data;
+	long userID       = 0;		
+	char* username    = NULL;
+	char* aboutme     = NULL; 		
+	long rep          = 0; 		
+
+	while(atributos != NULL && atributos[0] != NULL){
+		
+		if(xmlStrcmp(atributos[0], (const xmlChar*)"Id")==0)
+			userID = strtol((char*)atributos[1], NULL, 10);
+		
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"DisplayName")==0)
+			username = g_strdup((char*)atributos[1]);
+		
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"AboutMe")==0)//verificar nome do campo
+			aboutme = g_strdup((char*)atributos[1]);
+		
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"Reputation")==0)
+			rep = strtol((char*)atributos[1], NULL, 10);
+
+		atributos += 2; // 0 = atributo, 1 = valor do atributo
+	}
+		
+	newuser = make_profile(userID, 
+						   rep, 
+						   username, 
+						   aboutme);
+
+	long* id = malloc(sizeof(long));
+	*id = get_id(newuser);
+
+	g_hash_table_insert(get_posts_hash(com), id, newuser);
+}
+
+
+
 TAD_community load(TAD_community com, char* dump_path){
 
 	int n;
-	xmlSAXHandler x = {0};
-	x.startElement = parse_post;
 	char pathfile[80];
+
+	xmlSAXHandler x = {0};
+	
+	x.startElement = parse_post;
+	
 	sprintf(pathfile, "%s%s", dump_path, "Posts.xml"); 
 	if((n=xmlSAXUserParseFile(&x, com, pathfile))){
 		fprintf(stderr, "Load Error %d", n);
 		return com;
 	}
+
+	xmlSAXHandler y = {0};
+	
+	y.startElement = parse_user;
+	
+	sprintf(pathfile, "%s%s", dump_path, "Users.xml"); 
+	if((n=xmlSAXUserParseFile(&y, com, pathfile))){
+		fprintf(stderr, "Load Error %d", n);
+		return com;
+	}
+
 	return com;
 }
 
