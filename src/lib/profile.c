@@ -11,7 +11,6 @@ struct profile{
 	char *name;
 	char *aboutme;
 	long rep;
-
 };
 
 PROFILE make_profile(long id, long rep, char *name, char *aboutme){
