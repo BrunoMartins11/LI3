@@ -89,7 +89,7 @@ char** get_post_tags(POST p){ //erraddo compor
 
 void free_post(void* po){
 	POST p = (POST)po;
-	int i=0;
+	//int i=0;
 	if (p){
 		if (p->data) free_date(p->data);
 		free(p->postTitle);

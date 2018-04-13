@@ -20,12 +20,13 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 	p->rep = rep;
 	p->name = g_strdup(name);
 	p->aboutme = g_strdup(aboutme);
+	p->postCount = 0;
 	return p;
 }
 
 void increment_profile_post_count(PROFILE p){
 
-	postCount += 1;
+	p->postCount += 1;
 }
 
 

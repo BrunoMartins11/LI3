@@ -8,8 +8,12 @@
 
 
 
-// recebe o apontador calculado na funçao anterior e retorna a string com o nome e titulo do post
-STR_pair get_info(POST p){
+/**\ Procura o nome do utilizador que fez a pergunta e o titulo dela 
+ *@param qs  Post
+ *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
+ */
+
+STR_pair search_post_info(TAD_community com, POST p){
 
 	long ownerID = get_post_owner(p);
 	PROFILE u = get_community_profile(com,ownerID);
@@ -21,6 +25,12 @@ STR_pair get_info(POST p){
 	return  create_str_pair(get_profile_name(u), get_post_title(p));
 }
 
+/**\ Titulo de uma pergunta e nome do respetivo utilizador que a fez (em caso de ser resposta retornar
+a informaçao da pergunta a que responde)
+ *@param qs  Estrutura global e ID do post
+ *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
+ */
+
 STR_pair info_from_post(TAD_community com, long id){
 	
 	POST p = get_community_post(com,id);
@@ -28,9 +38,9 @@ STR_pair info_from_post(TAD_community com, long id){
 	if(!p) return NULL;
 	if (get_post_type(p) == 2){	
 		POST po = get_community_post(com, get_post_parentID(p));
-		return get_info(po);
+		return search_post_info(com,po);
 	}
-	return get_info(p);
+	return search_post_info(com,p);
 } 
 
 

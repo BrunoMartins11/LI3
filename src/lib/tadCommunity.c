@@ -33,13 +33,13 @@ TAD_community create_struct(){
 }
 
 
-POST get_community_post(TAD_Community m, long id){
+POST get_community_post(TAD_community m, long id){
 	
 	return (POST)g_hash_table_lookup(m->posts,&id);
 }
 
 
-void add_community_post(TAD_Community m, long id, POST p){
+void add_community_post(TAD_community m, long id, POST p){
 	
 	long* idp = malloc(sizeof(long));
 	*idp = get_post_id(p);
@@ -50,13 +50,13 @@ void add_community_post(TAD_Community m, long id, POST p){
 }
 
 
-PROFILE get_community_profile(TAD_Community m, long id){
+PROFILE get_community_profile(TAD_community m, long id){
 	
 	return (PROFILE)g_hash_table_lookup(m->profile,&id);
 }
 
 
-void add_community_profile(TAD_Community m, long id, PROFILE p){
+void add_community_profile(TAD_community m, long id, PROFILE p){
 
 	long* idp = malloc(sizeof(long));
 	*idp = get_profile_id(p);
@@ -65,13 +65,13 @@ void add_community_profile(TAD_Community m, long id, PROFILE p){
 }
 
 
-TAG get_community_tag(TAD_Community m, char* id){
+TAG get_community_tag(TAD_community m, char* id){
 	
 	return (TAG)g_hash_table_lookup(m->tags,&id);
 }
 
 
-void add_community_tag(TAD_Community m, long id, TAG t){
+void add_community_tag(TAD_community m, long id, TAG t){
 
 	long* idp = malloc(sizeof(long));
 	*idp = get_tag_id(t);
