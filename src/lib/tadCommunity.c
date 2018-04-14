@@ -43,9 +43,9 @@ void add_community_post(TAD_community m, long id, POST p){
 	
 	long* idp = malloc(sizeof(long));
 	*idp = get_post_id(p);
-	//long owner = get_post_owner(p);
+	long owner = get_post_owner(p);
 	
-	//increment_profile_post_count(get_community_profile(m, owner));
+	increment_profile_post_count(get_community_profile(m, owner));
 
 	g_hash_table_insert(m->posts,idp,p);
 }
