@@ -12,6 +12,7 @@ struct profile{
 	char *aboutme;
 	long rep;
 	int postCount;
+	long userPosts[];
 };
 
 PROFILE make_profile(long id, long rep, char *name, char *aboutme){
@@ -27,6 +28,10 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 void increment_profile_post_count(PROFILE p){
 
 	p->postCount += 1;
+}
+
+int get_profile_post_count(PROFILE p){
+	return p->postCount;
 }
 
 
@@ -48,6 +53,15 @@ char* get_profile_name(PROFILE p){
 char* get_profile_about(PROFILE p){
 	return p->aboutme;
 	
+}
+
+void add_profile_post(PROFILE p, long id){
+	if (p->postCount>0)
+		p->userPosts[p->postCount-1] = id;
+}
+
+long get_profile_user_posts(PROFILE p){
+	return (long)p->userPosts;
 }
 
 void free_profile(void* po){
