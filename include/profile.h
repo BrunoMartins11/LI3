@@ -18,5 +18,11 @@ void free_profile(void* p);
 
 void increment_profile_post_count(PROFILE p);
 
+long get_profile_user_posts(PROFILE p);
+
+void add_profile_post(PROFILE p, long id);
+
+int get_profile_post_count(PROFILE p);
+
 
 #endif
