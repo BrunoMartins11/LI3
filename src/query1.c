@@ -9,7 +9,7 @@
 
 
 /**\ Procura o nome do utilizador que fez a pergunta e o titulo dela 
- *@param qs  Post
+ *@param qs  Estrutura global e Post
  *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
  */
 

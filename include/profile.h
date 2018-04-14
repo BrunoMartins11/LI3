@@ -12,7 +12,7 @@ long get_profile_rep(PROFILE p);
 
 char* get_profile_name(PROFILE p);
 
-char* get_profile_aboutme(PROFILE p); 
+char* get_profile_about(PROFILE p); 
 
 void free_profile(void* p);
 
