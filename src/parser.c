@@ -91,7 +91,7 @@ void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos)
 	long userID       = 0;		
 	char* username    = NULL;
 	char* aboutme     = NULL; 		
-	long rep          = 0; 		
+	long rep          = 0; 	
 
 	while(atributos != NULL && atributos[0] != NULL){
 		
@@ -125,6 +125,16 @@ TAD_community load(TAD_community com, char* dump_path){
 	int n;
 	char pathfile[80];
 
+	xmlSAXHandler y = {0};
+	
+	y.startElement = parse_user;
+	
+	sprintf(pathfile, "%s%s", dump_path, "Users.xml"); 
+	if((n=xmlSAXUserParseFile(&y, com, pathfile))){
+		fprintf(stderr, "User Error %d", n);
+		return com;
+	}
+
 	xmlSAXHandler x = {0};
 	
 	x.startElement = parse_post;
@@ -132,16 +142,6 @@ TAD_community load(TAD_community com, char* dump_path){
 	sprintf(pathfile, "%s%s", dump_path, "Posts.xml"); 
 	if((n=xmlSAXUserParseFile(&x, com, pathfile))){
 		fprintf(stderr, "Post Load Error %d", n);
-		return com;
-	}
-
-	xmlSAXHandler y = {0};
-	
-	y.startElement = parse_user;
-	
-	sprintf(pathfile, "%s%s", dump_path, "Users.xml"); 
-	if((n=xmlSAXUserParseFile(&y, com, pathfile))){
-		fprintf(stderr, "Ũser Error %d", n);
 		return com;
 	}
 
