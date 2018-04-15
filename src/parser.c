@@ -21,11 +21,11 @@ Date parse_date(char* d){
 void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos){
 
 	PROFILE newuser;
-	TAD_community com = (TAD_community) user_data;
-	long userID       = 0;		
-	char* username    = NULL;
-	char* aboutme     = NULL; 		
-	long rep          = 0; 	
+	TAD_community com   = (TAD_community) user_data;
+	long userID         = 0;		
+	char* username      = NULL;
+	char* aboutme       = NULL; 		
+	long rep            = 0; 	
 
 	while(atributos != NULL && atributos[0] != NULL){
 		

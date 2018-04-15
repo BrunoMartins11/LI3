@@ -12,7 +12,6 @@
  *@param qs  Estrutura global e Post
  *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
  */
-
 STR_pair search_post_info(TAD_community com, POST p){
 
 	long ownerID = get_post_owner(p);
@@ -30,16 +29,19 @@ a informaçao da pergunta a que responde)
  *@param qs  Estrutura global e ID do post
  *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
  */
-
 STR_pair info_from_post(TAD_community com, long id){
 	
 	POST p = get_community_post(com,id);
-	
+	long ownerID = get_post_owner(p);//testar postCount
+	PROFILE u = get_community_profile(com,ownerID);//testar postCount
+
 	if(!p) return NULL;
 	if (get_post_type(p) == 2){	
 		POST po = get_community_post(com, get_post_parentID(p));
+		printf("Post Count: %d\n", get_profile_post_count(u));//testar postCount
 		return search_post_info(com,po);
 	}
+	printf("Post Count: %d\n", get_profile_post_count(u));//testar postCount
 	return search_post_info(com,p);
 } 
 
