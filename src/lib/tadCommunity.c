@@ -38,6 +38,10 @@ POST get_community_post(TAD_community m, long id){
 	return (POST)g_hash_table_lookup(m->posts,&id);
 }
 
+GHashTable* get_all_community_posts(TAD_community m){
+	return (m->posts);
+}
+
 
 void add_community_post(TAD_community m, long id, POST p){
 	

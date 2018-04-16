@@ -25,6 +25,8 @@ TAG get_community_tag(TAD_community m, char* id);
 
 void add_community_tag(TAD_community m, long id, TAG t);
 
+GHashTable* get_all_community_posts(TAD_community m);
+
 
 
 #endif
