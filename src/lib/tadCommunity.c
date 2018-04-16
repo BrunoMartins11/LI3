@@ -84,6 +84,10 @@ void iterate_community_posts(TAD_community m, GHFunc func){
 	g_hash_table_foreach(m->posts, func, NULL);
 }
 
+void iterate_community_users(TAD_community m, GHFunc func){
+	g_hash_table_foreach(m->profile,func);
+}
+
 void clean_hash_table(TAD_community m){
 	if(m){
 		g_hash_table_destroy(m->profile);
