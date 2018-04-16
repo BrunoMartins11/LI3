@@ -80,7 +80,9 @@ void add_community_tag(TAD_community m, long id, TAG t){
 	g_hash_table_insert(m->tags,idp,t);
 }
 
-
+void iterate_community_posts(TAD_community m, GHFunc func){
+	g_hash_table_foreach(m->posts, func, NULL);
+}
 
 void clean_hash_table(TAD_community m){
 	if(m){
