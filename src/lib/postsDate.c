@@ -9,25 +9,8 @@
 
 struct postsDate{
 
-	GArray* matrix; //um array de GArrays
+	GArray** matrix; //um array de GArrays
 };
-
-POSTSDATE init_id_matrix(){
-	
-	Date d = create_date(1, 1, 2019);
-	
-	POSTSDATE p = malloc(sizeof(struct postsDate));
-	p->matrix = malloc(sizeof(GArray)*(date_to_int(d)));
-	
-	for(int i = 0; i < date_to_int(d); i++)
-		p->matrix[i] = g_array_new(FALSE, TRUE, sizeof(long));
-}
-
-
-POSTSDATE insert_id_to_matrix(POSTSDATE p, long id){
-
-
-}
 
 
 int date_to_int(Date d){
@@ -44,7 +27,30 @@ int date_to_int(Date d){
 
 }
 
-long* get_id_array(Date d, POSTSDATE p){
+
+POSTSDATE init_id_matrix(){
+	
+	Date d = createDate(1, 1, 2019);
+	
+	POSTSDATE p = malloc(sizeof(struct postsDate));
+	p->matrix = malloc(sizeof(GArray*)*(date_to_int(d)));
+	
+	for(int i = 0; i < date_to_int(d); i++)
+		p->matrix[i] = g_array_new(FALSE, TRUE, sizeof(long));
+
+	return p;
+}
+
+
+void insert_id_to_matrix(POSTSDATE p, long id, Date d){
+
+	int index = date_to_int(d);
+	GArray* a = p->matrix[index];
+	g_array_append_val(a, id);
+}
+
+
+GArray* get_id_array(Date d, POSTSDATE p){
 
 	if(p)
 		return p->matrix[date_to_int(d)];
