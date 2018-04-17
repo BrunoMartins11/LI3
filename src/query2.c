@@ -1,4 +1,4 @@
-/*#include <glib.h>
+#include <glib.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,73 +6,54 @@
 #include "interface.h"
 #include "posts.h"
 #include "list.h"
+#include "dArray.h"
+#include "profile.h"
+#include "tadCommunity.h"
+
+
+gint fcompare(PAR p1, PAR p2){
+	if(!p1 && !p2) return (gint)0;
+	if(!p1) return((gint)1);
+	if(!p2) return ((gint)-1);
+	return((gint)(get_par_pCount(p2)-get_par_pCount(p1)));
+}
+
+void search_user_postCount_aux(gpointer key, gpointer value, gpointer list){
+	
+	PAR p = make_new_par(get_profile_id((PROFILE)value), get_profile_post_count((PROFILE)value));
+	insert_listG_par(list,p,(GCompareFunc)fcompare);
+
+}
+
+GList* search_user_pCount(TAD_community com, GHFunc func){
+
+	GList* list = create_listG();
+	iterate_community_users(com, search_user_postCount_aux, list);
+	return list;	
+}
+
+
+
 
 
 LONG_list top_most_active(TAD_community com, int N){
 	
-	if(N<=0) return NULL;
-	int i=0;
-	LONG_list l=create_list(N);
-	int count[N];
-	copy(count, get_top(com,N), N);
+	if (N<=0) return NULL;
 
-	while(N>0){
-		set_list(l,i,count[i]);
-		i++;
-		N--;
+	LONG_list l = create_list(N);
+	int i=0;
+	GList* list = search_user_pCount(com,search_user_postCount_aux);
+
+	while(i<N){
+		set_list(l, i, get_par_id(get_listG_par(list,i)));
+		i++;	
 	}
+
 	return l;
 } 
 
 
-int get_top(TAD_community com, int N){
 
-	GHashTable* x = get_profile_hash(com);
-	int size = (int)g_hash_table_size(com);
-	GHashTable table = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free, g_free);
-	
-	int p = 1;
-	int i = 0;
-	POST post;
 
-	for(int f=0; f<size; usercount[f++]=0);
-	usercount[get_owner(post)]++;
-	
-	while(size>i){
-		if(g_hash_table_contains(com,&p)) {
-			post = (POST)g_hash_table_lookup(com,&p);
-			i++; 
-		}
-		p++;
-	}
 
-	return maxIndexArray(usercount, size, N);
-}
 
-int maxIndex(int array[], int size){
-
-	int maxI, max;
-	max=maxI=0;
-	for(int i=0; i<size; i++){
-		if(max<array[i]) {maxI=i; max=array[i];}
-	}
-	array[maxI]=0;
-
-	return maxI;
-}
-
-int maxIndexArray(int array[], int size, int N){
-
-	int index[N];
-
-	for(int i=0; N>0; i++){
-		index[i]=maxIndex(array,size);
-	}
-
-	return index;
-}
-
-void copy(int a1[], int a2[], int n){
-	for(int i=0; n<i; i++) a1[i]=a2[i];
-}
-*/

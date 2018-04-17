@@ -1,6 +1,6 @@
 #ifndef __TADCOMMUNITY_H__
 #define __TADCOMMUNITY_H__
-
+#include <glib.h>
 #include "interface.h"
 #include "date.h"
 #include "postDate.h"
@@ -25,7 +25,8 @@ TAG get_community_tag(TAD_community m, char* id);
 
 void add_community_tag(TAD_community m, long id, TAG t);
 
-GHashTable* get_all_community_posts(TAD_community m);
+void iterate_community_users(TAD_community m, GHFunc func, gpointer data);
+
 
 
 

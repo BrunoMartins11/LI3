@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <glib.h>
 #include <gmodule.h>
 #include "interface.h"
@@ -43,7 +43,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 }
 
 
-
+*/
 
 	
 

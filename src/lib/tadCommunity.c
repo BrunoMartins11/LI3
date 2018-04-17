@@ -38,9 +38,7 @@ POST get_community_post(TAD_community m, long id){
 	return (POST)g_hash_table_lookup(m->posts,&id);
 }
 
-GHashTable* get_all_community_posts(TAD_community m){
-	return (m->posts);
-}
+
 
 
 void add_community_post(TAD_community m, long id, POST p){
@@ -48,10 +46,12 @@ void add_community_post(TAD_community m, long id, POST p){
 	long* idp = malloc(sizeof(long));
 	*idp = get_post_id(p);
 	long owner = get_post_owner(p);
-	
-	increment_profile_post_count(get_community_profile(m, owner));
+	PROFILE po = get_community_profile(m, owner);
+	if(po) { 
+		increment_profile_post_count(po);
 	//add_profile_post(get_community_profile(m, owner), id);
 	g_hash_table_insert(m->posts,idp,p);
+	}
 }
 
 
@@ -88,8 +88,8 @@ void iterate_community_posts(TAD_community m, GHFunc func){
 	g_hash_table_foreach(m->posts, func, NULL);
 }
 
-void iterate_community_users(TAD_community m, GHFunc func){
-	g_hash_table_foreach(m->profile,func);
+void iterate_community_users(TAD_community m, GHFunc func, gpointer data){
+	g_hash_table_foreach(m->profile,func,data);
 }
 
 void clean_hash_table(TAD_community m){

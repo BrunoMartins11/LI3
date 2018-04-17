@@ -68,7 +68,7 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 	long commentCount = 0;
 	char** tags       = malloc(sizeof(char*));      
 	tags[0]           = NULL;
-	long ownerID      = 0;
+	long ownerID      = -2;
 
 	while(atributos != NULL && atributos[0] != NULL){
 
