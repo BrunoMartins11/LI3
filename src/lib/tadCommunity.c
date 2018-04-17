@@ -15,7 +15,7 @@ struct TCD_community{
 	GHashTable *posts;
 	GHashTable *postDate;
 	GHashTable *tags;
-};
+}; //adicionar a matriz das datas
 
 
 TAD_community init(){

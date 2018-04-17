@@ -21,7 +21,7 @@ gint fcompare(PAR p1, PAR p2){
 void search_user_postCount_aux(gpointer key, gpointer value, gpointer list){
 	
 	PAR p = make_new_par(get_profile_id((PROFILE)value), get_profile_post_count((PROFILE)value));
-	insert_listG_par(list,p,(GCompareFunc)fcompare);
+	insert_listG_par(list,p,fcompare);
 
 }
 
