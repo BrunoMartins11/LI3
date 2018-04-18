@@ -24,11 +24,11 @@ void insert_pCount_GList_user(gpointer key, gpointer value, gpointer list){
 	long profileID = get_profile_id((PROFILE)value);
 	int pCount = get_profile_post_count((PROFILE)value);
 	
+
 	if(profileID!=0 && pCount!=0){
 		PAR p = make_new_par(profileID, pCount);
 		insert_listG_par(list,p);
 	}
-
 }
 
 LISTG create_GList_user_pCount(TAD_community com, GHFunc func){

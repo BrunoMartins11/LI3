@@ -26,7 +26,7 @@ void insert_listG_par(LISTG list,PAR p){
 
 LISTG sort_listG_par(LISTG list, GCompareFunc func){
 	list = (LISTG)g_list_sort((GList*)list, func);
-	return(list);
+	return(list);	
 }
 
 PAR get_listG_par(LISTG list, guint n){
