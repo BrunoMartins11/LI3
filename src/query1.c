@@ -32,16 +32,13 @@ a informaçao da pergunta a que responde)
 STR_pair info_from_post(TAD_community com, long id){
 	
 	POST p = get_community_post(com,id);
-	long ownerID = get_post_owner(p);//testar postCount
-	PROFILE u = get_community_profile(com,ownerID);//testar postCount
-
+	//long ownerID = get_post_owner(p);
+	
 	if(!p) return NULL;
 	if (get_post_type(p) == 2){	
 		POST po = get_community_post(com, get_post_parentID(p));
-		printf("Post Count: %d\n", get_profile_post_count(u));//testar postCount
 		return search_post_info(com,po);
 	}
-	printf("Post Count: %d\n", get_profile_post_count(u));//testar postCount
 	return search_post_info(com,p);
 } 
 

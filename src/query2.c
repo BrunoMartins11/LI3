@@ -12,28 +12,32 @@
 
 
 gint fcompare(PAR p1, PAR p2){
+
 	if(!p1 && !p2) return (gint)0;
 	if(!p1) return((gint)1);
-	if(!p2) return ((gint)-1);
+	if(!p2) return ((gint)(-1));
 	return((gint)(get_par_pCount(p2)-get_par_pCount(p1)));
 }
 
-void search_user_postCount_aux(gpointer key, gpointer value, gpointer list){
+void insert_pCount_GList_user(gpointer key, gpointer value, gpointer list){
 	
-	PAR p = make_new_par(get_profile_id((PROFILE)value), get_profile_post_count((PROFILE)value));
-	insert_listG_par(list,p,(GCompareFunc)fcompare);
+	long profileID = get_profile_id((PROFILE)value);
+	int pCount = get_profile_post_count((PROFILE)value);
+	
+	if(profileID!=0 && pCount!=0){
+		PAR p = make_new_par(profileID, pCount);
+		insert_listG_par(list,p);
+	}
 
 }
 
-GList* search_user_pCount(TAD_community com, GHFunc func){
+LISTG create_GList_user_pCount(TAD_community com, GHFunc func){
 
-	GList* list = create_listG();
-	iterate_community_users(com, search_user_postCount_aux, list);
+	LISTG list = create_listG();
+	iterate_community_users(com, func, (GList*)list);
+	
 	return list;	
 }
-
-
-
 
 
 LONG_list top_most_active(TAD_community com, int N){
@@ -42,8 +46,9 @@ LONG_list top_most_active(TAD_community com, int N){
 
 	LONG_list l = create_list(N);
 	int i=0;
-	GList* list = search_user_pCount(com,search_user_postCount_aux);
-
+	LISTG list = create_GList_user_pCount(com,insert_pCount_GList_user);
+	list = (LISTG)g_list_sort((GList*)list, (GCompareFunc)fcompare);
+	
 	while(i<N){
 		set_list(l, i, get_par_id(get_listG_par(list,i)));
 		i++;	
@@ -51,8 +56,6 @@ LONG_list top_most_active(TAD_community com, int N){
 
 	return l;
 } 
-
-
 
 
 
