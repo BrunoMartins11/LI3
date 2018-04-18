@@ -4,10 +4,12 @@
 
 typedef struct listG *LISTG;
 
-GList* create_listG();
+LISTG create_listG();
 
-void insert_listG_par(GList* list,PAR p, GCompareFunc func);
+void insert_listG_par(LISTG list,PAR p);
 
-PAR get_listG_par(GList* list, guint n);
+PAR get_listG_par(LISTG list, guint n);
+
+LISTG sort_listG_par(LISTG list, GCompareFunc func);
 
 #endif
