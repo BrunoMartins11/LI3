@@ -58,7 +58,7 @@ char* get_profile_about(PROFILE p){
 
 void add_profile_post(PROFILE p, long id){
 	if(p!=NULL && p->postCount>0)
-		g_array_append_val(p->userPosts, id);//change
+		g_array_append_val(p->userPosts, id);
 }
 
 GArray* get_profile_user_posts(PROFILE p){

@@ -9,11 +9,12 @@ struct listG {
 	GArray* list;
 };
 
-// passar "sizeof(tipo_de_dado)" como argumento da função
-LISTG create_listG(int size){
+
+LISTG create_listG(){
 	
 	LISTG array = malloc(sizeof(struct listG));
-	array->list = g_array_new(TRUE, TRUE, size);
+	array->list = g_array_new(FALSE, TRUE, sizeof(struct par));
+	
 	return array;
 }
 
@@ -28,11 +29,13 @@ LISTG sort_listG_par(LISTG array, GCompareFunc func){
 
 	if(array!=NULL)
 		g_array_sort(array->list, func);
+	
 	return(array);
 }
 
-PAR get_listG_par(LISTG array, guint n){
-	return (PAR) g_array_index(array->list, PAR, n);
+PAR get_listG_par(LISTG array, int i){
+	
+	return (PAR)g_array_index(array->list, PAR, i);
 }
 
 

@@ -18,7 +18,7 @@ int date_to_int(Date d){
 	int equivalent;
 	
 	int dia = get_day(d) - 1; //diferença de dias
-	int mes = get_month(d) - 1; // diferença de meses(retira se 1 ao get_month porque o mes em que esta ja esta a ser contabilizado na conta dos dias)
+	int mes = get_month(d) - 1; // diferença de meses
 	int ano = get_year(d) - 2008; // diferença de anos
 	
 	equivalent = dia + mes*31 + ano*(12*31);
