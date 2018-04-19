@@ -14,9 +14,9 @@
 //funçao de compraçao
 gint fcompare(PAR p1, PAR p2){
 
-	if(!p1 && !p2) return (gint)0;
+/*	if(!p1 && !p2) return (gint)0;
 	if(!p1) return((gint)1);
-	if(!p2) return ((gint)(-1));
+	if(!p2) return ((gint)(-1));*/
 	return((gint)(get_par_pCount(p2)-get_par_pCount(p1)));
 }
 
@@ -50,6 +50,7 @@ LONG_list top_most_active(TAD_community com, int N){
 	if (N<=0) return NULL;
 
 	LONG_list l = create_list(N);
+
 	int i=0;
 	LISTG list = create_GList_user_pCount(com, insert_pCount_GList_user);
 	list = (LISTG)sort_listG_par(list, (GCompareFunc)fcompare);

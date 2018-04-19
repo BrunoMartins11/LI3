@@ -9,6 +9,7 @@
 #include "posts.h"
 #include "tags.h"
 #include "tadCommunity.h"
+#include "postsDate.h"
 
 struct _dynamic_list{
 	
@@ -26,7 +27,7 @@ struct TCD_community{
 	GHashTable *profile;
 	GHashTable *posts;
 	GHashTable *tags;
-	GArray **postsDate;
+	POSTSDATE postsDate;
 }; 
 
 
@@ -112,7 +113,7 @@ void clean_TAD_community(TAD_community m){
 	if(m){
 		g_hash_table_destroy(m->profile);
 		g_hash_table_destroy(m->posts);
-		//adicionar clean func da matriz
+		clean_postsDate(m->postsDate);
 	}
 }
 

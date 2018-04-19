@@ -52,7 +52,50 @@ void insert_id_to_matrix(POSTSDATE p, long id, Date d){
 
 GArray* get_id_array(Date d, POSTSDATE p){
 
-	if(p)
-		return p->matrix[date_to_int(d)];
-	return NULL;
+	return p->matrix[date_to_int(d)];
 }
+
+void clean_postsDate(POSTSDATE p){
+	if(p){
+		for(int i=0; p->matrix; i++)
+			g_array_free(p->matrix[i], TRUE);
+		
+		free(p->matrix);
+		free(p);
+	}
+}
+
+GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
+
+	int i, maior, menor;
+	
+	if(date_to_int(a) > date_to_int(b)){
+		maior = date_to_int(a);
+		menor = date_to_int(b);
+	}
+	
+	else{
+		
+		maior = date_to_int(b);
+		menor = date_to_int(b);
+	}
+
+	GArray* ret = g_array_new(FALSE, TRUE, sizeof(long));
+
+	for(i = menor; i <= maior; i++)
+		
+		for(int j = 0; j < (p->matrix[j]->len); j++){
+
+			g_array_append_val(ret, g_array_index(p->matrix[i], long, j));
+	
+		}
+	
+	return ret;
+
+}
+
+
+
+
+
+

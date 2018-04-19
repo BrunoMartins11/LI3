@@ -11,4 +11,6 @@ void insert_id_to_matrix(POSTSDATE p, long id, Date d);
 
 GArray* get_id_array(Date d, POSTSDATE p);
 
+void clean_postsDate(POSTSDATE p);
+
 #endif
