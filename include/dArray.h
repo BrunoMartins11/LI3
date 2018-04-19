@@ -8,7 +8,7 @@ LISTG create_listG();
 
 void insert_listG_par(LISTG list,PAR p);
 
-PAR get_listG_par(LISTG list, guint n);
+PAR get_listG_par(LISTG list, int n);
 
 LISTG sort_listG_par(LISTG list, GCompareFunc func);
 

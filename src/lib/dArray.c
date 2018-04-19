@@ -10,10 +10,10 @@ struct listG {
 };
 
 
-LISTG create_listG(){
+LISTG create_listG(int size){
 	
 	LISTG array = malloc(sizeof(struct listG));
-	array->list = g_array_new(FALSE, TRUE, sizeof(struct par));
+	array->list = g_array_new(FALSE, TRUE, size);
 	
 	return array;
 }
@@ -34,7 +34,6 @@ LISTG sort_listG_par(LISTG array, GCompareFunc func){
 }
 
 PAR get_listG_par(LISTG array, int i){
-	
 	return (PAR)g_array_index(array->list, PAR, i);
 }
 
