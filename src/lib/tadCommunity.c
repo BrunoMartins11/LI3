@@ -22,9 +22,9 @@ dynamic_list* create_dynamic_list(){
 struct TCD_community{
 	GHashTable *profile;
 	GHashTable *posts;
-	GHashTable *postDate;
 	GHashTable *tags;
-}; //adicionar a matriz das datas
+	GArray **postsDate;
+}; 
 
 
 TAD_community init(){
@@ -35,8 +35,7 @@ TAD_community init(){
 TAD_community create_struct(){
 	TAD_community m = malloc(sizeof (struct TCD_community));
 	m->profile = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_profile); 
-	m->posts = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_post);
-	m->postDate = g_hash_table_new_full(g_str_hash, g_str_equal, g_free,free_postDate); 
+	m->posts = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_post); 
 	m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, free_tag);
 	return m;
 }
@@ -58,8 +57,8 @@ void add_community_post(TAD_community m, long id, POST p){
 	PROFILE po = get_community_profile(m, owner);
 	if(po) { 
 		increment_profile_post_count(po);
-	//add_profile_post(get_community_profile(m, owner), id);
-	g_hash_table_insert(m->posts,idp,p);
+		add_profile_post(get_community_profile(m, owner), id);
+		g_hash_table_insert(m->posts,idp,p);
 	}
 }
 
@@ -101,11 +100,11 @@ void iterate_community_users(TAD_community m, GHFunc func, gpointer data){
 	g_hash_table_foreach(m->profile,func,data);
 }
 
-void clean_hash_table(TAD_community m){
+void clean_TAD_community(TAD_community m){
 	if(m){
 		g_hash_table_destroy(m->profile);
 		g_hash_table_destroy(m->posts);
-		g_hash_table_destroy(m->postDate);
+		//adicionar clean func da matriz
 	}
 }
 

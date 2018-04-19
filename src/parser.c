@@ -35,7 +35,7 @@ void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos)
 		if(xmlStrcmp(atributos[0],(const xmlChar*)"DisplayName")==0)
 			username = g_strdup((char*)atributos[1]);
 		
-		if(xmlStrcmp(atributos[0],(const xmlChar*)"AboutMe")==0)//verificar nome do campo
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"AboutMe")==0)
 			aboutme = g_strdup((char*)atributos[1]);
 		
 		if(xmlStrcmp(atributos[0],(const xmlChar*)"Reputation")==0)
@@ -78,7 +78,7 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 		if(xmlStrcmp(atributos[0],(const xmlChar*)"PostTypeId")==0)
 			postType=atoi((char*)atributos[1]);
 		
-		if(xmlStrcmp(atributos[0],(const xmlChar*)"ParentId")==0)//verificar nome do campo
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"ParentId")==0)
 			parentID=atoi((char*)atributos[1]);
 		
 		if(xmlStrcmp(atributos[0],(const xmlChar*)"CreationDate")==0)

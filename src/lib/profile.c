@@ -22,6 +22,7 @@ PROFILE make_profile(long id, long rep, char *name, char *aboutme){
 	p->name = g_strdup(name);
 	p->aboutme = g_strdup(aboutme);
 	p->postCount = 0;
+	p->userPosts = g_array_new(FALSE, TRUE, sizeof(long));
 	return p;
 }
 
@@ -56,7 +57,7 @@ char* get_profile_about(PROFILE p){
 }
 
 void add_profile_post(PROFILE p, long id){
-	if (p!=NULL && p->postCount>0)
+	if(p!=NULL && p->postCount>0)
 		g_array_append_val(p->userPosts, id);//change
 }
 
