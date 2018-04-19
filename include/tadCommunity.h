@@ -31,14 +31,8 @@ void iterate_community_users(TAD_community m, GHFunc func, gpointer data);
 
 int str_in_postTitle(POST p, char* str);
 
-dynamic_list* get_all_keys_post(TAD_community m);
+void iterate_community_posts(TAD_community m, GHFunc func, gpointer data);
 
-int list_size(dynamic_list* list);
-
-dynamic_list* sort_list(dynamic_list* list, long func);
-
-long get_data_from_list(dynamic_list* list);
-
-dynamic_list* next(dynamic_list* lista);
+void add_questions_to_array(gpointer key, gpointer value, gpointer user_data);
 
 #endif

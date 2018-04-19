@@ -10,6 +10,8 @@
 #include "tags.h"
 #include "tadCommunity.h"
 #include "postsDate.h"
+#include "dArray.h"
+
 
 struct _dynamic_list{
 	
@@ -101,11 +103,11 @@ void add_community_tag(TAD_community m, long id, TAG t){
 }
 
 void iterate_community_posts(TAD_community m, GHFunc func, gpointer data){
-	g_hash_table_foreach(m->posts, func, data);
+	g_hash_table_foreach(m->posts, (GHFunc) func, data);
 }
 
 void iterate_community_users(TAD_community m, GHFunc func, gpointer data){
-	g_hash_table_foreach(m->profile,func,data);
+	g_hash_table_foreach(m->profile, (GHFunc) func,data);
 }
 
 void clean_TAD_community(TAD_community m){
@@ -126,40 +128,7 @@ int str_in_postTitle(POST p, char* str){
 		return 0;
 }
 
-GList* get_all_keys(GHashTable* dict){
-	
-	return g_hash_table_get_values(dict);
+void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
+	if(get_post_type(value) == 1)
+		append_listG(user_data, key);
 }
-
-dynamic_list* get_all_keys_post(TAD_community m){
-	
-	dynamic_list *l = create_dynamic_list();
-	l->list = get_all_keys(m->posts);
-	
-	return l;
-}
-
-int list_size(dynamic_list* l){
-	
-	return (int) g_list_length(l->list);
-}
-
-dynamic_list* sort_list(dynamic_list* l, long func){
-	
-	l->list = g_list_sort(l->list, (GCompareFunc) func);
-	
-	return l;
-}
-
-long get_data_from_list(dynamic_list* l){
-	
-	return (long) l->list->data;
-}
-
-dynamic_list* next(dynamic_list* lista){
-	
-	lista->list = lista->list->next;
-	
-	return lista;
-}
-
