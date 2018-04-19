@@ -6,33 +6,33 @@
 
 
 struct listG {
-	GList* list;
+	GArray* list;
 };
 
-LISTG create_listG(){
+// passar "sizeof(tipo_de_dado)" como argumento da função
+LISTG create_listG(int size){
 	
-	LISTG list = malloc(sizeof(struct listG));
-	list = NULL;
-	list = (LISTG)g_list_insert((GList*)list,make_new_par(1,1),0);
-	return list;
+	LISTG array = malloc(sizeof(struct listG));
+	array->list = g_array_new(TRUE, TRUE, size);
+	return array;
 }
 
-void insert_listG_par(LISTG list,PAR p){
+void insert_listG_par(LISTG array,PAR p){
 	
 	if(p!=NULL){
-		list = (LISTG)g_list_append((GList*)list,p);
+		g_array_append_val(array->list, p);
 	}
 }
 
-LISTG sort_listG_par(LISTG list, GCompareFunc func){
+LISTG sort_listG_par(LISTG array, GCompareFunc func){
 
-	if(list!=NULL)
-		list = (LISTG)g_list_sort((GList*)list, func);
-	return(list);	
+	if(array!=NULL)
+		g_array_sort(array->list, func);
+	return(array);
 }
 
-PAR get_listG_par(LISTG list, guint n){
-	return (PAR)g_list_nth((GList*)list, n);
+PAR get_listG_par(LISTG array, guint n){
+	return (PAR) g_array_index(array->list, PAR, n);
 }
 
 
