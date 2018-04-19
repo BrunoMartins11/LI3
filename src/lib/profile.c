@@ -12,7 +12,7 @@ struct profile{
 	char *aboutme;
 	long rep;
 	int postCount;
-	long userPosts[];
+	GArray* userPosts;
 };
 
 PROFILE make_profile(long id, long rep, char *name, char *aboutme){
@@ -56,19 +56,23 @@ char* get_profile_about(PROFILE p){
 }
 
 void add_profile_post(PROFILE p, long id){
-	if (p->postCount>0)
-		p->userPosts[p->postCount-1] = id;
+	if (p!=NULL && p->postCount>0)
+		g_array_append_val(p->userPosts, id);//change
 }
 
-long get_profile_user_posts(PROFILE p){
-	return (long)p->userPosts;
+GArray* get_profile_user_posts(PROFILE p){
+	if(p!=NULL && p->postCount > 0)
+		return p->userPosts;
+	else
+		return NULL;
 }
 
-void free_profile(void* po){
+void free_profile(void* po){ //PorquÊ void* ?
 	PROFILE p = (PROFILE)po;
 	if (p) {
 		free(p->name);
 		free(p->aboutme);
 		free(p);
+		g_array_free(p->userPosts, TRUE);
 	}
 }

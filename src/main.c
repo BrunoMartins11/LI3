@@ -10,7 +10,7 @@ int main(){
   sprintf(path, "%s%s", home, "/LI3/");
   load(com, path);
   STR_pair x = info_from_post(com, 9); 
-  LONG_list l = top_most_active(com,50);
+  //LONG_list l = top_most_active(com, 10);
 
   printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
   return 0;
