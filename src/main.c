@@ -10,11 +10,12 @@ int main(){
   char path[30];
   sprintf(path, "%s%s", home, "/LI3/");
   load(com, path);
-  STR_pair x = info_from_post(com, 9); 
-  LONG_list l = top_most_active(com, 5);
-  USER u = get_user_info(com, 40);
+  //STR_pair x = info_from_post(com, 9); 
+  //LONG_list l = top_most_active(com, 5);
+  USER u = get_user_info(com, 1550);
+  //LONG_list h = both_participated(com, 1, 2, 5);
   
-  printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
+  //printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
 
   return 0;
 } 
