@@ -12,7 +12,7 @@ int main(){
   load(com, path);
   STR_pair x = info_from_post(com, 9); 
   LONG_list l = top_most_active(com, 5);
-  USER u = get_user_info(com, 4040);
+  USER u = get_user_info(com, 40);
   
   printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
 

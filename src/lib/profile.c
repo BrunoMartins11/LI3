@@ -32,6 +32,7 @@ void increment_profile_post_count(PROFILE p){
 }
 
 int get_profile_post_count(PROFILE p){
+	if(!p) return 0;
 	return p->postCount;
 }
 
@@ -52,6 +53,7 @@ char* get_profile_name(PROFILE p){
 }
 
 char* get_profile_about(PROFILE p){
+	if(!p) return NULL;
 	return p->aboutme;
 	
 }
