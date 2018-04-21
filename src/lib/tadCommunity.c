@@ -45,6 +45,7 @@ TAD_community create_struct(){
 	m->profile = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_profile); 
 	m->posts = g_hash_table_new_full( g_int64_hash, g_int64_equal, g_free,free_post); 
 	m->tags = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, free_tag);
+	m->postsDate = init_id_matrix();
 	return m;
 }
 
@@ -68,7 +69,8 @@ void add_community_post(TAD_community m, long id, POST p){
 	if(po) { 
 		increment_profile_post_count(po);
 		add_profile_post(get_community_profile(m, owner), id);
-		g_hash_table_insert(m->posts,idp,p);
+		insert_id_to_matrix(m->postsDate, id, get_post_date(p));
+		g_hash_table_insert(m->posts, idp, p);
 	}
 }
 

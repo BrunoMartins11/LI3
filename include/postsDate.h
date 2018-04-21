@@ -13,4 +13,6 @@ GArray* get_id_array(Date d, POSTSDATE p);
 
 void clean_postsDate(POSTSDATE p);
 
+GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b);
+
 #endif
