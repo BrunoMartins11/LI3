@@ -5,6 +5,7 @@
 #include <glib.h>
 #include "posts.h"
 #include "date.h"
+#include "postsDate.h"
 
 struct posts{	//esta struct tem campos de perguntas e respostas, 
 						//para que consiga conter ambos, tornando possivel ter perguntas e respostas no mesmo array(por exemplo).	
@@ -102,3 +103,11 @@ void free_post(void* po){
 	}
 	return;
 }
+
+
+
+
+
+
+
+

@@ -7,6 +7,7 @@
 #include "profile.h"
 #include "posts.h"
 #include "tags.h"
+#include "postsDate.h"
 
 
 typedef struct _dynamic_list dynamic_list;

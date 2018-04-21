@@ -3,6 +3,40 @@
 #include "tadCommunity.h"
 
 
+int check_repeat(LONG_list l, int list_size, long n){
+
+	for(int i = 0; i < list_size; i++)
+		if(n == get_list(l, i))
+			return 1;
+
+	return 0;
+}
+
+
+LONG_list organize_by_date(TAD_community com, LONG_list l, int list_size, int order){ 
+								//order == 0 -> por ordem crescente de data, do mais antigo para o mais recente
+	long temp;					//order == 1 -> por ordem decrescente de data, do mais recente para o mais antigo			
+
+	for(int i = 0; i < list_size-1 && get_list(l, i+1) != 0 ; i++){
+
+		if(order == 0)
+			if(date_to_int(get_post_date(get_community_post(com, get_list(l, i)))) > date_to_int(get_post_date(get_community_post(com, get_list(l, i+1))))){
+				temp = get_list(l, i);
+				set_list(l, i, get_list(l, i+1));
+				set_list(l, i+1, temp);
+			}
+		if(order == 1)
+			if(date_to_int(get_post_date(get_community_post(com, get_list(l, i)))) < date_to_int(get_post_date(get_community_post(com, get_list(l, i+1))))){
+				temp = get_list(l, i);
+				set_list(l, i, get_list(l, i+1));
+				set_list(l, i+1, temp);
+			}	
+	}
+
+	return l;
+}
+
+
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 
 	LONG_list l = create_list(N);
@@ -31,7 +65,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 				
 				if(get_post_type(post)==2){//verifica se ele e resposta
 					
-					if(get_post_parentID(post)==postID){//verifica se o post a que responde é o post inicial do outro user
+					if(get_post_parentID(post)==postID && check_repeat(l, N, postID)==0){//verifica se o post a que responde é o post inicial do outro user
 						set_list(l,h,postID);//se sim insere na lista
 						h++;//incrementa o indice da lista 
 					}
@@ -50,7 +84,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 		
 				if(get_post_type(post)==2){
 		
-					if(get_post_parentID(post)==postID){
+					if(get_post_parentID(post)==postID && check_repeat(l, N, postID)==0){
 						set_list(l,h,postID);
 						h++;
 					}
@@ -60,7 +94,7 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 	}
 
 
-	/*for(i=0; i < pCount1; i++){
+	for(i=0; i < pCount1; i++){
 		postID = g_array_index(userPosts1, long, i);
 		
 		if(get_post_type(get_community_post(com, postID))==2){
@@ -69,18 +103,15 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 			for(j=0; j < pCount2; j++){ 
 				post2 = get_community_post(com, g_array_index(userPosts2,long, j));
 
-				if((get_post_type(post2) == 2) && (get_post_parentID(post1) == get_post_parentID(post2))){
+				if((get_post_type(post2) == 2) && (get_post_parentID(post1) == get_post_parentID(post2)) && check_repeat(l, N, get_post_parentID(post1))==0){
 					set_list(l, h, get_post_parentID(post1));
 					h++;
 				}
 			}
 		}
 	}
-*/
-	for(int t=0; t<N; t++)
-		printf("%ld\n", get_list(l,t));
 
 
-	return l;
+	return organize_by_date(com, l, N, 1);
 }
 
