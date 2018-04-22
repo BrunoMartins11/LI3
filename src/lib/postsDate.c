@@ -97,7 +97,7 @@ GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
 }
 
 
-LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b){
+/*LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b){
 
 	int i, maior, menor;
 	LISTG posts_ids = create_listG(sizeof(long));
@@ -125,6 +125,6 @@ void add_posts_to_matrix(gpointer key, gpointer value, gpointer user_data){
 
 	insert_id_to_matrix((POSTSDATE) user_data, id, d);
 }
-
+*/
 
 
