@@ -131,6 +131,8 @@ int str_in_postTitle(POST p, char* str){
 }
 
 void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
-	if(get_post_type(value) == 1)
-		append_listG(user_data, key);
+	if(get_post_type(value) == 1){
+		long id = get_post_id(value);
+		append_listG(user_data, id);
+	}
 }
