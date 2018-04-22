@@ -79,7 +79,7 @@ GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
 	else{
 		
 		maior = date_to_int(b);
-		menor = date_to_int(b);
+		menor = date_to_int(a);
 	}
 
 	GArray* ret = g_array_new(FALSE, TRUE, sizeof(long));
