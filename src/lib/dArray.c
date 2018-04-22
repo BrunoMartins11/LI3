@@ -17,6 +17,11 @@ LISTG create_listG(int size){
 	return array;
 }
 
+void set_listG(LISTG array, GArray* g_array){
+	g_array_free(array->list, TRUE);
+	array->list = g_array;
+}
+
 void insert_listG_par(LISTG array, PAR p){
 	
 	if(p!=NULL){

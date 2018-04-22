@@ -13,10 +13,15 @@ int main(){
   //STR_pair x = info_from_post(com, 9); 
   //LONG_list l = top_most_active(com, 5);
   //USER u = get_user_info(com, 1550);
-  LONG_list h = both_participated(com, 5, 4, 10);
-  for(int t=0; t<10; t++)
-    printf("%ld\n", get_list(h,t));
+  //LONG_list h = both_participated(com, 5, 4, 10);
+  //for(int t=0; t<10; t++)
+  //  printf("%ld\n", get_list(h,t));
   //printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
+
+  Date begin = createDate(1, 1, 2016);
+  Date end = createDate(15, 1, 2016);
+
+  LONG_pair p = total_posts(com, begin, end);
 
   return 0;
 } 

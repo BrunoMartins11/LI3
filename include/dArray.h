@@ -9,6 +9,8 @@ typedef struct listG *LISTG;
 
 LISTG create_listG(int size);
 
+void set_listG(LISTG array, GArray* g_array);
+
 void insert_listG_par(LISTG list,PAR p);
 
 PAR get_listG_par(LISTG list, int n);

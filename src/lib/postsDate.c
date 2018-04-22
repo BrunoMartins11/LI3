@@ -5,6 +5,8 @@
 #include <glib.h>
 #include "postsDate.h"
 #include "date.h"
+#include "dArray.h"
+#include "posts.h"
 
 
 struct postsDate{
@@ -95,7 +97,34 @@ GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
 }
 
 
+LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b){
 
+	int i, maior, menor;
+	LISTG posts_ids = create_listG(sizeof(long));
+
+	if(date_to_int(a) > date_to_int(b)){
+		maior = date_to_int(a);
+		menor = date_to_int(b);
+	}
+	else{
+		maior = date_to_int(b);
+		menor = date_to_int(a);
+	}
+
+	for(i = menor; i <= maior; i++)	
+		for(int j = 0; j < (p->matrix[i]->len); j++)
+			append_listG(posts_ids, g_array_index(p->matrix[i], long, j));
+
+	return posts_ids;
+}
+
+void add_posts_to_matrix(gpointer key, gpointer value, gpointer user_data){
+
+	long id = get_post_id(value);
+	Date d = get_post_date(value);
+
+	insert_id_to_matrix((POSTSDATE) user_data, id, d);
+}
 
 
 
