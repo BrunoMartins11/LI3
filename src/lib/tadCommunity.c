@@ -12,18 +12,6 @@
 #include "postsDate.h"
 #include "dArray.h"
 
-
-struct _dynamic_list{
-	
-	GList *list;
-};
-
-dynamic_list* create_dynamic_list(){
-	
-	dynamic_list *l = malloc(sizeof (struct _dynamic_list));
-	return l;
-}
-
 struct TCD_community{
 	
 	GHashTable *profile;
@@ -135,4 +123,8 @@ void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
 		long id = get_post_id(value);
 		append_listG(user_data, id);
 	}
+}
+
+POSTSDATE get_postsdate(TAD_community m){
+	return m->postsDate;
 }

@@ -36,4 +36,6 @@ void iterate_community_posts(TAD_community m, GHFunc func, gpointer data);
 
 void add_questions_to_array(gpointer key, gpointer value, gpointer user_data);
 
+POSTSDATE get_postsdate(TAD_community m);
+
 #endif

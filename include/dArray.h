@@ -9,6 +9,8 @@ typedef struct listG *LISTG;
 
 LISTG create_listG(int size);
 
+void free_listG(LISTG array);
+
 void set_listG(LISTG array, GArray* g_array);
 
 void insert_listG_par(LISTG list,PAR p);
@@ -23,8 +25,8 @@ int listG_size(LISTG array);
 
 void sort_listG(LISTG array, GCompareFunc func);
 
-int listG_reverse_sort(gconstpointer num_a, gconstpointer num_b);
+int listG_reverse_sort_id(gconstpointer num_a, gconstpointer num_b);
 
-
+int listG_reverse_sort_answer(gconstpointer post_1, gconstpointer post_2);
 
 #endif

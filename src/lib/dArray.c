@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "par.h"
 #include "dArray.h"
+#include "posts.h"
 
 struct listG {
 	GArray* list;
@@ -15,6 +16,11 @@ LISTG create_listG(int size){
 	array->list = g_array_new(FALSE, TRUE, size);
 	
 	return array;
+}
+
+void free_listG(LISTG array){
+	g_array_free(array->list, TRUE);
+	free(array);
 }
 
 void set_listG(LISTG array, GArray* g_array){
@@ -48,20 +54,23 @@ GArray* get_GArray(LISTG array){
 void sort_listG(LISTG array, GCompareFunc func){
 	g_array_sort(array->list, func);
 }
-	
+
 int listG_size(LISTG array){
 	return (int) array->list->len;
 }
 
-int listG_reverse_sort(gconstpointer num_a, gconstpointer num_b){
-	if(!num_a && !num_b)
-		return 0;
+int listG_reverse_sort_id(gconstpointer num_a, gconstpointer num_b){
 
-	if(!num_a)
-		return 1;
+	long* id_1 = (long*) num_a;
+	long* id_2 = (long*) num_b;
 
-	if(!num_b)
-		return -1;
+	return (int) (*id_2 - *id_1);
+}
 
-	return (int) (num_b - num_a);
+int listG_reverse_sort_answer(gconstpointer post_1, gconstpointer post_2){
+	
+	POST* p1 = (POST*) post_1 ;
+	POST* p2 = (POST*) post_2;
+
+	return (int) (get_post_awnser_count(*p2) - get_post_awnser_count(*p1));
 }
