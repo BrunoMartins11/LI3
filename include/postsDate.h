@@ -1,6 +1,5 @@
 #ifndef __POSTSDATE__
 #define __POSTSDATE__
-#include "dArray.h"
 
 typedef struct postsDate* POSTSDATE;
 
@@ -15,7 +14,5 @@ GArray* get_id_array(Date d, POSTSDATE p);
 void clean_postsDate(POSTSDATE p);
 
 GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b);
-
-LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b);
 
 #endif

@@ -1,7 +1,8 @@
+#include <glib.h>
 #include "interface.h"
 #include "posts.h"
 #include "tadCommunity.h"
-#include "dArray.h"
+#include "sort.h"
 #include "date.h"
 #include "postsDate.h"
 
@@ -16,31 +17,31 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 
 	POST p;
 	POSTSDATE p_date = get_postsdate(com);
-	LISTG answers_post = create_listG(sizeof(POST));
+	GArray* answers_post = g_array_new(FALSE, TRUE, sizeof(POST));;
 	LONG_list ret = create_list(N);
 
 	//Lista de todos os posts entre as datas 
-	LISTG id_list_date = posts_id_between_dates2(p_date, begin, end);
-	size = listG_size(id_list_date);
+	GArray* id_list_date = posts_id_between_dates(p_date, begin, end);
+	size = (int) id_list_date->len;
 
 	//Filtra todos as respostas entre os posts
 	for(i = 0; i < size; i++){
 
-		id = get_listG_index(id_list_date, long, i);
+		id = g_array_index(id_list_date, long, i);
 		p = get_community_post(com, id);
 
 		if(get_post_type(p) == 2)
-			append_listG(answers_post, p);
+			g_array_append_val(answers_post, p);
 	}
 
 	//Ordena a lista pelas respostas com mais score
-	sort_listG(answers_post, listG_reverse_sort_score);
-	size = listG_size(answers_post);
+	g_array_sort(answers_post, listG_reverse_sort_score);
+	size = (int) answers_post->len;
 
 	//Preenche a lista de retorno com os N primeiros elementos do array answers_post
 	for(i = 0; i < N && i < size; i++){
 
-		p = get_listG_index(answers_post, POST, i);
+		p = g_array_index(answers_post, POST, i);
 		set_list(ret, i, get_post_id(p));
 	}
 
