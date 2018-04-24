@@ -18,6 +18,4 @@ GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b);
 
 LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b);
 
-void add_posts_to_matrix(gpointer key, gpointer value, gpointer user_data);
-
 #endif

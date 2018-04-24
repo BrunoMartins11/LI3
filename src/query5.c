@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include "tadCommunity.h"
 
+
+/**\ Procura o About Me de um utilizador e os seus respetivos ultimos 10 Posts.  
+ *@param com  Estrutura global 
+ *@param id   ID do utilizador
+ *@return  	  USER que contém About Me e array com os ultimos 10 Posts ordenados por cronologia
+ 			  inversa
+ */
 USER get_user_info(TAD_community com, long id){
 	
 	PROFILE p = get_community_profile(com,id);
