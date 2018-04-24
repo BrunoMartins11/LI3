@@ -67,7 +67,7 @@ void clean_postsDate(POSTSDATE p){
 	}
 }
 
-GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
+/*GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
 
 	int i, maior, menor;
 	
@@ -94,7 +94,7 @@ GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
 	
 	return ret;
 
-}
+}*/
 
 LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b){
 

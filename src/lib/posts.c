@@ -108,7 +108,8 @@ void free_post(void* po){
 
 
 void add_answer(POST p, long id){
-	g_array_append_val(p->answers, id);
+	if(p)
+		g_array_append_val(p->answers, id);
 }
 
 GArray* get_answers(POST p){
