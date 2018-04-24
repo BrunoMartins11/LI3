@@ -66,8 +66,7 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 	Date data         = NULL;
 	long answerCount  = 0;
 	long commentCount = 0;
-	char** tags       = malloc(sizeof(char*));      
-	tags[0]           = NULL;
+	char* tags        = NULL;      
 	long ownerID      = -2;
 
 	while(atributos != NULL && atributos[0] != NULL){
@@ -93,8 +92,8 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 		if(xmlStrcmp(atributos[0],(const xmlChar*)"Title")==0)
 			postTitle=g_strdup((char*)atributos[1]);
 		
-		//if(xmlStrcmp(atributos[0],(const xmlChar*)"Tags")==0)
-		//	tags=atributos[1]; //verificar como fazer isto
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"Tags")==0)
+			tags=g_strdup((char*)atributos[1]); 
 		
 		if(xmlStrcmp(atributos[0],(const xmlChar*)"AnswerCount")==0)
 			answerCount=strtol((char*)atributos[1], NULL, 10);

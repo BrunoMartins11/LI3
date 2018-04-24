@@ -17,12 +17,12 @@ struct posts{		//esta struct tem campos de perguntas e respostas,
 	Date data;
 	long answerCount;
 	long commentCount;
-	char** tags;		//basicamente um array de strings. As tags sao strings.
-	long ownerID;		//ID do user referente ao post.
+	char* tags;		
+	long ownerID;	
 	GArray* answers;
 };
 
-POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID){
+POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char* tags, long ownerID){
 	POST p = malloc(sizeof (struct posts));
 	p->postID = postID;	
 	p->postTitle = g_strdup(postTitle);
@@ -32,8 +32,7 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
 	p->data = data;
 	p->answerCount = answerCount;
 	p->commentCount = commentCount;
-	for(int i=0; tags[i]; i++) 
-		p->tags[i]=g_strdup(tags[i]);
+	p->tags = g_strdup(tags);
 	p->ownerID = ownerID;
 	p->answers = g_array_new(FALSE, TRUE, sizeof(long));
 
@@ -85,22 +84,17 @@ long get_post_owner(POST p){
 		
 } 
 
-char** get_post_tags(POST p){ //erraddo compor
+char* get_post_tags(POST p){ 
 	return p->tags;
 	
 }
 
 void free_post(void* po){
 	POST p = (POST)po;
-	//int i=0;
 	if (p){
 		if (p->data) free_date(p->data);
 		free(p->postTitle);
-		//while(p->tags[i]){
-			//free(p->tags[i]);
-		//	i++;
-		//}
-		//free(p->tags);
+		free(p->tags);
 		free(p);
 	}
 	return;

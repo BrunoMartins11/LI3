@@ -31,7 +31,7 @@ POST make_post(long postID,
 			   Date data, 
 			   long answerCount, 
 			   long commentCount, 
-			   char** tags, 
+			   char* tags, 
 			   long ownerID);
 
 /**\ Retorna o título de um  Post.
@@ -105,7 +105,7 @@ long get_post_owner(POST p);
  *@param p Post
  *@return  Array de strings das tags
  */
-char** get_post_tags(POST p);
+char* get_post_tags(POST p);
 
 /**\ Liberta a memória alocada para um Post.
  *@param p Post
