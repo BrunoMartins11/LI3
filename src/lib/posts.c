@@ -7,8 +7,8 @@
 #include "date.h"
 #include "postsDate.h"
 
-struct posts{	//esta struct tem campos de perguntas e respostas, 
-						//para que consiga conter ambos, tornando possivel ter perguntas e respostas no mesmo array(por exemplo).	
+struct posts{		//esta struct tem campos de perguntas e respostas, 
+					//para que consiga conter ambos, tornando possivel ter perguntas e respostas no mesmo array(por exemplo).	
 	long postID;		
 	char* postTitle;
 	int postType; 		//1 -> pergunta, 2-> resposta.
@@ -19,7 +19,7 @@ struct posts{	//esta struct tem campos de perguntas e respostas,
 	long commentCount;
 	char** tags;		//basicamente um array de strings. As tags sao strings.
 	long ownerID;		//ID do user referente ao post.
-	
+	GArray* answers;
 };
 
 POST make_post(long postID, char* postTitle, int postType, long parentID, long score, Date data, long answerCount, long commentCount, char** tags, long ownerID){
@@ -35,6 +35,8 @@ POST make_post(long postID, char* postTitle, int postType, long parentID, long s
 	for(int i=0; tags[i]; i++) 
 		p->tags[i]=g_strdup(tags[i]);
 	p->ownerID = ownerID;
+	p->answers = g_array_new(FALSE, TRUE, sizeof(long));
+
     return p;
 }
 
@@ -105,9 +107,13 @@ void free_post(void* po){
 }
 
 
+void add_answer(POST p, long id){
+	g_array_append_val(p->answers, id);
+}
 
-
-
+GArray* get_answers(POST p){
+	return p->answers;
+}
 
 
 

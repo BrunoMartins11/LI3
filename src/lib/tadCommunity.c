@@ -71,6 +71,8 @@ void add_community_post(TAD_community m, long id, POST p){
 		add_profile_post(get_community_profile(m, owner), id);
 		insert_id_to_matrix(m->postsDate, id, get_post_date(p));
 		g_hash_table_insert(m->posts, idp, p);
+		if(get_post_type(p) == 2)
+			add_answer(get_community_post(m, get_post_parentID(p)), id);
 	}
 }
 

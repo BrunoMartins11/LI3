@@ -6,6 +6,7 @@
 #include "postsDate.h"
 #include <stdio.h>
 
+
 // Dado um intervalo de tempo4 arbitrário, obter o número total de posts (identificando perguntas e respostas separadamente) neste período
 LONG_pair total_posts(TAD_community com, Date begin, Date end){
 
