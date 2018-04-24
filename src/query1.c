@@ -9,8 +9,9 @@
 
 
 /**\ Procura o nome do utilizador que fez a pergunta e o titulo dela 
- *@param qs  Estrutura global e Post
- *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
+ *@param com  Estrutura global 
+ *@param p    Post
+ *@return  	  Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
  */
 STR_pair search_post_info(TAD_community com, POST p){
 
@@ -26,7 +27,8 @@ STR_pair search_post_info(TAD_community com, POST p){
 
 /**\ Titulo de uma pergunta e nome do respetivo utilizador que a fez (em caso de ser resposta retornar
 a informaçao da pergunta a que responde)
- *@param qs  Estrutura global e ID do post
+ *@param com  Estrutura global 
+ *@param id   ID do post
  *@return  	 Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
  */
 STR_pair info_from_post(TAD_community com, long id){
