@@ -40,8 +40,17 @@ POST make_post(long postID,
  */
 char* get_post_title(POST p);
 
+/**\ Adiciona o ID de um Post resposta no array de respostas associado à pergunta 
+ *@param p  Post
+ *@param id ID do Post
+ *@return 
+ */
 void add_answer(POST p, long id);
 
+/**\ Retorna o GArray que contém os IDs das respostas de uma pergunta.
+ *@param p Post
+ *@return  GArray que contém os IDs das respostas de uma pergunta.
+ */
 GArray* get_answers(POST p);
 
 /**\ Retorna o ID de um  Post.
