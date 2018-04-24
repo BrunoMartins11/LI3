@@ -23,6 +23,6 @@ int main(){
 
   LONG_pair p = total_posts(com, begin, end);
 */
-  clean(com);
+  //clean(com);
   return 0;
 } 
