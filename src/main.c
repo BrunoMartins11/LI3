@@ -23,6 +23,11 @@ int main(){
 
   LONG_pair p = total_posts(com, begin, end);
 */
+  LONG_list h = both_participated(com, 7, 21, 5);
+  for(int t=0; t<10; t++)
+    printf("%ld\n", get_list(h,t));
+  long puta = better_answer(com,3883);
+  printf("%ld\n",puta );
   //clean(com);
   return 0;
 } 

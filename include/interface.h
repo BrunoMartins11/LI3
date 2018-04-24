@@ -38,7 +38,7 @@ LONG_list contains_word(TAD_community com, char* word, int N);
 LONG_list both_participated(TAD_community com, long id1, long id2, int N);
 
 // query 10
-LONG_list better_answer(TAD_community com, long id);
+long better_answer(TAD_community com, long id);
 
 // query 11
 LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end);
