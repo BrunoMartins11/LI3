@@ -111,5 +111,32 @@ GArray* get_answers(POST p){
 	return p->answers;
 }
 
+int str_in_postTitle(POST p, char* str){
+	
+	if (strstr(get_post_title(p), str) != NULL)
+		return 1;
+	
+	else 
+		return 0;
+}
+
+int tag_in_post(POST p, char* str){
+
+	if(get_post_tags(p)){
+		if (strstr(get_post_tags(p), str) != NULL)
+			return 1;
+		else 
+			return 0;
+	}
+	else
+		return 0;
+}
+
+void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
+	if(get_post_type(value) == 1){
+		long id = get_post_id(value);
+		g_array_append_val(user_data, id);
+	}
+}
 
 

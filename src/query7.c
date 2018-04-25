@@ -6,8 +6,13 @@
 #include "date.h"
 #include "postsDate.h"
 
-//Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas, em ordem decrescente do numero
-
+/**\Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas, em ordem decrescente do numero
+*@param com    Estrutura global 
+*@param N		Número de IDs esperados na lista de retorno
+*@param begin  Início do intervalo de tempo
+*@param end    Fim do intervalo de tempo
+*@return  	 Lista de longs com os IDs das N perguntas com mais respostas, em ordem decrescente
+*/
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
 
 	int i, size;
@@ -33,7 +38,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 	}
 
 	//Ordena a lista pelas perguntas com mais repostas
-	g_array_sort(questions_post, listG_reverse_sort_answer);
+	g_array_sort(questions_post, reverse_sort_answer);
 	size = (int) questions_post->len;
 
 	//Preenche a lista de retorno com os N primeiros elementos do array questions_post

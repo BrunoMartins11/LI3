@@ -113,4 +113,26 @@ char* get_post_tags(POST p);
  */
 void free_post(void* p);
 
+/**\ Verifica se a string está no titulo do post.
+ *@param p Post
+ *@param str string procurada
+ *@return 1 se a string está no título do post e 0 se não está
+ */
+int str_in_postTitle(POST p, char* str);
+
+/**\ Verifica se uma tag está entre as tags do post.
+ *@param p Post
+ *@param tag tag procurada
+ *@return 1 se a tag está nas tags do post e 0 se não está
+ */
+int tag_in_post(POST p, char* str);
+
+/**\ Adiciona os posts de perguntas a um array.
+ *@param key a chave da hashtable
+ *@param value o valor da hashtable
+ *@param user_data o array
+ *@return
+ */
+void add_questions_to_array(gpointer key, gpointer value, gpointer user_data);
+
 #endif

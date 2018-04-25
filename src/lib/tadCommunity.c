@@ -115,24 +115,6 @@ void iterate_community_users(TAD_community m, GHFunc func, gpointer data){
 	g_hash_table_foreach(m->profile, (GHFunc) func,data);
 }
 
-
-
-int str_in_postTitle(POST p, char* str){
-	
-	if (strstr(get_post_title(p), str) != NULL)
-		return 1;
-	
-	else 
-		return 0;
-}
-
-void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
-	if(get_post_type(value) == 1){
-		long id = get_post_id(value);
-		g_array_append_val(user_data, id);
-	}
-}
-
 POSTSDATE get_postsdate(TAD_community m){
 	return m->postsDate;
 }

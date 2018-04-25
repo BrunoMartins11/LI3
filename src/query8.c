@@ -8,8 +8,13 @@
 #include "date.h"
 #include "sort.h"
 
-// Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham, ordenados por cronologia inversa;
-
+/**\ Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham, 
+	 ordenados por cronologia inversa
+*@param com    Estrutura global 
+*@param word	Palavra a ser procurada nos títulos dos posts
+*@param N		Número de IDs esperados na lista de retorno
+ *@return  	 Lista de longs com os IDs das N perguntas em que o título contenha, em ordem cronológica inversa
+ */
 LONG_list contains_word(TAD_community com, char* word, int N){
 
 	int i, keys_size, index = 0;
@@ -21,7 +26,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 	//Criação da lista, adição de elementos, ordenação e obtenção do tamanho.
 	GArray* keys = g_array_new(FALSE, TRUE, sizeof(long));
 	iterate_community_posts(com, add_questions_to_array, keys);
-	g_array_sort(keys, listG_reverse_sort_id);
+	g_array_sort(keys, reverse_sort_id);
 	keys_size = (int) keys->len;
 
 	last_n = create_list(keys_size);

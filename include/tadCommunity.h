@@ -30,11 +30,7 @@ void add_community_tag(TAD_community m, long id, TAG t);
 
 void iterate_community_users(TAD_community m, GHFunc func, gpointer data);
 
-int str_in_postTitle(POST p, char* str);
-
 void iterate_community_posts(TAD_community m, GHFunc func, gpointer data);
-
-void add_questions_to_array(gpointer key, gpointer value, gpointer user_data);
 
 POSTSDATE get_postsdate(TAD_community m);
 
