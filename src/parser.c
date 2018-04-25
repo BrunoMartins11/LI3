@@ -104,7 +104,6 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 		atributos += 2; // 0 = atributo, 1 = valor do atributo
 	}
 
-
 	newpost = make_post(postID, 
 						postTitle, 
 						postType, 
@@ -119,6 +118,29 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 	add_community_post(com, postID, newpost);
 }
 
+
+void parse_tags(void* user_data, const xmlChar* name, const xmlChar** atributos){
+
+	TAG newtag;
+	TAD_community com = (TAD_community) user_data;
+	char* tagname     = NULL;
+	long  tagID       = 0;
+
+	while(atributos != NULL && atributos[0] != NULL){
+		
+		if(xmlStrcmp(atributos[0], (const xmlChar*)"Id")==0)
+			tagID = strtol((char*)atributos[1], NULL, 10);
+		
+		if(xmlStrcmp(atributos[0],(const xmlChar*)"TagName")==0)
+			tagname = g_strdup((char*)atributos[1]);
+
+		atributos += 2; // 0 = atributo, 1 = valor do atributo
+	}
+
+	newtag = create_tag(tagname, tagID);
+
+	add_community_tag(com, tagID, newtag);
+}
 
 
 TAD_community load(TAD_community com, char* dump_path){
@@ -143,6 +165,16 @@ TAD_community load(TAD_community com, char* dump_path){
 	sprintf(pathfile, "%s%s", dump_path, "Posts.xml"); 
 	if((n=xmlSAXUserParseFile(&y, com, pathfile))){
 		fprintf(stderr, "Post Load Error %d", n);
+		return com;
+	}
+
+	xmlSAXHandler z = {0};
+	
+	x.startElement = parse_tags;
+	
+	sprintf(pathfile, "%s%s", dump_path, "Tags.xml"); 
+	if((n=xmlSAXUserParseFile(&z, com, pathfile))){
+		fprintf(stderr, "Tags Load Error %d", n);
 		return com;
 	}
 
