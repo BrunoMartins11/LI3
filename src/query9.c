@@ -111,7 +111,6 @@ LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 		}
 	}
 
-
 	return organize_by_date(com, l, N, 1);
 }
 

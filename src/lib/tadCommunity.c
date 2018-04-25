@@ -10,7 +10,6 @@
 #include "tags.h"
 #include "tadCommunity.h"
 #include "postsDate.h"
-#include "dArray.h"
 
 struct TCD_community{
 	
@@ -26,6 +25,20 @@ TAD_community init(){
 	return create_struct();
 }
 
+void clean_TAD_community(TAD_community m){
+	
+	if(m){
+		g_hash_table_destroy(m->profile);
+		g_hash_table_destroy(m->posts);
+		g_hash_table_destroy(m->tags);
+		//clean_postsDate(m->postsDate);
+	}
+}
+
+TAD_community clean(TAD_community com){
+	clean_TAD_community(com);
+	return NULL;
+}
 
 TAD_community create_struct(){
 	
@@ -102,14 +115,7 @@ void iterate_community_users(TAD_community m, GHFunc func, gpointer data){
 	g_hash_table_foreach(m->profile, (GHFunc) func,data);
 }
 
-void clean_TAD_community(TAD_community m){
-	
-	if(m){
-		g_hash_table_destroy(m->profile);
-		g_hash_table_destroy(m->posts);
-		clean_postsDate(m->postsDate);
-	}
-}
+
 
 int str_in_postTitle(POST p, char* str){
 	
@@ -123,7 +129,7 @@ int str_in_postTitle(POST p, char* str){
 void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
 	if(get_post_type(value) == 1){
 		long id = get_post_id(value);
-		append_listG(user_data, id);
+		g_array_append_val(user_data, id);
 	}
 }
 

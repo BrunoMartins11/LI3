@@ -5,7 +5,6 @@
 #include <glib.h>
 #include "postsDate.h"
 #include "date.h"
-#include "dArray.h"
 #include "posts.h"
 
 
@@ -96,10 +95,10 @@ void clean_postsDate(POSTSDATE p){
 
 }*/
 
-LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b){
+GArray* posts_id_between_dates(POSTSDATE p, Date a, Date b){
 
 	int i, maior, menor;
-	LISTG posts_ids = create_listG(sizeof(long));
+	GArray* posts_ids = g_array_new(FALSE, TRUE, sizeof(long));
 
 	if(date_to_int(a) > date_to_int(b)){
 		maior = date_to_int(a);
@@ -112,7 +111,7 @@ LISTG posts_id_between_dates2(POSTSDATE p, Date a, Date b){
 
 	for(i = menor; i <= maior; i++)	
 		for(int j = 0; j < (p->matrix[i]->len); j++)
-			append_listG(posts_ids, g_array_index(p->matrix[i], long, j));
+			g_array_append_val(posts_ids, g_array_index(p->matrix[i], long, j));
 
 	return posts_ids;
 }

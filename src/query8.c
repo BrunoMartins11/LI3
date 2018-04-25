@@ -5,8 +5,8 @@
 #include "list.h"
 #include "posts.h"
 #include "tadCommunity.h"
-#include "dArray.h"
 #include "date.h"
+#include "sort.h"
 
 // Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham, ordenados por cronologia inversa;
 
@@ -19,10 +19,10 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 	LONG_list last_n;
 
 	//Criação da lista, adição de elementos, ordenação e obtenção do tamanho.
-	LISTG keys = create_listG(sizeof(long));
+	GArray* keys = g_array_new(FALSE, TRUE, sizeof(long));
 	iterate_community_posts(com, add_questions_to_array, keys);
-	sort_listG(keys, listG_reverse_sort_id);
-	keys_size = listG_size(keys);
+	g_array_sort(keys, listG_reverse_sort_id);
+	keys_size = (int) keys->len;
 
 	last_n = create_list(keys_size);
 
@@ -30,7 +30,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 	for(i = 0; i < keys_size && index < N; i++){
 		
 		//elemento da lista no index i
-		id = get_listG_index(keys, long, i);
+		id = g_array_index(keys, long, i);
 
 		p = get_community_post(com, id);
 		

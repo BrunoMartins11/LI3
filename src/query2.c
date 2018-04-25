@@ -69,13 +69,16 @@ LONG_list top_most_active(TAD_community com, int N){
 
 	int i=0;
 	GPtrArray* array = create_GList_user_pCount(com, insert_pCount_GList_user);
-	g_ptr_array_sort(array, (GCompareFunc)fcompare);
+	g_ptr_array_sort(array, (GCompareFunc)fcompare); //ESTA A FAZER MAL O SORT
 	
 	while(i<N && i<array->len){
 		set_list(l, i, get_par_id(g_ptr_array_index(array, i)));
 		printf("%ld\n", get_list( l, i));
 		i++;	
+		free_par(g_ptr_array_index(array,i));
 	}
+
+	g_free(g_ptr_array_free(array,TRUE));
 
 	return l;
 }

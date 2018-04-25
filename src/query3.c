@@ -1,10 +1,10 @@
+#include <glib.h>
 #include "interface.h"
 #include "posts.h"
 #include "tadCommunity.h"
-#include "dArray.h"
+#include "sort.h"
 #include "date.h"
 #include "postsDate.h"
-
 
 
 /**\ Dado um intervalo de tempo arbitrário obte o número total de posts
@@ -22,13 +22,13 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
 
 	// Lista dos posts no intervalo de datas
 	POSTSDATE p_date = get_postsdate(com);
-	LISTG id_list = posts_id_between_dates2(p_date, begin, end);
-	size = listG_size(id_list);
+	GArray* id_list = posts_id_between_dates(p_date, begin, end);
+	size = (int) id_list->len;
 
 	//Contabiliza a quantidade de perguntas e respostas
 	for(int i = 0; i < size; i++){
 
-		id = get_listG_index(id_list, long, i);
+		id = g_array_index(id_list, long, i);
 		p = get_community_post(com, id);
 
 		if(get_post_type(p) == 1)
