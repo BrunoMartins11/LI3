@@ -6,10 +6,15 @@
 #include "date.h"
 #include "postsDate.h"
 
-//Dado um intervalo de tempo arbitrario, devolver os IDs das N respostas com mais votos, 
-//em ordem decrescente do numero de votos; O nuumero de votos devera ser obtido pela diferença entre 
-//Up Votes (UpMod6) e Down Votes (DownMod).
-
+/**\Dado um intervalo de tempo arbitrario, devolver os IDs das N respostas com mais votos, 
+em ordem decrescente do numero de votos; O nuumero de votos devera ser obtido pela diferença entre 
+Up Votes (UpMod6) e Down Votes (DownMod).
+*@param com    Estrutura global 
+ *@param begin  Início do intervalo de tempo
+ *@param end    Fim do intervalo de tempo
+ *@param N		Número de IDs esperados na lista de retorno
+ *@return  	 Lista de longs com os IDs das N respostas com mais votos, em ordem decrescente
+ */
 LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 
 	int i, size;
@@ -35,7 +40,7 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 	}
 
 	//Ordena a lista pelas respostas com mais score
-	g_array_sort(answers_post, listG_reverse_sort_score);
+	g_array_sort(answers_post, reverse_sort_score);
 	size = (int) answers_post->len;
 
 	//Preenche a lista de retorno com os N primeiros elementos do array answers_post
@@ -44,7 +49,6 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 		p = g_array_index(answers_post, POST, i);
 		set_list(ret, i, get_post_id(p));
 	}
-
 
 	g_free(g_array_free(answers_post, FALSE));
 
