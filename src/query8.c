@@ -8,8 +8,13 @@
 #include "date.h"
 #include "sort.h"
 
-// Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham, ordenados por cronologia inversa;
-
+ /**\Devolve uma lista com os IDs de N perguntas cujos tıtulos contenham uma palavra, ordenados por 
+   cronologia inversa. 
+ *@param com   Estrutura global 
+ *@param word  Palavra  procurar 
+ *@param N     Top N
+ *@return      Lista que contém os IDs dos posts cujos titulos contem a palavra  	  
+ */
 LONG_list contains_word(TAD_community com, char* word, int N){
 
 	int i, keys_size, index = 0;

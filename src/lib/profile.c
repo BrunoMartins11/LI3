@@ -75,7 +75,7 @@ void free_profile(void* po){ //PorquÊ void* ?
 	if (p) {
 		free(p->name);
 		free(p->aboutme);
-		free(p);
 		g_array_free(p->userPosts, TRUE);
+		free(p);
 	}
 }

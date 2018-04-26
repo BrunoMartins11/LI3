@@ -6,8 +6,14 @@
 #include "date.h"
 #include "postsDate.h"
 
-//Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas, em ordem decrescente do numero
-
+/**\ Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas, 
+     em ordem decrescente do numero 
+ *@param com   Estrutura global 
+ *@param N     Top N
+ *@param begin Início do intervalo de tempo
+ *@param end   Fim do intervalo de tempo
+ *@return      Lista que contém os IDs das perguntas com mais respostas  	  
+ */
 LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end){
 
 	int i, size;

@@ -32,6 +32,7 @@ void clean_TAD_community(TAD_community m){
 		g_hash_table_destroy(m->posts);
 		g_hash_table_destroy(m->tags);
 		//clean_postsDate(m->postsDate);
+		free(m);
 	}
 }
 

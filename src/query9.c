@@ -2,7 +2,12 @@
 #include <stdio.h>
 #include "tadCommunity.h"
 
-
+/**\Verifica se existem elementos repetidos na lista. 
+ *@param l         Lista
+ *@param list_size Tamanho da Lista 
+ *@param n         Elemento que vericamos se está repetido
+ *@return          Inteiro  	  
+ */
 int check_repeat(LONG_list l, int list_size, long n){
 
 	for(int i = 0; i < list_size; i++)
@@ -13,6 +18,12 @@ int check_repeat(LONG_list l, int list_size, long n){
 }
 
 
+/**\Organiza os Ids dos posts por data. 
+ *@param com   Estrutura principal
+ *@param l     Lista que contém os Ids dos posts 
+ *@param order Tipo de ordenação
+ *@return      Lista ordenada  
+ */
 LONG_list organize_by_date(TAD_community com, LONG_list l, int list_size, int order){ 
 								//order == 0 -> por ordem crescente de data, do mais antigo para o mais recente
 	long temp;					//order == 1 -> por ordem decrescente de data, do mais recente para o mais antigo			
@@ -36,7 +47,13 @@ LONG_list organize_by_date(TAD_community com, LONG_list l, int list_size, int or
 	return l;
 }
 
-
+/**\Verifica se existem posts em que dois utilizadores interagiram. 
+ *@param com  Estrutura principal
+ *@param id1  Utilizador1 
+ *@param id2  Utilizador2
+ *@param N    Top N
+ *@return  Lista com os N IDs dos posts em que interagiram    	  
+ */
 LONG_list both_participated(TAD_community com, long id1, long id2, int N){
 
 	LONG_list l = create_list(N);

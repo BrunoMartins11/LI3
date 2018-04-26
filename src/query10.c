@@ -8,6 +8,12 @@
 #include "profile.h"
 #include "tadCommunity.h"
 
+/**\ Procura a melhor resposta a uma pergunta.
+ *@param com  Estrutura global 
+ *@param id   ID da pergunta
+ *@return  	  ID da melhor resposta
+ */
+
 long better_answer(TAD_community com, long id){
 
 	GArray* answerArray = get_answers(get_community_post(com,id));
