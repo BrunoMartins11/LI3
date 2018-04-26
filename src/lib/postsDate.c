@@ -37,12 +37,11 @@ POSTSDATE init_id_matrix(){
 	POSTSDATE p = malloc(sizeof(struct postsDate));
 	p->days = date_to_int(d);
 	p->matrix = malloc(sizeof(GArray*)*p->days);
-
-	free_date(d);
 	
-	for(int i = 0; i < date_to_int(d); i++)
+	for(int i = 0; i < p->days; i++)
 		p->matrix[i] = g_array_new(FALSE, TRUE, sizeof(long));
 
+	free_date(d);
 	return p;
 }
 
