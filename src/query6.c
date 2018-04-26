@@ -50,7 +50,8 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 		set_list(ret, i, get_post_id(p));
 	}
 
-	g_free(g_array_free(answers_post, FALSE));
+	g_array_free(answers_post, TRUE);
+	g_array_free(id_list_date,TRUE);
 
 	return ret;
 }

@@ -40,7 +40,7 @@ POSTSDATE init_id_matrix(){
 
 	free_date(d);
 	
-	for(int i = 0; i < date_to_int(d); i++)
+	for(int i = 0; i < p->days; i++)
 		p->matrix[i] = g_array_new(FALSE, TRUE, sizeof(long));
 
 	return p;

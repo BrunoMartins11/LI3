@@ -31,7 +31,7 @@ void clean_TAD_community(TAD_community m){
 		g_hash_table_destroy(m->profile);
 		g_hash_table_destroy(m->posts);
 		g_hash_table_destroy(m->tags);
-		//clean_postsDate(m->postsDate);
+		clean_postsDate(m->postsDate);
 		free(m);
 	}
 }
@@ -75,7 +75,11 @@ void add_community_post(TAD_community m, long id, POST p){
 		g_hash_table_insert(m->posts, idp, p);
 		if(get_post_type(p) == 2)
 			add_answer(get_community_post(m, get_post_parentID(p)), id);
+	}else{
+		free_post(p);
+		free(idp);
 	}
+	
 }
 
 
@@ -91,6 +95,8 @@ void add_community_profile(TAD_community m, long id, PROFILE p){
 	*idp = get_profile_id(p);
 
 	g_hash_table_insert(m->profile,idp,p);
+
+
 }
 
 

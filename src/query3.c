@@ -36,7 +36,7 @@ LONG_pair total_posts(TAD_community com, Date begin, Date end){
 		else
 			answer++;
 	}
-
+	g_array_free(id_list, TRUE);
 	LONG_pair ret = create_long_pair(questions, answer);
 
 	return ret;	
