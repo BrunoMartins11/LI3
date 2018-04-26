@@ -26,7 +26,7 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 	//Criação da lista, adição de elementos, ordenação e obtenção do tamanho.
 	GArray* keys = g_array_new(FALSE, TRUE, sizeof(long));
 	iterate_community_posts(com, add_questions_to_array, keys);
-	g_array_sort(keys, reverse_sort_id);
+	g_array_sort(keys, listG_reverse_sort_id);
 	keys_size = (int) keys->len;
 
 	last_n = create_list(keys_size);

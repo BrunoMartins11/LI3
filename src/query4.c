@@ -38,7 +38,7 @@ LONG_list questions_with_tag(TAD_community com, char* tag, Date begin, Date end)
 	}
 
     //Ordena a lista em ordem cronológica inversa
-	g_array_sort(posts_with_tag, reverse_sort_id);
+	g_array_sort(posts_with_tag, listG_reverse_sort_id);
     size = (int) posts_with_tag->len;
 
     LONG_list ret = create_list(size);

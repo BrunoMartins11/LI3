@@ -1,6 +1,11 @@
 #ifndef __PAR__
 #define __PAR__
 
+/**\
+*@file
+*Modulo cria e um par contendo um inteiro e long.
+*/
+
 typedef struct par *PAR;
 
 /**\ Dado um ID e e um valor associado a esse id cria um par contendo esses valores.

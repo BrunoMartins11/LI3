@@ -40,7 +40,7 @@ LONG_list most_voted_answers(TAD_community com, int N, Date begin, Date end){
 	}
 
 	//Ordena a lista pelas respostas com mais score
-	g_array_sort(answers_post, reverse_sort_score);
+	g_array_sort(answers_post, listG_reverse_sort_score);
 	size = (int) answers_post->len;
 
 	//Preenche a lista de retorno com os N primeiros elementos do array answers_post

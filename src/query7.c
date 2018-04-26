@@ -40,7 +40,7 @@ LONG_list most_answered_questions(TAD_community com, int N, Date begin, Date end
 	}
 
 	//Ordena a lista pelas perguntas com mais repostas
-	g_array_sort(questions_post, reverse_sort_answer);
+	g_array_sort(questions_post, listG_reverse_sort_answer);
 	size = (int) questions_post->len;
 
 	//Preenche a lista de retorno com os N primeiros elementos do array questions_post
