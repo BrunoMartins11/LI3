@@ -11,6 +11,7 @@
 struct postsDate{
 
 	GArray** matrix; //um array de GArrays
+	int days;
 };
 
 
@@ -34,7 +35,10 @@ POSTSDATE init_id_matrix(){
 	Date d = createDate(1, 1, 2019);
 	
 	POSTSDATE p = malloc(sizeof(struct postsDate));
-	p->matrix = malloc(sizeof(GArray*)*(date_to_int(d)));
+	p->days = date_to_int(d);
+	p->matrix = malloc(sizeof(GArray*)*p->days);
+
+	free_date(d);
 	
 	for(int i = 0; i < date_to_int(d); i++)
 		p->matrix[i] = g_array_new(FALSE, TRUE, sizeof(long));
@@ -58,7 +62,7 @@ GArray* get_id_array(Date d, POSTSDATE p){
 
 void clean_postsDate(POSTSDATE p){
 	if(p){
-		for(int i=0; p->matrix; i++)
+		for(int i=0; i<p->days; i++)
 			g_array_free(p->matrix[i], TRUE);
 		
 		free(p->matrix);

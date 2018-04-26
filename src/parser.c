@@ -50,6 +50,9 @@ void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos)
 						   aboutme);
 
 	add_community_profile(com, userID, newuser);
+
+	if(username) free(username);
+	if(aboutme)  free(aboutme);
 }
 
 
@@ -116,6 +119,8 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 						ownerID);
 	
 	add_community_post(com, postID, newpost);
+	if(postTitle) free(postTitle);
+	if(tags)      free(tags);
 }
 
 
@@ -140,6 +145,8 @@ void parse_tags(void* user_data, const xmlChar* name, const xmlChar** atributos)
 	newtag = create_tag(tagname, tagID);
 
 	add_community_tag(com, tagID, newtag);
+
+	if(tagname) free(tagname);
 }
 
 
@@ -177,6 +184,7 @@ TAD_community load(TAD_community com, char* dump_path){
 		fprintf(stderr, "Tags Load Error %d", n);
 		return com;
 	}
+	xmlCleanupParser();
 
 	return com;
 }

@@ -15,10 +15,8 @@
  *@return  	 gint resultante da subtração do PostCount dos dois pares
  */
 gint fcompare(gconstpointer p1, gconstpointer p2){
-
 	PAR par1 = *((PAR*) p1);
 	PAR par2 = *((PAR*) p2);
-
 	return (gint) (get_par_pCount(par2)-get_par_pCount(par1));
 }
 
@@ -49,12 +47,13 @@ void insert_pCount_GList_user(gpointer key, gpointer value, gpointer list){
  */
 GPtrArray* create_GList_user_pCount(TAD_community com, GHFunc func){
 
-	GPtrArray* array = g_ptr_array_new();
+	GPtrArray* array = g_ptr_array_new_with_free_func((GDestroyNotify) free_par);
 	iterate_community_users(com, func, array); // itera os users
-	
+	g_ptr_array_sort(array, fcompare);
 	
 	return array;
 }
+
 
 /**\ Procura os N IDs dos utilizadores que mais posts fizeram.
  *@param com   Estrutura global 
@@ -69,16 +68,15 @@ LONG_list top_most_active(TAD_community com, int N){
 
 	int i=0;
 	GPtrArray* array = create_GList_user_pCount(com, insert_pCount_GList_user);
-	g_ptr_array_sort(array, (GCompareFunc)fcompare); //ESTA A FAZER MAL O SORT
+	//g_ptr_array_sort(array, (GCompareFunc)fcompare);
 	
 	while(i<N && i<array->len){
 		set_list(l, i, get_par_id(g_ptr_array_index(array, i)));
 		printf("%ld\n", get_list( l, i));
 		i++;	
-		free_par(g_ptr_array_index(array,i));
 	}
 
-	g_free(g_ptr_array_free(array,TRUE));
+	g_ptr_array_free(array,TRUE);
 
 	return l;
 }

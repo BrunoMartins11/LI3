@@ -85,7 +85,7 @@ long get_post_owner(POST p){
 } 
 
 char* get_post_tags(POST p){ 
-	return p->tags;
+	return g_strdup(p->tags);
 	
 }
 

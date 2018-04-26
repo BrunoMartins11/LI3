@@ -12,7 +12,7 @@ int main(){
   load(com, path);
 
   //STR_pair x = info_from_post(com, 801049); 
-  LONG_list l = top_most_active(com, 10);
+  //LONG_list l = top_most_active(com, 10);
   //USER u = get_user_info(com, 15811);
   //LONG_list h = both_participated(com, 87, 5691, 10);
   //for(int t=0; t<100; t++)
@@ -25,8 +25,8 @@ int main(){
   //  printf("%ld\n", get_list(h,t));*/
   //printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
 
-  Date begin = createDate(1, 11, 2015);
-  Date end = createDate(31 , 11, 2015);
+  //Date begin = createDate(1, 11, 2015);
+  //Date end = createDate(31 , 11, 2015);
 
   //LONG_pair p = total_posts(com, begin, end);
   //printf("%ld, %ld\n", get_fst_long(p),get_snd_long(p));
