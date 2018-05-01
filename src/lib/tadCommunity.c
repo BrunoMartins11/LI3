@@ -106,12 +106,12 @@ TAG get_community_tag(TAD_community m, char* id){
 }
 
 
-void add_community_tag(TAD_community m, long id, TAG t){
+void add_community_tag(TAD_community m, char* name, TAG t){
 
-	long* idp = malloc(sizeof(long));
-	*idp = get_tag_id(t);
+	//long* idp = malloc(sizeof(long));
+	//*idp = get_tag_id(t);
 	
-	g_hash_table_insert(m->tags,idp,t);
+	g_hash_table_insert(m->tags, name, t);
 }
 
 void iterate_community_posts(TAD_community m, GHFunc func, gpointer data){

@@ -144,7 +144,7 @@ void parse_tags(void* user_data, const xmlChar* name, const xmlChar** atributos)
 
 	newtag = create_tag(tagname, tagID);
 
-	add_community_tag(com, tagID, newtag);
+	add_community_tag(com, tagname, newtag);
 
 	if(tagname) free(tagname);
 }

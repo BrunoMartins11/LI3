@@ -72,7 +72,7 @@ TAG get_community_tag(TAD_community m, char* id);
  *@param t  Tag que vai ser inserida
  *@return  
  */
-void add_community_tag(TAD_community m, long id, TAG t);
+void add_community_tag(TAD_community m, char* name, TAG t);
 
 /**\ Itera a GHashTable dos Profiles aplicando uma função a cada elemento guardando o resultado
 	 numa estrutura externa.
@@ -99,8 +99,6 @@ int str_in_postTitle(POST p, char* str);
  */
 void iterate_community_posts(TAD_community m, GHFunc func, gpointer data);
 
-
-void add_questions_to_array(gpointer key, gpointer value, gpointer user_data);
 
 /**\ Retorna a estrutura onde estão guardados os ids de posts ordenados por data.
  *@param m  Estrutura principal
