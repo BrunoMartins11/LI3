@@ -58,8 +58,6 @@ POST get_community_post(TAD_community m, long id){
 }
 
 
-
-
 void add_community_post(TAD_community m, long id, POST p){
 	
 	long* idp = malloc(sizeof(long));
@@ -102,7 +100,7 @@ void add_community_profile(TAD_community m, long id, PROFILE p){
 
 TAG get_community_tag(TAD_community m, char* id){
 	
-	return (TAG)g_hash_table_lookup(m->tags,&id);
+	return (TAG)g_hash_table_lookup(m->tags, id);
 }
 
 
@@ -119,7 +117,7 @@ void iterate_community_posts(TAD_community m, GHFunc func, gpointer data){
 }
 
 void iterate_community_users(TAD_community m, GHFunc func, gpointer data){
-	g_hash_table_foreach(m->profile, (GHFunc) func,data);
+	g_hash_table_foreach(m->profile, (GHFunc) func, data);
 }
 
 POSTSDATE get_postsdate(TAD_community m){

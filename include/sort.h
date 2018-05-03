@@ -28,5 +28,9 @@ int listG_reverse_sort_answer(gconstpointer post_1, gconstpointer post_2);
  */
 int listG_reverse_sort_score(gconstpointer post_1, gconstpointer post_2);
 
+int listG_reverse_sort_pair_snd(gconstpointer pair_1, gconstpointer pair_2);
+
+int listG_reverse_sort_rep(gconstpointer prf_1, gconstpointer prf_2);
+
 
 #endif

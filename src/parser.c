@@ -142,11 +142,10 @@ void parse_tags(void* user_data, const xmlChar* name, const xmlChar** atributos)
 		atributos += 2; // 0 = atributo, 1 = valor do atributo
 	}
 
-	newtag = create_tag(tagname, tagID);
-
-	add_community_tag(com, tagname, newtag);
-
-	if(tagname) free(tagname);
+	if(tagname){
+		newtag = create_tag(tagname, tagID);
+		add_community_tag(com, tagname, newtag);
+	}
 }
 
 
@@ -177,7 +176,7 @@ TAD_community load(TAD_community com, char* dump_path){
 
 	xmlSAXHandler z = {0};
 	
-	x.startElement = parse_tags;
+	z.startElement = parse_tags;
 	
 	sprintf(pathfile, "%s%s", dump_path, "Tags.xml"); 
 	if((n=xmlSAXUserParseFile(&z, com, pathfile))){

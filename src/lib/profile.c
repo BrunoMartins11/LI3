@@ -79,3 +79,7 @@ void free_profile(void* po){ //PorquÊ void* ?
 		free(p);
 	}
 }
+
+void add_profiles_to_array(gpointer key, gpointer value, gpointer user_data){
+	g_array_append_val(user_data, value);
+}

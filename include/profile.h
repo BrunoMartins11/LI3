@@ -66,6 +66,9 @@ void add_profile_post(PROFILE p, long id);
  */
 int get_profile_post_count(PROFILE p);
 
+
+void add_profiles_to_array(gpointer key, gpointer value, gpointer user_data);
+
 /**\ @brief Liberta a memória alocada para um Profile.
  *@param p Profile
  *@return   
