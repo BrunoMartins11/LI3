@@ -3,6 +3,7 @@
 #include "posts.h"
 #include "profile.h"
 #include "pair.h"
+#include "postsDate.h"
 
 int listG_reverse_sort_id(gconstpointer num_a, gconstpointer num_b){
 
@@ -56,4 +57,12 @@ int listG_reverse_sort_pair_snd(gconstpointer pair_1, gconstpointer pair_2){
 	LONG_pair* p2 = (LONG_pair*) pair_2;
 
 	return (int) (get_snd_long(*p2) - get_snd_long(*p1));
+}
+
+int listG_reverse_sort_date(gconstpointer post_1, gconstpointer post_2){
+	
+	POST* p1 = (POST*) post_1;
+	POST* p2 = (POST*) post_2;
+
+	return (int) (date_to_int(get_post_date(*p2)) - date_to_int(get_post_date(*p1)));
 }

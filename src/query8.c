@@ -18,26 +18,22 @@
 LONG_list contains_word(TAD_community com, char* word, int N){
 
 	int i, keys_size, index = 0;
-	long id;
 
 	POST p;
 	LONG_list last_n;
 
 	//Criação da lista, adição de elementos, ordenação e obtenção do tamanho.
-	GArray* keys = g_array_new(FALSE, TRUE, sizeof(long));
+	GArray* keys = g_array_new(FALSE, TRUE, sizeof(POST));
 	iterate_community_posts(com, add_questions_to_array, keys);
-	g_array_sort(keys, listG_reverse_sort_id);
+	g_array_sort(keys, listG_reverse_sort_date);
 	keys_size = (int) keys->len;
 
-	last_n = create_list(keys_size);
-
+	last_n = create_list(N);
 
 	for(i = 0; i < keys_size && index < N; i++){
 		
 		//elemento da lista no index i
-		id = g_array_index(keys, long, i);
-
-		p = get_community_post(com, id);
+		p = g_array_index(keys, POST, i);
 		
 		//retorna true se a palavra word está no título do post
 		if(str_in_postTitle(p, word)){
@@ -46,6 +42,8 @@ LONG_list contains_word(TAD_community com, char* word, int N){
 			index++;
 		}
 	}
+
+	g_free(g_array_free(keys, FALSE));
 
 	return last_n;
 }

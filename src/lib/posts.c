@@ -6,6 +6,7 @@
 #include "posts.h"
 #include "date.h"
 #include "postsDate.h"
+#include "tags.h"
 
 struct posts{		//esta struct tem campos de perguntas e respostas, 
 					//para que consiga conter ambos, tornando possivel ter perguntas e respostas no mesmo array(por exemplo).	
@@ -123,20 +124,28 @@ int str_in_postTitle(POST p, char* str){
 
 int tag_in_post(POST p, char* str){
 
-	if(get_post_tags(p)){
-		if (strstr(get_post_tags(p), str) != NULL)
-			return 1;
-		else 
-			return 0;
-	}
-	else
+	if(get_post_type(p) == 2)
 		return 0;
+
+	TAGSPOST tp = get_all_tags(p);
+
+	for(int i = 0; get_tag_index(tp, i); i++){
+		
+		char* tag = get_tag_index(tp, i);
+
+		if(g_strcmp0(tag, str) == 0){
+			free_tagspost(tp);
+			return 1;
+		}
+	}
+	
+	free_tagspost(tp);
+	return 0;
 }
 
 void add_questions_to_array(gpointer key, gpointer value, gpointer user_data){
 	if(get_post_type(value) == 1){
-		long id = get_post_id(value);
-		g_array_append_val(user_data, id);
+		g_array_append_val(user_data, value);
 	}
 }
 

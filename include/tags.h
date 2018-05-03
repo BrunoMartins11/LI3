@@ -10,15 +10,30 @@ typedef struct tag *TAG;
 
 typedef struct TagsFromPost *TAGSPOST;
 
+/**\ @brief Cria TAGSPOST. 
+ *@return      Estrutura TAGSPOST
+ */
 TAGSPOST create_tagspost();
 
+/**\ @brief Estrutura TAGSPOST com todas as tags de um post. 
+ *@param p Post para analisar as Tags
+ *@return Estrutura TAGSPOST
+ */
 TAGSPOST get_all_tags(POST p);
 
+/**\ @brief Retorna o nome da tag em um determinado índice. 
+ *@param tp Estrutura TAGSPOST
+ *@param index índice
+ *@return nome da tag
+ */
 char* get_tag_index(TAGSPOST tp, int index);
 
+/**\ @brief Limpa da memória uma TAGSPOST. 
+ *@param tp Apontador para a TAGSPOST
+ *@return 
+ */
 void free_tagspost(TAGSPOST tp);
 
-/**\ Cria uma Tag. 
 /**\ @brief Cria uma Tag. 
  *@param name  String que contém a tag
  *@param tagID ID da tag

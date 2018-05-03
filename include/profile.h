@@ -66,7 +66,12 @@ void add_profile_post(PROFILE p, long id);
  */
 int get_profile_post_count(PROFILE p);
 
-
+/**\ @brief Adiciona profiles a um array.
+ *@param key a chave da hashtable
+ *@param value o valor da hashtable
+ *@param user_data o array
+ *@return
+ */
 void add_profiles_to_array(gpointer key, gpointer value, gpointer user_data);
 
 /**\ @brief Liberta a memória alocada para um Profile.

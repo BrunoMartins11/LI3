@@ -8,8 +8,12 @@
 #include "sort.h"
 #include "pair.h"
 
-
-//Retorna o indice em que o primeiro elemento do par (id) está na list ou -1 caso o par nao esteja na lista
+//
+/**\ @brief Retorna o indice em que o primeiro elemento do par (id) está na list ou -1 caso o par nao esteja na lista
+*@param array    O array 
+*@param id		Primeiro elemento do par
+*@return  	 Indice do par em que o primeiro elemento é igual ao id ou -1 caso o id não esteja na lista
+*/
 int pair_fst_in_list(GArray* array, long id){
 
     int i;
@@ -25,9 +29,14 @@ int pair_fst_in_list(GArray* array, long id){
     return -1;
 }
 
-
-//Dado um intervalo arbitrario de tempo, devolver os identificadores das N tags mais usadas pelos N  
-//utilizadores com melhor reputaçao. Em ordem decrescente do numero de vezes em que a tag foi usada
+/**\ @brief Dado um intervalo arbitrario de tempo, devolver os identificadores das N tags mais usadas pelos N  
+utilizadores com melhor reputaçao. Em ordem decrescente do numero de vezes em que a tag foi usada
+*@param com    Estrutura global 
+*@param N		Quantida de Tags para fazer o retorno e também a quantidade de utilizadores a considerar
+*@param begin  Início do intervalo de tempo
+*@param end    Fim do intervalo de tempo
+*@return  	 Lista com os IDs das tags mais usadas pelos N utilizadores com melhor reputação
+*/
 LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
 
     int i, j, index, size;
@@ -47,7 +56,7 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     iterate_community_users(com, add_profiles_to_array, best_users);
     g_array_sort(best_users, listG_reverse_sort_rep);
 
-	//Lista de todos os posts entre as datas 
+	//Lista de todos os posts entre as datas
 	GArray* id_list_date = posts_id_between_dates(p_date, begin, end);
 	size = (int) id_list_date->len;
 
@@ -71,7 +80,7 @@ LONG_list most_used_best_rep(TAD_community com, int N, Date begin, Date end){
     g_free(g_array_free(id_list_date, FALSE));
     g_free(g_array_free(best_users, FALSE));
 
-    //Analise as tags de cada post, separa em pares em faz a contagem
+    //Analisa as tags de cada post, separa em pares em faz a contagem
     for(i = 0; i < questions_post->len; i++){
 
         p = g_array_index(questions_post, POST, i);
