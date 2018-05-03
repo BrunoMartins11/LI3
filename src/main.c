@@ -10,7 +10,7 @@ int main(){
   char path[30];
   sprintf(path, "%s%s", home, "/LI3/");
   load(com, path);
-
+/*
   STR_pair x = info_from_post(com, 801049); 
   free_str_pair(x);
   LONG_list l = top_most_active(com, 10);
@@ -27,7 +27,7 @@ int main(){
    LONG_list e = both_participated(com, 5, 4, 10);
    free_list(e);
   //for(int t=0; t<10; t++)
-  //  printf("%ld\n", get_list(h,t));*/
+  //  printf("%ld\n", get_list(h,t));
   //printf("%s, %s\n", get_fst_str(x),get_snd_str(x));
 
   Date begin = createDate(1, 11, 2015);
@@ -44,6 +44,7 @@ int main(){
   //printf("%ld\n", thing);
   free_date(begin);
   free_date(end);
+  */
   clean(com);
  return 0;
 } 
