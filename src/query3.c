@@ -7,7 +7,7 @@
 #include "postsDate.h"
 
 
-/**\ Dado um intervalo de tempo arbitrário obte o número total de posts
+/**\ @brief Dado um intervalo de tempo arbitrário obte o número total de posts
 	 (identificando perguntas e respostas separadamente) neste período.
  *@param com    Estrutura global 
  *@param begin  Início do intervalo de tempo

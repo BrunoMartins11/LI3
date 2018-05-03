@@ -6,7 +6,7 @@
 #include "date.h"
 #include "postsDate.h"
 
-/**\Dado um intervalo de tempo arbitrario, retornar todas as perguntas contendo uma determinada tag. 
+/**\ @brief Dado um intervalo de tempo arbitrario, retornar todas as perguntas contendo uma determinada tag. 
 O retorno da funçao deveraa ser uma lista com os IDs das perguntas ordenadas em cronologia inversa.
 *@param com    Estrutura global 
 *@param tag		A tag procurada

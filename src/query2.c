@@ -9,7 +9,7 @@
 #include "tadCommunity.h"
 #include "par.h"
 
-/**\ Compara os valores do PostCount de dois pares como função de comparação para ordenar o GPtrArray.
+/**\ @brief Compara os valores do PostCount de dois pares como função de comparação para ordenar o GPtrArray.
  *@param p1  Apontador para o valor a comparar
  *@param p2  Apontador para o elemento do GPtrArray 
  *@return  	 gint resultante da subtração do PostCount dos dois pares
@@ -21,7 +21,7 @@ gint fcompare(gconstpointer p1, gconstpointer p2){
 }
 
 
-/**\ Insere no GPtrArray o par que contem o ID do utilizador e o seu respetivo PostCount.
+/**\ @brief Insere no GPtrArray o par que contem o ID do utilizador e o seu respetivo PostCount.
  *@param key   Apontador para a chave do profile
  *@param value Apontador para o profile
  *@param list  Apontador para a estrutura onde vai inserir o par
@@ -39,7 +39,7 @@ void insert_pCount_GList_user(gpointer key, gpointer value, gpointer list){
 }
 
 
-/**\ Cria o GPtrArray onde vão ser inseridos os elementos resultantes da função que itera a GHashTable 
+/**\ @brief Cria o GPtrArray onde vão ser inseridos os elementos resultantes da função que itera a GHashTable 
 	de Profiles.
  *@param com  Estrutura global
  *@param func Função que vai ser aplicada a todos os Profiles

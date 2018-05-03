@@ -8,7 +8,7 @@
 #include "date.h"
 #include "sort.h"
 
-/**\ Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham, 
+/**\ @brief Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham, 
 	 ordenados por cronologia inversa
 *@param com    Estrutura global 
 *@param word	Palavra a ser procurada nos títulos dos posts

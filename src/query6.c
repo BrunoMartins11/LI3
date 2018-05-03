@@ -6,7 +6,7 @@
 #include "date.h"
 #include "postsDate.h"
 
-/**\Dado um intervalo de tempo arbitrario, devolver os IDs das N respostas com mais votos, 
+/**\ @brief Dado um intervalo de tempo arbitrario, devolver os IDs das N respostas com mais votos, 
 em ordem decrescente do numero de votos; O nuumero de votos devera ser obtido pela diferença entre 
 Up Votes (UpMod6) e Down Votes (DownMod).
 *@param com    Estrutura global 

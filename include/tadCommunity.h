@@ -74,7 +74,7 @@ TAG get_community_tag(TAD_community m, char* id);
  */
 void add_community_tag(TAD_community m, char* name, TAG t);
 
-/**\ Itera a GHashTable dos Profiles aplicando uma função a cada elemento guardando o resultado
+/**\@brief Itera a GHashTable dos Profiles aplicando uma função a cada elemento guardando o resultado
 	 numa estrutura externa.
  *@param m    Estrutura principal
  *@param func Função que é aplicada a todos os elementos da GHashTable
@@ -83,14 +83,14 @@ void add_community_tag(TAD_community m, char* name, TAG t);
  */
 void iterate_community_users(TAD_community m, GHFunc func, gpointer data);
 
-/**\ Verifica se uma string está presente num titulo de um Post.
+/**\ @brief Verifica se uma string está presente num titulo de um Post.
  *@param p   Post
  *@param str String
  *@return    inteiro  
  */
 int str_in_postTitle(POST p, char* str);
 
-/**\ Itera a GHashTable dos Posts aplicando uma função a cada elemento guardando o resultado
+/**\ @brief Itera a GHashTable dos Posts aplicando uma função a cada elemento guardando o resultado
 	 numa estrutura externa.
  *@param m    Estrutura principal
  *@param func Função que é aplicada a todos os elementos da GHashTable
@@ -100,7 +100,7 @@ int str_in_postTitle(POST p, char* str);
 void iterate_community_posts(TAD_community m, GHFunc func, gpointer data);
 
 
-/**\ Retorna a estrutura onde estão guardados os ids de posts ordenados por data.
+/**\ @brief Retorna a estrutura onde estão guardados os ids de posts ordenados por data.
  *@param m  Estrutura principal
  *@return   PostsDate
  */

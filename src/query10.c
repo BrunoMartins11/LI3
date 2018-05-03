@@ -8,7 +8,7 @@
 #include "profile.h"
 #include "tadCommunity.h"
 
-/**\ Procura a melhor resposta a uma pergunta.
+/**\ @brief Procura a melhor resposta a uma pergunta.
  *@param com  Estrutura global 
  *@param id   ID da pergunta
  *@return  	  ID da melhor resposta

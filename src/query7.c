@@ -7,7 +7,7 @@
 #include "postsDate.h"
 
 
-/**\Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas, em ordem decrescente do numero
+/**\ @brief Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas, em ordem decrescente do numero
 *@param com    Estrutura global 
 *@param N		Número de IDs esperados na lista de retorno
 *@param begin  Início do intervalo de tempo
