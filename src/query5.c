@@ -19,14 +19,12 @@ USER get_user_info(TAD_community com, long id){
 
 	for(i=0; i<get_profile_post_count(p) && i<10; i++){
 		aux[i]= g_array_index(userPosts, long, i);
-		//printf("%ld\n",aux[i]);
 		pcount--;
 	}
 	if(i<10){
 		while(i<10){
 			aux[i]=0;
 			i++;
-			//printf("%ld\n",aux[i]);
 		}
 	}
 
