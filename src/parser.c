@@ -10,7 +10,7 @@
 
 
 
-Date parse_date(char* d){
+static Date parse_date(char* d){
 	
 	int dia, mes, ano;
 	sscanf( d,"%d-%d-%d", &ano, &mes, &dia);
@@ -18,7 +18,7 @@ Date parse_date(char* d){
 }
 
 
-void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos){
+static void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos){
 
 	PROFILE newuser;
 	TAD_community com   = (TAD_community) user_data;
@@ -57,7 +57,7 @@ void parse_user(void* user_data, const xmlChar* name, const xmlChar** atributos)
 
 
 
-void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos){
+static void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos){
 
 	POST newpost;
 	TAD_community com = (TAD_community) user_data;
@@ -124,7 +124,7 @@ void parse_post(void* user_data, const xmlChar* name, const xmlChar** atributos)
 }
 
 
-void parse_tags(void* user_data, const xmlChar* name, const xmlChar** atributos){
+static void parse_tags(void* user_data, const xmlChar* name, const xmlChar** atributos){
 
 	TAG newtag;
 	TAD_community com = (TAD_community) user_data;

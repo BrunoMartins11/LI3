@@ -34,7 +34,6 @@ a informaçao da pergunta a que responde)
 STR_pair info_from_post(TAD_community com, long id){
 	
 	POST p = get_community_post(com,id);
-	//long ownerID = get_post_owner(p);
 	
 	if(!p) return NULL;
 	if (get_post_type(p) == 2){	
