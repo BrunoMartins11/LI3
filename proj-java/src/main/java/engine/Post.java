@@ -1,7 +1,6 @@
 package main.java.engine;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 
 public abstract class Post {
 
@@ -9,17 +8,17 @@ public abstract class Post {
     private long ownerID;
     private long score;
     private int commentCount;
-    private LocalDateTime date;
+    private LocalDate date;
 
     public Post(){
         this.id = 0;
         this.ownerID = 0;
         this.score = 0;
         this.commentCount = 0;
-        this.date = LocalDateTime.now();
+        this.date = LocalDate.now();
     }
 
-    public Post(long id, long owner_id, long score, int cc, LocalDateTime date){
+    public Post(long id, long owner_id, long score, int cc, LocalDate date){
         this.id = id;
         this.ownerID = id;
         this.score = score;
@@ -53,7 +52,7 @@ public abstract class Post {
         return this.commentCount;
     }
 
-    public LocalDateTime getDate(){
+    public LocalDate getDate(){
         return this.date;
     }
 
@@ -73,11 +72,26 @@ public abstract class Post {
         this.commentCount = number;
     }
 
-    public void setDate(LocalDateTime date){
+    public void setDate(LocalDate date){
         this.date = date;
     }
 
-    
+    public abstract Post clone();
 
+    public boolean equals(Object o){
+        if (this == o)
+            return true;
+
+        else if (o == null || this.getClass() != o.getClass())
+            return false;
+
+        else {
+            Post p = (Post) o;
+
+            return (this.getID() == p.getID() && this.getOwnerID() == p.getOwnerID() && 
+                    this.getScore() == p.getScore() && this.getDate().equals(p.getDate()) && 
+                    this.getCommentCount() == p.getCommentCount());
+        }
+    }
 }
 

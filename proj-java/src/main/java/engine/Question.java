@@ -25,10 +25,12 @@ public class Question extends Post {
         this.answerCount = answerCount;
         
         this.tags = new ArrayList<>();
-        this.tags.addAll(tags);
+        for (Tag t : tags)
+            this.tags.add(t.clone());
         
         this.answers = new ArrayList<>();
-        this.answers.addAll(answers);
+        for (Answer a : answers)
+            this.answers.add(a.clone());
     }
 
     public Question(Question object){
@@ -78,4 +80,20 @@ public class Question extends Post {
         this.answers.add(answer);
     }
 
+    public Question clone(){
+        return new Question(this);
+    }
+
+    public boolean equal(Object o){
+
+        if (super.equals(o)){
+            Question q = (Question) o;
+            return (this.getAnswers().equals(q.getAnswers()) && this.getTags().equals(q.getTags()) &&
+                    this.getTitle().equals(q.getTitle()));
+        }
+        
+        else 
+            return false;
+    }
+        
 }

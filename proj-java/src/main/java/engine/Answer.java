@@ -26,4 +26,19 @@ public class Answer extends Post {
     public void setParentID(long parentID){
         this.parentID = parentID;
     }
+
+    public Answer clone(){
+        return new Answer(this);
+    }
+
+    public boolean equals(Object o){
+       
+        if (super.equals(o)){
+            Answer ans = (Answer) o;
+            return (this.getParentID() == ans.getParentID());
+        }
+        
+        else
+            return false;
+    }
 }
