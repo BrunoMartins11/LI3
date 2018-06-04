@@ -1,4 +1,4 @@
-package main.java.engine;
+package main.java.common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +78,19 @@ public class Question extends Post {
 
     public void addAnswer(Answer answer){
         this.answers.add(answer);
+    }
+
+    public boolean containsTag(Tag tag){
+        return this.tags.contains(tag);
+    }
+
+    public boolean containsTag(String name){
+
+        for (Tag tag : this.tags){
+            if (tag.getName().toLowerCase().equals(name.toLowerCase()))
+                return true;
+        }
+        return false;
     }
 
     public Question clone(){
