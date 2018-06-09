@@ -1,28 +1,27 @@
 package main.java.common;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Question extends Post {
 
     private String title;
-    private List<Tags> tags;
+    private List<Tag> tags;
     private List<Answer> answers;
 
     public Question(){
         super();
         this.title = "";
-        this.answerCount = 0;
         this.tags = new ArrayList<>();
         this.answers = new ArrayList<>();
     }
 
-    public Question(long id, long owner_id, long score, int cc, LocalDateTime date, 
+    public Question(long id, long owner_id, long score, int cc, LocalDateTime date,
                     String title, List<Tag> tags, List<Answer> answers){
 
         super(id, owner_id, score, cc, date);
         this.title = title;
-        this.answerCount = answerCount;
         
         this.tags = new ArrayList<>();
         for (Tag t : tags)
@@ -52,8 +51,8 @@ public class Question extends Post {
         return this.answers.size();
     }
 
-    public List<String> getTags(){
-        return this.tags;
+    public List<Tag> getTags(){
+        return new ArrayList<>(this.tags);
     }
 
     public List<Answer> getAnswers(){
@@ -64,8 +63,8 @@ public class Question extends Post {
         this.title = title;
     }
 
-    public setTags(List<Tag> tags){
-        this.tags.addAll(tag);
+    public void setTags(List<Tag> tags){
+        this.tags.addAll(tags);
     }
 
     public void setAnswers(List<Answer> answers){

@@ -1,6 +1,7 @@
 package main.java.common;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public abstract class Post {
 
@@ -8,17 +9,17 @@ public abstract class Post {
     private long ownerID;
     private long score;
     private int commentCount;
-    private LocalDate date;
+    private LocalDateTime date;
 
     public Post(){
         this.id = 0;
         this.ownerID = 0;
         this.score = 0;
         this.commentCount = 0;
-        this.date = LocalDate.now();
+        this.date = LocalDateTime.now();
     }
 
-    public Post(long id, long owner_id, long score, int cc, LocalDate date){
+    public Post(long id, long owner_id, long score, int cc, LocalDateTime date){
         this.id = id;
         this.ownerID = id;
         this.score = score;
@@ -52,7 +53,7 @@ public abstract class Post {
         return this.commentCount;
     }
 
-    public LocalDate getDate(){
+    public LocalDateTime getDate(){
         return this.date;
     }
 
@@ -72,7 +73,7 @@ public abstract class Post {
         this.commentCount = number;
     }
 
-    public void setDate(LocalDate date){
+    public void setDate(LocalDateTime date){
         this.date = date;
     }
 

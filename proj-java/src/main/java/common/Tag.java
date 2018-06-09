@@ -7,7 +7,7 @@ public class Tag {
 
     public Tag(){
         this.id = 0;
-        this.name = 0;
+        this.name = "";
     }
 
     public Tag(long id, String name){
@@ -39,4 +39,5 @@ public class Tag {
     public Tag clone(){
         return new Tag(this);
     }
+
 }

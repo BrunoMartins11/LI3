@@ -1,13 +1,14 @@
 package main.java.engine;
 
+import main.java.common.*;
+import main.java.sort.PostDateComparator;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import li3.TADCommunity;
-import main.java.sort.*;
-import main.java.common.*;
 
 
 public class TCDCommunity /*implements TADCommunity*/{
@@ -17,7 +18,7 @@ public class TCDCommunity /*implements TADCommunity*/{
     private Map<Long,Tag> tags;
 
     //Query 3
-    public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end){
+    public Pair<Long,Long> totalPosts(LocalDateTime begin, LocalDateTime end){
 
         Stream posts_dates = posts.entrySet().stream().map(p -> p.getValue()).
             filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end));
@@ -29,13 +30,12 @@ public class TCDCommunity /*implements TADCommunity*/{
     }
 
     //Query 4
-    public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end){
-        
-        Stream posts_dates = posts.entrySet().stream().map(p -> p.getValue()).
-            filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end));
+    public List<Long> questionsWithTag(String tag, LocalDateTime begin, LocalDateTime end){
 
-        ArrayList<Question> question_tag = posts_dates.filter(q -> q instanceof Question).
-            filter(q -> q.containsTag(tag)).collect(Collectors.toList());
+        ArrayList<Question> question_tag = posts.entrySet().stream().map(p -> p.getValue()).
+                filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
+                .filter(q -> q instanceof Question)
+                .filter(q -> q.containsTag(tag)).collect(Collectors.toList());
 
 
         return question_tag.stream().sorted(new PostDateComparator()).map(p -> p.getID()).collect(Collectors.toList());
@@ -44,8 +44,9 @@ public class TCDCommunity /*implements TADCommunity*/{
     //Query 8
     public List<Long> containsWord(int N, String word){
 
-        ArrayList<Question> question_word = posts.entrySet().stream().filter(p -> p.getValue() instanceof Question).
-            collect(Collectors.toList()).sort(new PostDateComparator());
+        ArrayList<Question> question_word = posts.entrySet().stream()
+                .filter(p -> p.getValue() instanceof Question)
+                .collect(Collectors.toList()).sort(new PostDateComparator());
 
         return question_word.stream().filter(q -> q.getTitle().contains(word)).limit(N).
             map(q -> q.getID()).collect(Collectors.toList());

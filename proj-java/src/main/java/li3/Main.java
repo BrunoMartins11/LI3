@@ -1,7 +1,7 @@
-package li3;
 
-import common.MyLog;
-import common.Pair;
+package main.java.li3;
+
+import main.java.common.Pair;
 import engine.TCDExample;
 
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ public class Main {
 
         /*
             LOG CONFIGURATION
-        */
+
         MyLog log = new MyLog("results");
         MyLog logtime = new MyLog("times");
         /* -------------------------------------------------------------------------------------------*/
@@ -25,7 +25,7 @@ public class Main {
 
         /*
             LOAD PHASE
-         */
+
         try {
         before = System.currentTimeMillis();
         qe.load(args[0]);
@@ -151,4 +151,4 @@ public class Main {
 
 }
 
-
+*/
