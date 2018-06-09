@@ -1,6 +1,5 @@
 package main.java.common;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class Post {

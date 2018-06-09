@@ -1,8 +1,9 @@
 package main.java.li3;
 
+import main.java.common.Pair;
+
 import java.time.LocalDate;
 import java.util.List;
-import main.java.common.Pair;
 
 
 public interface TADCommunity {

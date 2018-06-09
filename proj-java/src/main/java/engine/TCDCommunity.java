@@ -2,6 +2,7 @@ package main.java.engine;
 
 import main.java.common.*;
 import main.java.sort.PostDateComparator;
+import main.java.sort.UserPostCountComparator;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,14 +17,36 @@ public class TCDCommunity /*implements TADCommunity*/ {
     private Map<Long,User> users;
     private Map<Long,Tag> tags;
 
+    //Query1
+    public Pair<String,String> infoFromPost(long id){
+
+        Post p = posts.get(id);
+        Question q;
+
+        if(p instanceof Question) q = (Question) p;
+            else{
+
+                q = (Question) posts.get(((Answer) p).getParentID());
+        }
+        return new Pair<>(users.get(q.getOwnerID()).getName(),q.getTitle());
+    }
+
+    // Query 2
+    public List<Long> topMostActive(int N){
+
+        return users.values().stream().sorted(new UserPostCountComparator())
+                .limit(N).map(User::getID).collect(Collectors.toList());
+    }
+
+
     //Query 3
     public Pair<Long,Long> totalPosts(LocalDateTime begin, LocalDateTime end){
 
         Stream posts_dates = posts.entrySet().stream().map(p -> p.getValue()).
             filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end));
 
-        long ans = (long) posts_dates.filter(p -> p instanceof Answer).count();
-        long qst = (long) posts_dates.filter(p -> p instanceof Question).count();
+        long ans = posts_dates.filter(p -> p instanceof Answer).count();
+        long qst = posts_dates.filter(p -> p instanceof Question).count();
 
         return new Pair<Long,Long>(ans, qst);
     }
