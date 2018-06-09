@@ -1,3 +1,4 @@
+/*
 package engine;
 
 import common.MyLog;
@@ -24,7 +25,7 @@ public class TCDExample implements TADCommunity {
         this.qelog = new MyLog("queryengine");
     }
     */
-
+/*
     public void load(String dumpPath) {
         File inputFile = new File(dumpPath);
         try {
@@ -116,3 +117,4 @@ public class TCDExample implements TADCommunity {
 
     }
 }
+*/

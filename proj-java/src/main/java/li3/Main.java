@@ -2,8 +2,8 @@
 package main.java.li3;
 
 import main.java.common.Pair;
-import engine.TCDExample;
 
+import main.java.engine.TCDCommunity;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Main {
         /* -------------------------------------------------------------------------------------------*/
 
         long before, after;
-        TADCommunity qe = new TCDExample();
+        TADCommunity qe = new TCDCommunity();
 
         /*
             LOAD PHASE
