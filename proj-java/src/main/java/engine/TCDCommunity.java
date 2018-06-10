@@ -6,6 +6,7 @@ import main.java.sort.PostDateComparator;
 import main.java.sort.UserPostCountComparator;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,6 +18,26 @@ public class TCDCommunity /*implements TADCommunity*/ {
     private Map<Long,Post> posts;
     private Map<Long,User> users;
     private Map<Long,Tag> tags;
+
+    public TCDCommunity(){
+        this.posts = new HashMap<>();
+        this.users = new HashMap<>();
+        this.tags = new HashMap<>();
+    }
+
+
+    public void addPost(Post p){
+        this.posts.put(p.getID(), p);
+
+    }
+
+    public void addUser(User u){
+        this.users.put(u.getID(), u);
+    }
+
+    public void addTag(Tag t){
+        this.tags.put(t.getID(), t);
+    }
 
     //Query1
     public Pair<String,String> infoFromPost(long id){
@@ -43,7 +64,8 @@ public class TCDCommunity /*implements TADCommunity*/ {
     //Query 3
     public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end){
 
-        Stream posts_dates = posts.entrySet().stream().map(p -> p.getValue()).
+        // Se é stream, é stream de algo, cabeça de piça ~ herulume
+        Stream<Post> posts_dates = posts.entrySet().stream().map(Map.Entry::getValue).
             filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end));
 
         long ans = posts_dates.filter(p -> p instanceof Answer).count();
@@ -55,13 +77,13 @@ public class TCDCommunity /*implements TADCommunity*/ {
     //Query 4
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end){
 
-        List<Question> question_tag = posts.entrySet().stream().map(p -> p.getValue()).
+        List<Question> question_tag = posts.entrySet().stream().map(Map.Entry::getValue).
                 filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
                 .filter(q -> q instanceof Question).map(p -> (Question) p)
                 .filter(q -> q.containsTag(tag)).collect(Collectors.toList());
 
 
-        return question_tag.stream().sorted(new PostDateComparator()).map(p -> p.getID()).collect(Collectors.toList());
+        return question_tag.stream().sorted(new PostDateComparator()).map(Post::getID).collect(Collectors.toList());
     }
 
     // Query 5
@@ -91,7 +113,7 @@ public class TCDCommunity /*implements TADCommunity*/ {
                 .collect(Collectors.toList());
 
         return question_word.stream().filter(q -> q.getTitle().contains(word)).limit(N).
-            map(q -> q.getID()).collect(Collectors.toList());
+            map(Post::getID).collect(Collectors.toList());
     }
 
     // Query 10
