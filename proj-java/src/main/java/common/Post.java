@@ -1,24 +1,24 @@
 package main.java.common;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public abstract class Post {
 
     private long id;
     private long ownerID;
     private long score;
-    private int commentCount;
-    private LocalDateTime date;
+    private long commentCount;
+    private LocalDate date;
 
     public Post(){
         this.id = 0;
         this.ownerID = 0;
         this.score = 0;
         this.commentCount = 0;
-        this.date = LocalDateTime.now();
+        this.date = LocalDate.now();
     }
 
-    public Post(long id, long owner_id, long score, int cc, LocalDateTime date){
+    public Post(long id, long owner_id, long score, int cc, LocalDate date){
         this.id = id;
         this.ownerID = id;
         this.score = score;
@@ -48,11 +48,11 @@ public abstract class Post {
         return this.score;
     }
 
-    public int getCommentCount(){
+    public long getCommentCount(){
         return this.commentCount;
     }
 
-    public LocalDateTime getDate(){
+    public LocalDate getDate(){
         return this.date;
     }
 
@@ -72,7 +72,7 @@ public abstract class Post {
         this.commentCount = number;
     }
 
-    public void setDate(LocalDateTime date){
+    public void setDate(LocalDate date){
         this.date = date;
     }
 

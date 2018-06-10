@@ -1,10 +1,11 @@
 package main.java.engine;
 
 import main.java.common.*;
+import main.java.sort.AnswerCountComparator;
 import main.java.sort.PostDateComparator;
 import main.java.sort.UserPostCountComparator;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
 
     //Query 3
-    public Pair<Long,Long> totalPosts(LocalDateTime begin, LocalDateTime end){
+    public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end){
 
         Stream posts_dates = posts.entrySet().stream().map(p -> p.getValue()).
             filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end));
@@ -52,7 +53,7 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     //Query 4
-    public List<Long> questionsWithTag(String tag, LocalDateTime begin, LocalDateTime end){
+    public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end){
 
         List<Question> question_tag = posts.entrySet().stream().map(p -> p.getValue()).
                 filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
@@ -61,6 +62,24 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
 
         return question_tag.stream().sorted(new PostDateComparator()).map(p -> p.getID()).collect(Collectors.toList());
+    }
+
+    // Query 5
+    public Pair<String, List<Long>> getUserInfo(long id){
+        List<Long> l = users.get(id).getPosts().stream().sorted(new PostDateComparator())
+                .limit(10).map(Post::getID).collect(Collectors.toList());
+
+        return new Pair<>(users.get(id).getAboutMe(),l);
+    }
+
+    // Query 7
+    public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
+
+        List<Question> lq = posts.values().stream().filter(p -> p instanceof Question)
+                            .map(p->(Question) p).sorted(new AnswerCountComparator()).limit(N).collect(Collectors.toList());
+
+        return lq.stream().map(Question::getID).collect(Collectors.toList());
+
     }
 
     //Query 8
@@ -73,5 +92,22 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
         return question_word.stream().filter(q -> q.getTitle().contains(word)).limit(N).
             map(q -> q.getID()).collect(Collectors.toList());
+    }
+
+    // Query 10
+    public long betterAnswer(long id){
+        Question q = (Question) posts.get(id);
+        List<Answer> l = q.getAnswers();
+        double max = 0;
+        double sc = 0;
+        long bid = 0;
+        for(Answer a : l){
+            sc = a.getCommentCount()*0.1+users.get(a.getOwnerID()).getReputation()*0.25+a.getScore()*0.65;
+            if(max<sc){
+                max = sc;
+                bid = a.getID();
+            }
+        }
+        return bid;
     }
 }

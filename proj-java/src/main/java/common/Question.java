@@ -1,6 +1,6 @@
 package main.java.common;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Question extends Post {
         this.answers = new ArrayList<>();
     }
 
-    public Question(long id, long owner_id, long score, int cc, LocalDateTime date,
+    public Question(long id, long owner_id, long score, int cc, LocalDate date,
                     String title, List<Tag> tags, List<Answer> answers){
 
         super(id, owner_id, score, cc, date);
@@ -56,7 +56,7 @@ public class Question extends Post {
     }
 
     public List<Answer> getAnswers(){
-        return this.answers;
+        return new ArrayList<>(this.answers);
     }
 
     public void setTtitle(String title){
