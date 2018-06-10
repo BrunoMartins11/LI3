@@ -8,8 +8,10 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.*;
+
 
 public class Parser {
 
@@ -81,8 +83,22 @@ class PostParser extends DefaultHandler {
         long commentCount;      //Posts
         LocalDate date;         //Posts
         String title;           //Questions
-        List<Tag> tags;         //Questions
+        String tags;            //Questions
         List<Answer> answers;   //Questions
+        long parentID;          //Answers
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        if(atts.getValue("PostTypeId").equals("1")){
+            id = Long.parseLong(atts.getValue("Id"));
+            ownerID = Long.parseLong(atts.getValue("OwnerUserId"));
+            score = Long.parseLong(atts.getValue("Score"));
+            commentCount = Long.parseLong(atts.getValue("CommentCount"));
+            date = LocalDate.parse(atts.getValue("CreationDate"), formatter);
+            title = atts.getValue("Title");
+            tags = atts.getValue("Tags");
+
+        }
 
 
     }
