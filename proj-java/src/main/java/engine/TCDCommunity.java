@@ -61,7 +61,7 @@ public class TCDCommunity implements TADCommunity {
 
 
     public void load(String dumpPath){
-        Parser.parseAllFiles(dumpPath);
+        Parser.parseAllFiles(dumpPath, this);
     }
 
 
@@ -84,7 +84,7 @@ public class TCDCommunity implements TADCommunity {
         if(p instanceof Question) q = (Question) p;
             else{
 
-                q = (Question) posts.get(((Answer) p).getParentID());
+                q = (Question)posts.get(((Answer) p).getParentID());
         }
         return new Pair<>(users.get(q.getOwnerID()).getName(),q.getTitle());
     }

@@ -15,8 +15,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -39,14 +38,11 @@ public class Parser {
             Main_Struct s = Parser.multParse("/home/dunnadan/LI3/");
         }*/
 
-        public static TCDCommunity parseAllFiles(String path){
-            TCDCommunity tcd = new TCDCommunity();
+        public static void parseAllFiles(String path, TCDCommunity tcd){
 
             Parser.parse(path + "Users.xml", tcd, 0);
             Parser.parse(path + "Posts.xml", tcd, 1);
             Parser.parse(path + "Tags.xml", tcd, 2);
-
-            return tcd;
 
 
         }
@@ -81,12 +77,12 @@ class PostParser extends DefaultHandler {
     private TCDCommunity tcd;
 
 
-    public  PostParser(TCDCommunity tcd){
+    public PostParser(TCDCommunity tcd) {
         this.tcd = tcd;
     }
 
 
-    public void startElement(String namespaceURI, String localName, String qName, Attributes atts){
+    public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
         long id;                //Posts
         long ownerID;           //Posts
         long score;             //Posts
@@ -94,38 +90,36 @@ class PostParser extends DefaultHandler {
         LocalDate date;         //Posts
         String title;           //Questions
         String tags;            //Questions
-        List<Long> answers;     //Questions
         long parentID;          //Answers
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        if (atts.getLength() == 0) return;
 
-        if(atts.getValue("PostTypeId").equals("1")){
-            id = Long.parseLong(atts.getValue("Id"));
-            ownerID = Long.parseLong(atts.getValue("OwnerUserId"));
-            score = Long.parseLong(atts.getValue("Score"));
-            commentCount = Long.parseLong(atts.getValue("CommentCount"));
-            date = LocalDate.parse(atts.getValue("CreationDate"), formatter);
+        id = Long.parseLong(atts.getValue("Id"));
+        ownerID = Long.parseLong(atts.getValue("OwnerUserId"));
+        score = Long.parseLong(atts.getValue("Score"));
+        commentCount = Long.parseLong(atts.getValue("CommentCount"));
+        date = LocalDateTime.parse(atts.getValue("CreationDate")).toLocalDate();
+
+        if (atts.getValue("PostTypeId").equals("1")) {
             title = atts.getValue("Title");
             tags = atts.getValue("Tags");
 
             Question q = new Question(id, ownerID, score, commentCount, date, title, tags);
             this.tcd.addPost(q);
-        }
-        else{
-            id = Long.parseLong(atts.getValue("Id"));
-            ownerID = Long.parseLong(atts.getValue("OwnerUserId"));
-            score = Long.parseLong(atts.getValue("Score"));
-            commentCount = Long.parseLong(atts.getValue("CommentCount"));
-            date = LocalDate.parse(atts.getValue("CreationDate"), formatter);
-            parentID = Long.parseLong(atts.getValue("ParentId"));
+        } else {
+            if (atts.getValue("PostTypeId").equals("2")) {
 
-            Answer a = new Answer(id, ownerID, score, commentCount, date, parentID);
-            this.tcd.addPost(a);
-        }
+                parentID = Long.parseLong(atts.getValue("ParentId"));
+                Answer a = new Answer(id, ownerID, score, commentCount, date, parentID);
+                this.tcd.addPost(a);
+            } else {
+                return;
+            }
 
+
+        }
 
     }
-
 }
 
 
@@ -149,6 +143,8 @@ class UserParser extends DefaultHandler {
         long id;
         long reputation;
         List<Long> posts;
+
+        if(atts.getLength() == 0) return;
 
 
         id = Long.parseLong(atts.getValue("Id"));
@@ -182,6 +178,7 @@ class TagParser extends DefaultHandler {
         String name;
         long id;
 
+        if(atts.getLength() == 0) return;
 
         id = Long.parseLong(atts.getValue("Id"));
         name = atts.getValue("TagName");

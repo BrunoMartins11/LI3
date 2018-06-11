@@ -20,7 +20,7 @@ public abstract class Post {
 
     public Post(long id, long owner_id, long score, long cc, LocalDate date){
         this.id = id;
-        this.ownerID = id;
+        this.ownerID = owner_id;
         this.score = score;
         this.commentCount = cc;
         this.date = date;

@@ -1,0 +1,2 @@
+Query1 -> (WebNinja, What are the actual risks of giving www-data sudo nopasswd access?)
+Query 2 -> [15811, 449, 158442, 167850, 367165, 295286, 59676, 93977, 35795, 3940]
