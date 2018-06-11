@@ -119,6 +119,12 @@ public class TCDCommunity /*implements TADCommunity*/ {
             map(Post::getID).collect(Collectors.toList());
     }
 
+    // Query 9
+    public List<Long> bothParticipated(int N, long id1, long id2){
+        List<Long> l1 = users.get(id1).getPosts();
+        List<Long> l2 = users.get(id2).getPosts();
+    }
+
     // Query 10
     public long betterAnswer(long id){
         Question q = (Question) posts.get(id);
