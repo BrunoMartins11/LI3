@@ -57,5 +57,5 @@ program*
 !pom.xml
 *.swp
 *.7701
-
+*.idea/*
 proj-c/src/main.c

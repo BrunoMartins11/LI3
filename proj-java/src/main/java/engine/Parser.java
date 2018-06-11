@@ -88,7 +88,7 @@ class PostParser extends DefaultHandler {
         LocalDate date;         //Posts
         String title;           //Questions
         String tags;            //Questions
-        List<Answer> answers;   //Questions
+        List<Long> answers;     //Questions
         long parentID;          //Answers
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

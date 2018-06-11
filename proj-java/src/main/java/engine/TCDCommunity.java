@@ -101,6 +101,18 @@ public class TCDCommunity /*implements TADCommunity*/ {
         return new Pair<>(users.get(id).getAboutMe(),l);
     }
 
+    //Query 6
+    public List<Long> mostVotedAnswers(int N, LocalDate begin, LocalDate end){
+
+        List<Answer> answer_list = posts.values().stream().filter(a -> a instanceof Answer).
+            filter(a -> a.getDate().isAfter(begin) && a.getDate().isBefore(end)).map(a -> (Answer) a).
+            sorted(new AnswerScoreComparator()).collect(Collectors.toList());
+
+        List<Long> ret = answer_list.stream().limit(N).map(Answer::getID).collect(Collectors.toList());
+
+        return ret;
+    }
+
     // Query 7
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
 
