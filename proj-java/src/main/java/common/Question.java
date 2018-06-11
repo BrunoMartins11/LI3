@@ -7,8 +7,8 @@ import java.util.List;
 public class Question extends Post {
 
     private String title;
-    private List<Tag> tags;
-    private List<Answer> answers;
+    private List<String> tags;
+    private List<Long> answers;
 
     public Question(){
         super();
@@ -18,18 +18,18 @@ public class Question extends Post {
     }
 
     public Question(long id, long owner_id, long score, int cc, LocalDate date,
-                    String title, List<Tag> tags, List<Answer> answers){
+                    String title, List<String> tags, List<Long> answers){
 
         super(id, owner_id, score, cc, date);
         this.title = title;
         
         this.tags = new ArrayList<>();
-        for (Tag t : tags)
-            this.tags.add(t.clone());
+        for (String t : tags)
+            this.tags.add(t);
         
         this.answers = new ArrayList<>();
-        for (Answer a : answers)
-            this.answers.add(a.clone());
+        for (Long a : answers)
+            this.answers.add(a);
     }
 
     public Question(Question object){
@@ -51,11 +51,11 @@ public class Question extends Post {
         return this.answers.size();
     }
 
-    public List<Tag> getTags(){
+    public List<String> getTags(){
         return new ArrayList<>(this.tags);
     }
 
-    public List<Answer> getAnswers(){
+    public List<Long> getAnswers(){
         return new ArrayList<>(this.answers);
     }
 
@@ -63,33 +63,24 @@ public class Question extends Post {
         this.title = title;
     }
 
-    public void setTags(List<Tag> tags){
+    public void setTags(List<String> tags){
         this.tags.addAll(tags);
     }
 
-    public void setAnswers(List<Answer> answers){
+    public void setAnswers(List<Long> answers){
         this.answers.addAll(answers);
     }
 
-    public void addTag(Tag tag){
+    public void addTag(String tag){
         this.tags.add(tag);
     }
 
-    public void addAnswer(Answer answer){
+    public void addAnswer(Long answer){
         this.answers.add(answer);
     }
 
-    public boolean containsTag(Tag tag){
+    public boolean containsTag(String tag){
         return this.tags.contains(tag);
-    }
-
-    public boolean containsTag(String name){
-
-        for (Tag tag : this.tags){
-            if (tag.getName().toLowerCase().equals(name.toLowerCase()))
-                return true;
-        }
-        return false;
     }
 
     public Question clone(){

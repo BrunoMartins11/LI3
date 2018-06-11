@@ -34,5 +34,6 @@ public class MyLog {
         this.log.info(message);
     }
 
+<<<<<<< HEAD
 }
 */
