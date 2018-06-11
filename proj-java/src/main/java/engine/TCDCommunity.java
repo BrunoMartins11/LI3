@@ -284,7 +284,7 @@ public class TCDCommunity /*implements TADCommunity*/ {
      * @param N Quantida de Tags para fazer o retorno e também a quantidade de utilizadores a considerar
      * @param begin  Início do intervalo de tempo
      * @param end Fim do intervalo de tempo
-     * @return
+     * @return Lista com os IDs das tags mais usadas pelos N utilizadores com melhor reputação
      */
     public List<Long> mostUsedBestRep(int N, LocalDate begin, LocalDate end){
 
