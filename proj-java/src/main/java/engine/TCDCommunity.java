@@ -90,7 +90,12 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
     // Query 5
     public Pair<String, List<Long>> getUserInfo(long id){
-        List<Long> l = users.get(id).getPosts().stream().sorted(new PostDateComparator())
+        List<Long> laux1 = users.get(id).getPosts();
+        List<Post> laux2 = new ArrayList<>();
+        for (Long l: laux1){
+            laux2.add(posts.get(l));
+        }
+        List<Long> l = laux2.stream().sorted(new PostDateComparator())
                 .limit(10).map(Post::getID).collect(Collectors.toList());
 
         return new Pair<>(users.get(id).getAboutMe(),l);
@@ -121,8 +126,32 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
     // Query 9
     public List<Long> bothParticipated(int N, long id1, long id2){
+
         List<Long> l1 = users.get(id1).getPosts();
         List<Long> l2 = users.get(id2).getPosts();
+        Post p;
+        List<Post> ret = new ArrayList<>();
+
+        for(Long lh: l1) {
+            p = posts.get(lh);
+            for (Long le : l2) {
+                if (p instanceof Question) {
+                    ((Question) p).getAnswers().contains(le);
+                    ret.add(p);
+                }
+            }
+        }
+        for(Long l: l2) {
+            p = posts.get(l);
+            for (Long lp : l1) {
+                if (p instanceof Question) {
+                    ((Question) p).getAnswers().contains(lp);
+                    ret.add(p);
+                }
+            }
+        }
+        return ret.stream().sorted(new PostDateComparator()).limit(N).map(Post::getID)
+                .collect(Collectors.toList());
     }
 
     // Query 10
