@@ -1,16 +1,18 @@
 package main.java.engine;
 
-import javax.xml.parsers.*;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
-import main.java.common.Answer;
-import main.java.common.Tag;
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.io.*;
+import java.util.List;
 
 
 public class Parser {

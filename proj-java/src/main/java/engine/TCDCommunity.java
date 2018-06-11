@@ -99,7 +99,9 @@ public class TCDCommunity /*implements TADCommunity*/ {
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
 
         List<Question> lq = posts.values().stream().filter(p -> p instanceof Question)
-                            .map(p->(Question) p).sorted(new AnswerCountComparator()).limit(N).collect(Collectors.toList());
+                            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
+                            .map(p->(Question) p).sorted(new AnswerCountComparator()).limit(N)
+                            .collect(Collectors.toList());
 
         return lq.stream().map(Question::getID).collect(Collectors.toList());
 
@@ -123,8 +125,9 @@ public class TCDCommunity /*implements TADCommunity*/ {
         List<Long> answer_id = q.getAnswers();
         List<Answer> l = new ArrayList<>();
         
-        for (Long ans_d : answer_id)
+        for (Long ans_d : answer_id) {
             l.add((Answer) posts.get(ans_d));
+        }
         
             double max = 0;
         double sc = 0;
