@@ -1,7 +1,9 @@
 package main.java.sort;
 
+
+import common.Answer;
+
 import java.util.Comparator;
-import main.java.common.Answer;
 
 public class AnswerScoreComparator implements Comparator<Answer> {
 

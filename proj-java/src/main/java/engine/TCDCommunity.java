@@ -4,13 +4,7 @@ import common.*;
 import sort.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,28 +15,49 @@ public class TCDCommunity /*implements TADCommunity*/ {
     private Map<Long, User> users;
     private Map<String, Tag> tags;
 
-
+    /**
+     * Construtor vazio da estrutura principal
+     */
     public TCDCommunity(){
         this.posts = new HashMap<>();
         this.users = new HashMap<>();
         this.tags = new HashMap<>();
     }
 
-
+    /**
+     * Adiciona Post ao HashMap dos posts
+     * @param p Post
+     */
     public void addPost(Post p){
         this.posts.put(p.getID(), p);
 
     }
 
+    /**
+     * Adiciona User ao HashMap dos users
+     * @param u User
+     */
     public void addUser(User u){
         this.users.put(u.getID(), u);
     }
 
+    /**
+     * Adiciona Tag ao HashMap das tags
+     * @param t Tag
+     */
     public void addTag(Tag t){
         this.tags.put(t.getName(), t);
     }
 
+
     //Query1
+
+    /**
+     * Titulo de uma pergunta e nome do respetivo utilizador que a fez (em caso de ser resposta retornar
+     a informaçao da pergunta a que responde)
+     * @param id ID da pergunta
+     * @return Par de strings em que a primeira é o nome do utilizador e a segunda é o titulo da pergunta
+     */
     public Pair<String,String> infoFromPost(long id){
 
         Post p = posts.get(id);
@@ -57,6 +72,12 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     // Query 2
+
+    /**
+     * Procura os N IDs dos utilizadores que mais posts fizeram.
+     * @param N Numero de utilizadores a retornar
+     * @return Lista que contém IDs de utilizadores
+     */
     public List<Long> topMostActive(int N){
 
         return users.values().stream().sorted(new UserPostCountComparator())
@@ -65,6 +86,14 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
 
     //Query 3
+
+    /**
+     * Dado um intervalo de tempo arbitrário obte o número total de posts
+     (identificando perguntas e respostas separadamente) neste período.
+     * @param begin Início do intervalo de tempo
+     * @param end Fim do intervalo de tempo
+     * @return Par de longs em que o primeiro é o número de perguntas e o segundo o número de respostas
+     */
     public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end){
 
         Stream<Post> posts_dates = posts.entrySet().stream().map(Map.Entry::getValue).
@@ -77,6 +106,15 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     //Query 4
+
+    /**
+     * Dado um intervalo de tempo arbitrario, retornar todas as perguntas contendo uma determinada tag.
+     O retorno da funçao devera ser uma lista com os IDs das perguntas ordenadas em cronologia inversa.
+     * @param tag A tag procurada
+     * @param begin Início do intervalo de tempo
+     * @param end Fim do intervalo de tempo
+     * @return Lista de longs com os IDs das perguntas que contenham a tag procurada, em ordem cronológica inversa
+     */
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end){
 
         List<Question> question_tag = posts.entrySet().stream().map(Map.Entry::getValue).
@@ -89,6 +127,12 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     // Query 5
+
+    /**
+     * Procura o About Me de um utilizador e os seus respetivos ultimos 10 Posts.
+     * @param id ID do utilizador
+     * @return  Par que contém About Me e lista com os ultimos 10 Posts ordenados por cronologia inversa
+     */
     public Pair<String, List<Long>> getUserInfo(long id){
         List<Long> laux1 = users.get(id).getPosts();
         List<Post> laux2 = new ArrayList<>();
@@ -102,6 +146,16 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     //Query 6
+
+    /**
+     * Dado um intervalo de tempo arbitrario, devolver os IDs das N respostas com mais votos,
+     em ordem decrescente do numero de votos; O nuumero de votos devera ser obtido pela diferença entre
+     Up Votes (UpMod6) e Down Votes (DownMod).
+     * @param N Número de IDs esperados na lista de retorno
+     * @param begin Início do intervalo de tempo
+     * @param end Fim do intervalo de tempo
+     * @return Lista de longs com os IDs das N respostas com mais votos por ordem decrescente
+     */
     public List<Long> mostVotedAnswers(int N, LocalDate begin, LocalDate end){
 
         List<Answer> answer_list = posts.values().stream().filter(a -> a instanceof Answer).
@@ -114,6 +168,15 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     // Query 7
+
+    /**
+     * Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas
+     * em ordem decrescente do numero
+     * @param N Número de IDs esperados na lista de retorno
+     * @param begin Início do intervalo de tempo
+     * @param end Fim do intervalo de tempo
+     * @return Lista de longs com os IDs das N perguntas com mais respostas, em ordem decrescente
+     */
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
 
         List<Question> lq = posts.values().stream().filter(p -> p instanceof Question)
@@ -126,6 +189,14 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     //Query 8
+
+    /**
+     * Dado uma palavra, devolver uma lista com os IDs de N perguntas cujos tıtulos a contenham,
+     ordenados por cronologia inversa
+     * @param N Número de IDs esperados na lista de retorn
+     * @param word Palavra a ser procurada nos títulos dos posts
+     * @return Lista de longs com os IDs das N perguntas em que o título contenha, em ordem cronológica inversa
+     */
     public List<Long> containsWord(int N, String word){
 
         List<Question> question_word = posts.entrySet().stream()
@@ -137,6 +208,14 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     // Query 9
+
+    /**
+     * Verifica se existem posts em que dois utilizadores interagiram.
+     * @param N Top N
+     * @param id1 Utilizador1
+     * @param id2 Utilizador2
+     * @return Lista com os N IDs dos posts em que interagiram
+     */
     public List<Long> bothParticipated(int N, long id1, long id2){
 
         List<Long> l1 = users.get(id1).getPosts();
@@ -167,6 +246,12 @@ public class TCDCommunity /*implements TADCommunity*/ {
     }
 
     // Query 10
+
+    /**
+     * Procura a melhor resposta a uma pergunta.
+     * @param id ID da pergunta
+     * @return ID da melhor resposta
+     */
     public long betterAnswer(long id){
         Question q = (Question) posts.get(id);
         //getAnswers devolve uma lista de long
@@ -192,6 +277,15 @@ public class TCDCommunity /*implements TADCommunity*/ {
 
 
     //Query 11
+
+    /**
+     * Dado um intervalo arbitrario de tempo, devolver os identificadores das N tags mais usadas pelos N
+     utilizadores com melhor reputaçao. Em ordem decrescente do numero de vezes em que a tag foi usada
+     * @param N Quantida de Tags para fazer o retorno e também a quantidade de utilizadores a considerar
+     * @param begin  Início do intervalo de tempo
+     * @param end Fim do intervalo de tempo
+     * @return
+     */
     public List<Long> mostUsedBestRep(int N, LocalDate begin, LocalDate end){
 
         ArrayList<Pair<Long,Long>> pair_list = new ArrayList<>();
