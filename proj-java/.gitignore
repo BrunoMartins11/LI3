@@ -1,4 +1,5 @@
-*.idea/
+**.idea/*
 *.ctxt
 *.bluej
 *.class
+

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -87,7 +88,7 @@ class PostParser extends DefaultHandler {
         long commentCount;      //Posts
         LocalDate date;         //Posts
         String title;           //Questions
-        String tags;            //Questions
+        List<String> tags;      //Questions
         List<Long> answers;     //Questions
         long parentID;          //Answers
 
@@ -100,7 +101,10 @@ class PostParser extends DefaultHandler {
             commentCount = Long.parseLong(atts.getValue("CommentCount"));
             date = LocalDate.parse(atts.getValue("CreationDate"), formatter);
             title = atts.getValue("Title");
-            tags = atts.getValue("Tags");
+            
+            tags = new ArrayList<>();
+            for (String tag : atts.getValue("Tags").split("<(.*?)|>"))
+                tags.add(tag);
 
         }
 

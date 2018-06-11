@@ -207,6 +207,7 @@ public class TCDCommunity /*implements TADCommunity*/ {
             map(Post::getID).collect(Collectors.toList());
     }
 
+
     // Query 9
 
     /**
@@ -244,6 +245,7 @@ public class TCDCommunity /*implements TADCommunity*/ {
         return ret.stream().sorted(new PostDateComparator()).limit(N).map(Post::getID)
                 .collect(Collectors.toList());
     }
+
 
     // Query 10
 
