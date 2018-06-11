@@ -20,12 +20,12 @@ public class Question extends Post {
     }
 
     public Question(long id, long owner_id, long score, long cc, LocalDate date,
-                    String title, List<String> tags){//Sai daqui a lista de answers, porque so adiciono nas answers
+                    String title, String tags){//Sai daqui a lista de answers, porque so adiciono nas answers
 
         super(id, owner_id, score, cc, date);
         this.title = title;
         
-        this.tags = new ArrayList<>(tags);
+        this.tags = this.filterTags(tags);
         
         this.answers = new ArrayList<>();
 

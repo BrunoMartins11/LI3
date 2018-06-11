@@ -2,6 +2,8 @@ package engine;
 
 import common.Answer;
 import common.Question;
+import common.Tag;
+import common.User;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -40,8 +42,8 @@ public class Parser {
         public static TCDCommunity parseAllFiles(String path){
             TCDCommunity tcd = new TCDCommunity();
 
-            Parser.parse(path + "Posts.xml", tcd, 0);
-            Parser.parse(path + "Users.xml", tcd, 1);
+            Parser.parse(path + "Users.xml", tcd, 0);
+            Parser.parse(path + "Posts.xml", tcd, 1);
             Parser.parse(path + "Tags.xml", tcd, 2);
 
             return tcd;
@@ -59,11 +61,11 @@ public class Parser {
 
                 XMLReader reader = parser.getXMLReader();
                 if(flag == 0)
+                    reader.setContentHandler(new UserParser(tcd));
+                if(flag == 1)
                     reader.setContentHandler(new PostParser(tcd));
-//                if(flag == 1)
-//                    reader.setContentHandler(new UserParser(tcd));
-//                if(flag == 2)
-//                    reader.setContentHandler(new TagsParser(tcd));
+                if(flag == 2)
+                    reader.setContentHandler(new TagParser(tcd));
 
                 reader.parse(convertToFileURL(path));
 
@@ -84,14 +86,14 @@ class PostParser extends DefaultHandler {
     }
 
 
-    public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
+    public void startElement(String namespaceURI, String localName, String qName, Attributes atts){
         long id;                //Posts
         long ownerID;           //Posts
         long score;             //Posts
         long commentCount;      //Posts
         LocalDate date;         //Posts
         String title;           //Questions
-        List<String> tags;      //Questions
+        String tags;            //Questions
         List<Long> answers;     //Questions
         long parentID;          //Answers
 
@@ -104,10 +106,7 @@ class PostParser extends DefaultHandler {
             commentCount = Long.parseLong(atts.getValue("CommentCount"));
             date = LocalDate.parse(atts.getValue("CreationDate"), formatter);
             title = atts.getValue("Title");
-            
-            tags = new ArrayList<>();
-            for (String tag : atts.getValue("Tags").split("<(.*?)|>"))
-                tags.add(tag);
+            tags = atts.getValue("Tags");
 
             Question q = new Question(id, ownerID, score, commentCount, date, title, tags);
             this.tcd.addPost(q);
@@ -127,4 +126,69 @@ class PostParser extends DefaultHandler {
 
     }
 
+}
+
+
+
+
+
+
+class UserParser extends DefaultHandler {
+
+    private TCDCommunity tcd;
+
+
+    public  UserParser(TCDCommunity tcd){
+        this.tcd = tcd;
+    }
+
+
+    public void startElement(String namespaceURI, String localName, String qName, Attributes atts){
+        String name;
+        String about;
+        long id;
+        long reputation;
+        List<Long> posts;
+
+
+        id = Long.parseLong(atts.getValue("Id"));
+        about = atts.getValue("AboutMe");
+        name = atts.getValue("DisplayName");
+        reputation = Long.parseLong(atts.getValue("Reputation"));
+
+        User u = new User(name, about, id, reputation);
+        this.tcd.addUser(u);
+
+
+
+    }
+
+}
+
+
+
+
+class TagParser extends DefaultHandler {
+
+    private TCDCommunity tcd;
+
+
+    public TagParser(TCDCommunity tcd) {
+        this.tcd = tcd;
+    }
+
+
+    public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
+        String name;
+        long id;
+
+
+        id = Long.parseLong(atts.getValue("Id"));
+        name = atts.getValue("TagName");
+
+        Tag t = new Tag(id, name);
+        this.tcd.addTag(t);
+
+
+    }
 }

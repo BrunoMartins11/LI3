@@ -1,6 +1,7 @@
 package engine;
 
 import common.*;
+import li3.TADCommunity;
 import sort.*;
 
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-public class TCDCommunity /*implements TADCommunity*/ {
+public class TCDCommunity implements TADCommunity {
 
     private Map<Long, Post> posts;
     private Map<Long, User> users;
@@ -29,6 +30,14 @@ public class TCDCommunity /*implements TADCommunity*/ {
      * @param p Post
      */
     public void addPost(Post p){
+        if(p instanceof Answer){
+            Question q;
+            if((q = (Question)this.posts.get(((Answer)p).getParentID())) != null) {
+                q.addAnswer(p.getID());
+            }
+        }
+        User u = (User)this.users.get(p.getOwnerID());
+        u.addPost(p.getID());
         this.posts.put(p.getID(), p);
 
     }
@@ -48,6 +57,15 @@ public class TCDCommunity /*implements TADCommunity*/ {
     public void addTag(Tag t){
         this.tags.put(t.getName(), t);
     }
+
+
+
+    public void load(String dumpPath){
+        Parser.parseAllFiles(dumpPath);
+    }
+
+
+
 
 
     //Query1
@@ -320,5 +338,10 @@ public class TCDCommunity /*implements TADCommunity*/ {
             limit(N).collect(Collectors.toList());
 
         return ret;
+    }
+
+
+    public void clear(){
+        return;
     }
 }

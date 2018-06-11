@@ -20,14 +20,13 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public User(String name, String about, long id, long reputatio, List<Long> posts){
+    public User(String name, String about, long id, long reputation){
         this.name = name;
         this.about = about;
         this.id = id;
-        this.reputation = reputatio;
+        this.reputation = reputation;
         
         this.posts = new ArrayList<>();
-        this.posts.addAll(posts);
     }
 
     public User(User object){
