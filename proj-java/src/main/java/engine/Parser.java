@@ -110,7 +110,18 @@ class PostParser extends DefaultHandler {
                 tags.add(tag);
 
             Question q = new Question(id, ownerID, score, commentCount, date, title, tags);
+            this.tcd.addPost(q);
+        }
+        else{
+            id = Long.parseLong(atts.getValue("Id"));
+            ownerID = Long.parseLong(atts.getValue("OwnerUserId"));
+            score = Long.parseLong(atts.getValue("Score"));
+            commentCount = Long.parseLong(atts.getValue("CommentCount"));
+            date = LocalDate.parse(atts.getValue("CreationDate"), formatter);
+            parentID = Long.parseLong(atts.getValue("ParentId"));
 
+            Answer a = new Answer(id, ownerID, score, commentCount, date, parentID);
+            this.tcd.addPost(a);
         }
 
 

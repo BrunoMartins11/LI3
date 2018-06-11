@@ -12,7 +12,7 @@ public class Answer extends Post {
     }
 
 
-    public Answer(long id, long owner_id, long score, int cc, LocalDate date, long parentID){
+    public Answer(long id, long owner_id, long score, long cc, LocalDate date, long parentID){
 
         super(id, owner_id, score, cc, date);
         this.parentID = parentID;
