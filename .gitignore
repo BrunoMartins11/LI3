@@ -54,6 +54,7 @@ dkms.conf
 # My stuff
 *.xml
 program*
+!pom.xml
 *.swp
 *.7701
 
