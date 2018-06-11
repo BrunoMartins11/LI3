@@ -2,6 +2,9 @@
 package li3;
 
 
+import common.MyLog;
+import engine.TCDCommunity;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -12,17 +15,17 @@ public class Main {
     public static void main(String[] args){
 
         /*
-            LOG CONFIGURATION
+            LOG CONFIGURATION */
 
-        MyLog log = new MyLog("results");
-        MyLog logtime = new MyLog("times");
+        /*MyLog log = new MyLog("results");
+        MyLog logtime = new MyLog("times");*/
         /* -------------------------------------------------------------------------------------------*/
-
-        /*long before, after;
+        /*
+        long before, after;
         TADCommunity qe = new TCDCommunity();
 
         *//*
-            LOAD PHASE
+         /*   LOAD PHASE
 
         try {
         before = System.currentTimeMillis();
@@ -32,7 +35,7 @@ public class Main {
         } catch(IndexOutOfBoundsException e){
             System.out.println("Deve passar o caminho do dump como argumento.");
         }
-
+        */
         /*
            Query 1
         *//*
