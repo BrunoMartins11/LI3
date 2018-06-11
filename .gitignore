@@ -59,3 +59,4 @@ program*
 *.7701
 *.idea/*
 proj-c/src/main.c
+target/
