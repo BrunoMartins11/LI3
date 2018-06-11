@@ -6,6 +6,7 @@ import sort.*;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -114,13 +115,15 @@ public class TCDCommunity implements TADCommunity {
      */
     public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end){
 
-        Stream<Post> posts_dates = posts.entrySet().stream().map(Map.Entry::getValue).
-            filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end));
+        Map<Boolean, List<Post>> posts = this.posts.values()
+                .stream()
+                .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
+                .collect(Collectors.partitioningBy(f -> f instanceof Question));
 
-        long ans = posts_dates.filter(p -> p instanceof Answer).count();
-        long qst = posts_dates.filter(p -> p instanceof Question).count();
+        long qst = posts.get(true).size();
+        long ans = posts.get(false).size();
 
-        return new Pair<Long,Long>(ans, qst);
+        return new Pair<>(qst, ans);
     }
 
     //Query 4
@@ -157,7 +160,7 @@ public class TCDCommunity implements TADCommunity {
         for (Long l: laux1){
             laux2.add(posts.get(l));
         }
-        List<Long> l = laux2.stream().sorted(new PostDateComparator())
+        List<Long> l = laux2.stream().sorted(new PostDateComparator().reversed())
                 .limit(10).map(Post::getID).collect(Collectors.toList());
 
         return new Pair<>(users.get(id).getAboutMe(),l);
@@ -218,7 +221,7 @@ public class TCDCommunity implements TADCommunity {
     public List<Long> containsWord(int N, String word){
 
         List<Question> question_word = posts.entrySet().stream()
-                .filter(p -> p.getValue() instanceof Question).map(p -> (Question) p)
+                .filter(p -> p.getValue() instanceof Question).map(p -> (Question) p.getValue())
                 .sorted(new PostDateComparator()).collect(Collectors.toList());
 
         return question_word.stream().filter(q -> q.getTitle().contains(word)).limit(N).

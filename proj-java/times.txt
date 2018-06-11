@@ -1,5 +1,0 @@
-LOAD -> 31017 ms
-LOAD -> 38944 ms
-LOAD -> 19858 ms
-Query 1: -> 10 ms
-Query 2 -> 155 ms

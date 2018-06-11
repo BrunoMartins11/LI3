@@ -9,11 +9,7 @@ import java.util.Comparator;
 public class PostDateComparator implements Comparator<Post> {
     
     public int compare(Post p1, Post p2){
-        if(p1.getDate().isBefore(p2.getDate())) {
-            return 1;
-        } else {
-            return -1;
-        }
+        return p1.getDate().compareTo(p2.getDate());
     }
 
 }
