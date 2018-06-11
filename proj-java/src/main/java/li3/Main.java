@@ -1,8 +1,6 @@
-
 package main.java.li3;
 
 import main.java.common.Pair;
-
 import main.java.engine.TCDCommunity;
 import java.time.LocalDate;
 import java.time.Month;
@@ -148,7 +146,4 @@ public class Main {
         logtime.writeLog("CLEAN -> "+(after-before)+" ms");
 
     }
-
 }
-
-*/
