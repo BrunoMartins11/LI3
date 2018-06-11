@@ -1,6 +1,6 @@
-package main.java.li3;
+package li3;
 
-import main.java.common.Pair;
+import common.Pair;
 
 import java.time.LocalDate;
 import java.util.List;

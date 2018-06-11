@@ -1,8 +1,9 @@
-package main.java.sort;
+package sort;
+
+import common.Post;
 
 import java.time.LocalDate;
 import java.util.Comparator;
-import main.java.common.Post;
 
 
 public class PostDateComparator implements Comparator<Post> {

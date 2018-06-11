@@ -1,6 +1,7 @@
-package main.java.sort;
+package sort;
 
-import main.java.common.Question;
+
+import common.Question;
 
 import java.util.Comparator;
 

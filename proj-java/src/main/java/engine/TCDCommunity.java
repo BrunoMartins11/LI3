@@ -1,9 +1,9 @@
-package main.java.engine;
+package engine;
 
-import main.java.common.*;
-import main.java.sort.AnswerCountComparator;
-import main.java.sort.PostDateComparator;
-import main.java.sort.UserPostCountComparator;
+import common.*;
+import sort.AnswerCountComparator;
+import sort.PostDateComparator;
+import sort.UserPostCountComparator;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -15,9 +15,9 @@ import java.util.stream.Stream;
 
 public class TCDCommunity /*implements TADCommunity*/ {
 
-    private Map<Long,Post> posts;
-    private Map<Long,User> users;
-    private Map<Long,Tag> tags;
+    private Map<Long, Post> posts;
+    private Map<Long, User> users;
+    private Map<Long, Tag> tags;
 
     public TCDCommunity(){
         this.posts = new HashMap<>();

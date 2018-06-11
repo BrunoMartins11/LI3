@@ -1,9 +1,8 @@
-package main.java.engine;
+package engine;
 
 import javax.xml.parsers.*;
 
-import main.java.common.Answer;
-import main.java.common.Tag;
+import common.Answer;
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
@@ -54,10 +53,10 @@ public class Parser {
                 XMLReader reader = parser.getXMLReader();
                 if(flag == 0)
                     reader.setContentHandler(new PostParser(tcd));
-                if(flag == 1)
-                    reader.setContentHandler(new UserParser(tcd));
-                if(flag == 2)
-                    reader.setContentHandler(new TagsParser(tcd));
+//                if(flag == 1)
+//                    reader.setContentHandler(new UserParser(tcd));
+//                if(flag == 2)
+//                    reader.setContentHandler(new TagsParser(tcd));
 
                 reader.parse(convertToFileURL(path));
 

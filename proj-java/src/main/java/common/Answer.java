@@ -1,4 +1,4 @@
-package main.java.common;
+package common;
 import java.time.LocalDateTime;
 
 public class Answer extends Post {
@@ -11,7 +11,7 @@ public class Answer extends Post {
     }
 
     public Answer(long id, long owner_id, long score, int cc, LocalDateTime date, long parentID){
-        super(id, owner_id, score, cc, date);
+//        super(id, owner_id, score, cc, date);
         this.parentID = parentID;
     }
 
