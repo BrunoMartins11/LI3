@@ -3,6 +3,8 @@ package common;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Question extends Post {
 
@@ -17,19 +19,16 @@ public class Question extends Post {
         this.answers = new ArrayList<>();
     }
 
-    public Question(long id, long owner_id, long score, int cc, LocalDate date,
-                    String title, List<String> tags, List<Long> answers){
+    public Question(long id, long owner_id, long score, long cc, LocalDate date,
+                    String title, List<String> tags){//Sai daqui a lista de answers, porque so adiciono nas answers
 
         super(id, owner_id, score, cc, date);
         this.title = title;
         
-        this.tags = new ArrayList<>();
-        for (String t : tags)
-            this.tags.add(t);
+        this.tags = new ArrayList<>(tags);
         
         this.answers = new ArrayList<>();
-        for (Long a : answers)
-            this.answers.add(a);
+
     }
 
     public Question(Question object){
@@ -41,6 +40,18 @@ public class Question extends Post {
         
         this.answers = new ArrayList<>();
         this.answers.addAll(object.getAnswers());
+    }
+
+    public List<String> filterTags(String tags){
+        String finString = Pattern.quote("<") + "(.*?)" + Pattern.quote(">");
+        Pattern pat = Pattern.compile(finString);
+        Matcher lig = pat.matcher(tags);
+        List<String> tmp = new ArrayList<>();
+        while(lig.find()){
+            String textBetween = lig.group(1);
+            tmp.add(textBetween);
+        }
+        return tmp;
     }
 
     public String getTitle(){

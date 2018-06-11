@@ -1,6 +1,7 @@
 package engine;
 
 import common.Answer;
+import common.Question;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -77,9 +78,11 @@ class PostParser extends DefaultHandler {
 
     private TCDCommunity tcd;
 
+
     public  PostParser(TCDCommunity tcd){
         this.tcd = tcd;
     }
+
 
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
         long id;                //Posts
@@ -105,6 +108,8 @@ class PostParser extends DefaultHandler {
             tags = new ArrayList<>();
             for (String tag : atts.getValue("Tags").split("<(.*?)|>"))
                 tags.add(tag);
+
+            Question q = new Question(id, ownerID, score, commentCount, date, title, tags);
 
         }
 

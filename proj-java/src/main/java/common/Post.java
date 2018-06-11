@@ -18,7 +18,7 @@ public abstract class Post {
         this.date = LocalDate.now();
     }
 
-    public Post(long id, long owner_id, long score, int cc, LocalDate date){
+    public Post(long id, long owner_id, long score, long cc, LocalDate date){
         this.id = id;
         this.ownerID = id;
         this.score = score;
