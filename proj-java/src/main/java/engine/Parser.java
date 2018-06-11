@@ -1,16 +1,20 @@
-package main.java.engine;
+package engine;
 
-import javax.xml.parsers.*;
+import common.Answer;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
-import main.java.common.Answer;
-import main.java.common.Tag;
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.io.*;
+import java.util.List;
+
 
 
 public class Parser {
@@ -54,10 +58,10 @@ public class Parser {
                 XMLReader reader = parser.getXMLReader();
                 if(flag == 0)
                     reader.setContentHandler(new PostParser(tcd));
-                if(flag == 1)
-                    reader.setContentHandler(new UserParser(tcd));
-                if(flag == 2)
-                    reader.setContentHandler(new TagsParser(tcd));
+//                if(flag == 1)
+//                    reader.setContentHandler(new UserParser(tcd));
+//                if(flag == 2)
+//                    reader.setContentHandler(new TagsParser(tcd));
 
                 reader.parse(convertToFileURL(path));
 
@@ -84,7 +88,7 @@ class PostParser extends DefaultHandler {
         LocalDate date;         //Posts
         String title;           //Questions
         String tags;            //Questions
-        List<Answer> answers;   //Questions
+        List<Long> answers;     //Questions
         long parentID;          //Answers
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

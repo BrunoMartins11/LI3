@@ -1,4 +1,5 @@
-package main.java.common;
+package common;
+import java.time.LocalDateTime;
 import java.time.LocalDate;
 
 public class Answer extends Post {
@@ -10,7 +11,9 @@ public class Answer extends Post {
         this.parentID = 0;
     }
 
+
     public Answer(long id, long owner_id, long score, int cc, LocalDate date, long parentID){
+
         super(id, owner_id, score, cc, date);
         this.parentID = parentID;
     }

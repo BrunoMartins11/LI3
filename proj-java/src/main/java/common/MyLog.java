@@ -1,4 +1,5 @@
-package main.java.common;
+
+package common;
 
 import org.apache.log4j.FileAppender;
 import org.apache.log4j.Logger;
@@ -11,9 +12,11 @@ public class MyLog {
     private Logger log;
 
     public MyLog(String name){
-        /*
+
+/*
             LOG CONFIGURATION
     */
+
         this.log = Logger.getLogger(name);
         this.log.setAdditivity(false);
         FileAppender capp = null;
@@ -32,3 +35,4 @@ public class MyLog {
     }
 
 }
+

@@ -1,6 +1,7 @@
-package main.java.sort;
+package sort;
 
-import main.java.common.Pair;
+import common.Pair;
+
 import java.util.Comparator;
 
 public class PairSecondComparator implements Comparator<Pair<Long,Long>> {

@@ -1,6 +1,7 @@
-package main.java.sort;
+package sort;
 
-import main.java.common.User;
+
+import common.User;
 
 import java.util.Comparator;
 

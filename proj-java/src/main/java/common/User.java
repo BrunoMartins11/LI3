@@ -1,4 +1,4 @@
-package main.java.common;
+package common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public class User {
     private String about;
     private long id;
     private long reputation;
-    private List<Post> posts;
+    private List<Long> posts;
 
 
     public User(){
@@ -20,15 +20,14 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public User(String name, String about, long id, long reputatio, List<Post> posts){
+    public User(String name, String about, long id, long reputatio, List<Long> posts){
         this.name = name;
         this.about = about;
         this.id = id;
         this.reputation = reputatio;
         
         this.posts = new ArrayList<>();
-        for (Post p : posts)
-            this.posts.add(p.clone());
+        this.posts.addAll(posts);
     }
 
     public User(User object){
@@ -57,8 +56,8 @@ public class User {
         return this.reputation;
     }
 
-    public List<Post> getPosts(){
-        return this.posts;
+    public List<Long> getPosts(){
+        return new ArrayList<>( this.posts);
     }
 
     public int getPostCount(){
@@ -81,11 +80,11 @@ public class User {
         this.reputation = reputation;
     }
 
-    public void setPosts(List<Post> posts){
+    public void setPosts(List<Long> posts){
         this.posts.addAll(posts);
     }
 
-    public void addPost(Post p){
+    public void addPost(Long p){
         this.posts.add(p);
     }
 }

@@ -1,7 +1,7 @@
-package main.java.engine;
+package engine;
 
-import main.java.common.*;
-import main.java.sort.*;
+import common.*;
+import sort.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,9 +17,10 @@ import java.util.stream.Stream;
 
 public class TCDCommunity /*implements TADCommunity*/ {
 
-    private Map<Long,Post> posts;
-    private Map<Long,User> users;
-    private Map<String,Tag> tags;
+    private Map<Long, Post> posts;
+    private Map<Long, User> users;
+    private Map<String, Tag> tags;
+
 
     public TCDCommunity(){
         this.posts = new HashMap<>();
@@ -111,7 +112,9 @@ public class TCDCommunity /*implements TADCommunity*/ {
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
 
         List<Question> lq = posts.values().stream().filter(p -> p instanceof Question)
-                            .map(p->(Question) p).sorted(new AnswerCountComparator()).limit(N).collect(Collectors.toList());
+                            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
+                            .map(p->(Question) p).sorted(new AnswerCountComparator()).limit(N)
+                            .collect(Collectors.toList());
 
         return lq.stream().map(Question::getID).collect(Collectors.toList());
 
@@ -128,6 +131,12 @@ public class TCDCommunity /*implements TADCommunity*/ {
             map(Post::getID).collect(Collectors.toList());
     }
 
+    // Query 9
+    public List<Long> bothParticipated(int N, long id1, long id2){
+        List<Long> l1 = users.get(id1).getPosts();
+        List<Long> l2 = users.get(id2).getPosts();
+    }
+
     // Query 10
     public long betterAnswer(long id){
         Question q = (Question) posts.get(id);
@@ -135,8 +144,9 @@ public class TCDCommunity /*implements TADCommunity*/ {
         List<Long> answer_id = q.getAnswers();
         List<Answer> l = new ArrayList<>();
         
-        for (Long ans_d : answer_id)
+        for (Long ans_d : answer_id) {
             l.add((Answer) posts.get(ans_d));
+        }
         
             double max = 0;
         double sc = 0;
