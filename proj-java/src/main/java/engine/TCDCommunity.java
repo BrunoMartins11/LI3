@@ -217,7 +217,7 @@ public class TCDCommunity implements TADCommunity {
     public List<Long> containsWord(int N, String word){
 
         List<Long> question_word = this.posts.values().stream().filter(p -> p instanceof Question).
-            map(p -> (Question) p).filter(p -> p.getTitle().contains(word)).sorted(new PostDateComparator().reversed()).
+            map(p -> (Question) p).filter(p -> p.getTitle().contains(word)).sorted(new PostDateComparator()).
             limit(N).map(Question::getID).collect(Collectors.toList());
 
         return question_word;
@@ -349,9 +349,9 @@ public class TCDCommunity implements TADCommunity {
         }
 
         List<Long> ret = pair_list.stream().sorted(new PairSecondComparator())
-            .map(Pair::getFst).collect(Collectors.toList());
+            .map(Pair::getFst).limit(N).collect(Collectors.toList());
 
-        return ret.stream().sorted(Long::compareTo).limit(N).collect(Collectors.toList());
+        return ret;
     }
 
 

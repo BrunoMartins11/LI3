@@ -89,38 +89,42 @@ public class Question extends Post {
         return tmp;
     }
 
+    /**
+     * Retorna o titulo da pergunta
+     * @return Titulo
+     */
     public String getTitle(){
         return this.title;
     }
 
+    /**
+     * Retorna o numero de respostas a uma pergunta
+     * @return numero de respostas
+     */
     public int getAnswerCount(){
         return this.answers.size();
     }
 
+    /**
+     * Retorna as Tags de uma pergunta
+     * @return Lista de Tags
+     */
     public List<String> getTags(){
         return new ArrayList<>(this.tags);
     }
 
+    /**
+     * Retorna os IDs das respostas as perguntas
+     * @return Lista de IDs das respostas
+     */
     public List<Long> getAnswers(){
         return new ArrayList<>(this.answers);
     }
 
-    public void setTtitle(String title){
-        this.title = title;
-    }
-
-    public void setTags(List<String> tags){
-        this.tags.addAll(tags);
-    }
-
-    public void setAnswers(List<Long> answers){
-        this.answers.addAll(answers);
-    }
-
-    public void addTag(String tag){
-        this.tags.add(tag);
-    }
-
+    /**
+     * Adiciona um id de uma resposta à lista de respostas
+     * @param answer Id da respostas
+     */
     public void addAnswer(Long answer){
         this.answers.add(answer);
     }
