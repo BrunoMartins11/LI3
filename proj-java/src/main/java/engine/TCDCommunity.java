@@ -348,10 +348,10 @@ public class TCDCommunity implements TADCommunity {
             pair_list.add(pair);
         }
 
-        List<Long> ret = pair_list.stream().sorted(new PairSecondComparator()).limit(N).
-            map(Pair::getFst).collect(Collectors.toList());
+        List<Long> ret = pair_list.stream().sorted(new PairSecondComparator())
+            .map(Pair::getFst).collect(Collectors.toList());
 
-        return ret.stream().sorted(Long::compareTo).collect(Collectors.toList());
+        return ret.stream().sorted(Long::compareTo).limit(N).collect(Collectors.toList());
     }
 
 
