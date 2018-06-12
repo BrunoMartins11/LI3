@@ -60,3 +60,7 @@ program*
 *.idea/*
 proj-c/src/main.c
 target/
+.settings/
+.classpath
+.project
+*.txt

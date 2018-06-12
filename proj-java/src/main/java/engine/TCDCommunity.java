@@ -79,15 +79,15 @@ public class TCDCommunity implements TADCommunity {
      */
     public Pair<String,String> infoFromPost(long id){
 
-        Post p = posts.get(id);
+        Post p = this.posts.get(id);
         Question q;
 
         if(p instanceof Question) q = (Question) p;
             else{
 
-                q = (Question)posts.get(((Answer) p).getParentID());
+                q = (Question) this.posts.get(((Answer) p).getParentID());
         }
-        return new Pair<>(users.get(q.getOwnerID()).getName(),q.getTitle());
+        return new Pair<>(this.users.get(q.getOwnerID()).getName(), q.getTitle());
     }
 
     // Query 2
@@ -99,7 +99,7 @@ public class TCDCommunity implements TADCommunity {
      */
     public List<Long> topMostActive(int N){
 
-        return users.values().stream().sorted(new UserPostCountComparator())
+        return this.users.values().stream().sorted(new UserPostCountComparator())
                 .limit(N).map(User::getID).collect(Collectors.toList());
     }
 
@@ -115,15 +115,13 @@ public class TCDCommunity implements TADCommunity {
      */
     public Pair<Long,Long> totalPosts(LocalDate begin, LocalDate end){
 
-        Map<Boolean, List<Post>> posts = this.posts.values()
-                .stream()
-                .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
-                .collect(Collectors.partitioningBy(f -> f instanceof Question));
+        List<Post> posts_date = this.posts.values().stream().
+            filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).collect(Collectors.toList());
 
-        long qst = posts.get(true).size();
-        long ans = posts.get(false).size();
+        long qst = posts_date.stream().filter(p -> p instanceof Question).count();
+        long ans = posts_date.size() - qst;
 
-        return new Pair<>(qst, ans);
+        return new Pair<Long,Long>(qst, ans);
     }
 
     //Query 4
@@ -138,13 +136,12 @@ public class TCDCommunity implements TADCommunity {
      */
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end){
 
-        List<Question> question_tag = posts.entrySet().stream().map(Map.Entry::getValue).
-                filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
-                .filter(q -> q instanceof Question).map(p -> (Question) p)
-                .filter(q -> q.containsTag(tag)).collect(Collectors.toList());
+        List<Long> question_tag = this.posts.values().stream().filter(p -> p instanceof Question)
+            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).map(p -> (Question) p)
+            .filter(q -> q.containsTag(tag)).sorted(new PostDateComparator()).map(Question::getID)
+            .collect(Collectors.toList());
 
-
-        return question_tag.stream().sorted(new PostDateComparator()).map(Post::getID).collect(Collectors.toList());
+        return question_tag;
     }
 
     // Query 5
@@ -200,12 +197,12 @@ public class TCDCommunity implements TADCommunity {
      */
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
 
-        List<Question> lq = posts.values().stream().filter(p -> p instanceof Question)
-                            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
-                            .map(p->(Question) p).sorted(new AnswerCountComparator()).limit(N)
-                            .collect(Collectors.toList());
+        List<Long> lq = this.posts.values().stream().filter(p -> p instanceof Question)
+            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
+            .map(p -> (Question) p).sorted(new AnswerCountComparator()).limit(N)
+            .map(Question::getID).collect(Collectors.toList());
 
-        return lq.stream().map(Question::getID).collect(Collectors.toList());
+        return lq;
 
     }
 
@@ -220,12 +217,11 @@ public class TCDCommunity implements TADCommunity {
      */
     public List<Long> containsWord(int N, String word){
 
-        List<Question> question_word = posts.entrySet().stream()
-                .filter(p -> p.getValue() instanceof Question).map(p -> (Question) p.getValue())
-                .sorted(new PostDateComparator()).collect(Collectors.toList());
+        List<Long> question_word = this.posts.values().stream().filter(p -> p instanceof Question).
+            map(p -> (Question) p).filter(p -> p.getTitle().contains(word)).sorted(new PostDateComparator()).
+            limit(N).map(Question::getID).collect(Collectors.toList());
 
-        return question_word.stream().filter(q -> q.getTitle().contains(word)).limit(N).
-            map(Post::getID).collect(Collectors.toList());
+        return question_word;
     }
 
 
@@ -277,7 +273,6 @@ public class TCDCommunity implements TADCommunity {
      */
     public long betterAnswer(long id){
         Question q = (Question) posts.get(id);
-        //getAnswers devolve uma lista de long
         List<Long> answer_id = q.getAnswers();
         List<Answer> l = new ArrayList<>();
         
@@ -315,21 +310,19 @@ public class TCDCommunity implements TADCommunity {
         List<Long> tags_id = new ArrayList<>();
         Set<Long> hs = new HashSet<>();
 
-        List<Long> user_list = users.values().stream().sorted(new UserReputationComparator()).
+        List<Long> user_list = this.users.values().stream().sorted(new UserReputationComparator()).
             limit(N).map(User::getID).collect(Collectors.toList());
 
-        List<Question> posts_date = posts.values().stream().filter(p -> p instanceof Question).
-            filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).map(p -> (Question) p).
-            filter(p -> user_list.contains(p.getOwnerID())).collect(Collectors.toList());
+        List<Question> posts_date = this.posts.values().stream().filter(p -> p instanceof Question).
+            filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).
+            filter(p -> user_list.contains(p.getOwnerID())).map(p -> (Question) p).
+            collect(Collectors.toList());
 
-        for (Question q : posts_date){
-            for (String tag : q.getTags()){
+        for (Question q : posts_date)
+            for (String tag : q.getTags())
                 tags_id.add(tags.get(tag).getID());
-            }
-        }
-
-        for (Long id : tags_id)
-            hs.add(id);
+            
+        hs.addAll(tags_id);
 
         for (Long id : hs){
             long occ = (long) Collections.frequency(hs, id);
@@ -337,8 +330,8 @@ public class TCDCommunity implements TADCommunity {
             pair_list.add(pair);
         }
 
-        List<Long> ret = pair_list.stream().sorted(new PairSecondComparator()).map(Pair::getFst).
-            limit(N).collect(Collectors.toList());
+        List<Long> ret = pair_list.stream().sorted(new PairSecondComparator()).limit(N).
+            map(Pair::getFst).collect(Collectors.toList());
 
         return ret;
     }

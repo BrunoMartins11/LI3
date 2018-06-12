@@ -4,7 +4,6 @@ package sort;
 import common.Answer;
 
 import java.util.Comparator;
-import common.Answer;
 
 public class AnswerScoreComparator implements Comparator<Answer> {
 
