@@ -343,13 +343,13 @@ public class TCDCommunity implements TADCommunity {
 
         //Por cada id no HashSet, vejo quantas vezes ele aparece na lista tags_id
         for (Long id : hs){
-            long occ = (long) Collections.frequency(hs, id);
+            long occ = (long) Collections.frequency(tags_id, id);
             Pair<Long,Long> pair = new Pair<>(id, occ);
             pair_list.add(pair);
         }
 
-        List<Long> ret = pair_list.stream().sorted(new PairSecondComparator())
-            .map(Pair::getFst).limit(N).collect(Collectors.toList());
+        List<Long> ret = pair_list.stream().sorted(new PairSecondComparator()).limit(N)
+            .map(Pair::getFst).collect(Collectors.toList());
 
         return ret;
     }
