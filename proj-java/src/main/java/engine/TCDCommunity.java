@@ -138,7 +138,7 @@ public class TCDCommunity implements TADCommunity {
         return this.posts.values().stream().filter(p -> p instanceof Question)
             .filter(p -> (p.getDate().isAfter(begin) && p.getDate().isBefore(end)) || p.getDate().equals(begin) || p.getDate().equals(end))
                 .map(p -> (Question) p)
-                .filter(q -> q.containsTag(tag)).sorted(new PostDateComparator().reversed()).map(Question::getID)
+                .filter(q -> q.containsTag(tag)).sorted(new PostDateComparator()).map(Question::getID)
                 .collect(Collectors.toList());
     }
 
@@ -356,6 +356,9 @@ public class TCDCommunity implements TADCommunity {
 
 
     public void clear(){
-        return;
+        posts.clear();
+        users.clear();
+        tags.clear();
+
     }
 }
