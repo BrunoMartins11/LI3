@@ -136,9 +136,10 @@ public class TCDCommunity implements TADCommunity {
     public List<Long> questionsWithTag(String tag, LocalDate begin, LocalDate end){
 
         return this.posts.values().stream().filter(p -> p instanceof Question)
-            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).map(p -> (Question) p)
-            .filter(q -> q.containsTag(tag)).sorted(new PostDateComparator().reversed()).map(Question::getID)
-            .collect(Collectors.toList());
+            .filter(p -> (p.getDate().isAfter(begin) && p.getDate().isBefore(end)) || p.getDate().equals(begin) || p.getDate().equals(end))
+                .map(p -> (Question) p)
+                .filter(q -> q.containsTag(tag)).sorted(new PostDateComparator().reversed()).map(Question::getID)
+                .collect(Collectors.toList());
     }
 
     // Query 5
@@ -155,7 +156,7 @@ public class TCDCommunity implements TADCommunity {
             laux2.add(posts.get(l));
         }
         List<Long> l = laux2.stream().sorted(new PostDateComparator().reversed())
-                .limit(10).map(Post::getID).collect(Collectors.toList());
+                .map(Post::getID).limit(10).collect(Collectors.toList());
 
         return new Pair<>(users.get(id).getAboutMe(),l);
     }
@@ -185,7 +186,7 @@ public class TCDCommunity implements TADCommunity {
     // Query 7
 
     /**
-     * Dado um intervalo de tempo arbitrario, devolver as IDs das N perguntas com mais respostas
+     * Dado um intervalo de tempo arbitrario, devolver os IDs das N perguntas com mais respostas
      * em ordem decrescente do numero
      * @param N Número de IDs esperados na lista de retorno
      * @param begin Início do intervalo de tempo
@@ -195,9 +196,9 @@ public class TCDCommunity implements TADCommunity {
     public List<Long> mostAnsweredQuestions(int N, LocalDate begin, LocalDate end){
 
         List<Long> lq = this.posts.values().stream().filter(p -> p instanceof Question)
-            .filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end))
-            .map(p -> (Question) p).sorted(new AnswerCountComparator()).limit(N)
-            .map(Question::getID).collect(Collectors.toList());
+            .filter(p -> (p.getDate().isAfter(begin) && p.getDate().isBefore(end)) || p.getDate().equals(end) || p.getDate().equals(begin))
+            .map(p -> (Question) p).sorted(new AnswerCountComparator())
+            .map(Question::getID).limit(N).collect(Collectors.toList());
 
         return lq;
 
@@ -215,7 +216,7 @@ public class TCDCommunity implements TADCommunity {
     public List<Long> containsWord(int N, String word){
 
         List<Long> question_word = this.posts.values().stream().filter(p -> p instanceof Question).
-            map(p -> (Question) p).filter(p -> p.getTitle().contains(word)).sorted(new PostDateComparator()).
+            map(p -> (Question) p).filter(p -> p.getTitle().contains(word)).sorted(new PostDateComparator().reversed()).
             limit(N).map(Question::getID).collect(Collectors.toList());
 
         return question_word;
@@ -243,7 +244,7 @@ public class TCDCommunity implements TADCommunity {
             for (Long le : l2) {
                 if (p instanceof Question) {
                     if(((Question) p).getAnswers().contains(le))
-                        ret.add(p);
+                     if(!ret.contains(p))   ret.add(p);
                 }
             }
         }
@@ -252,7 +253,7 @@ public class TCDCommunity implements TADCommunity {
             for (Long lp : l1) {
                 if (p instanceof Question) {
                     if(((Question) p).getAnswers().contains(lp))
-                    ret.add(p);
+                        if(!ret.contains(p))   ret.add(p);
                 }
             }
         }
@@ -263,7 +264,7 @@ public class TCDCommunity implements TADCommunity {
                 p = posts.get(((Answer) p).getParentID());
                 for (Long  h1: l2){
                     if(posts.get(h1) instanceof Answer && ((Answer) posts.get(h1)).getParentID()==p.getID()){
-                        ret.add(p);
+                        if(!ret.contains(p))   ret.add(p);
                     }
                 }
 
@@ -324,7 +325,7 @@ public class TCDCommunity implements TADCommunity {
             limit(N).map(User::getID).collect(Collectors.toList());
 
         List<Question> posts_date = this.posts.values().stream().filter(p -> p instanceof Question).
-            filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).
+            filter(p -> (p.getDate().isAfter(begin) && p.getDate().isBefore(end)) || p.getDate().equals(begin) || p.getDate().equals(begin) ).
             filter(p -> user_list.contains(p.getOwnerID())).map(p -> (Question) p).
             collect(Collectors.toList());
 
@@ -343,7 +344,7 @@ public class TCDCommunity implements TADCommunity {
         List<Long> ret = pair_list.stream().sorted(new PairSecondComparator()).limit(N).
             map(Pair::getFst).collect(Collectors.toList());
 
-        return ret;
+        return ret.stream().sorted(Long::compareTo).collect(Collectors.toList());
     }
 
 
