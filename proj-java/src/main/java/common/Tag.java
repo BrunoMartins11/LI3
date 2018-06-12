@@ -39,22 +39,26 @@ public class Tag {
         this.id = object.getID();
     }
 
+    /**
+     * Retorna ID de uma Tag
+     * @return ID da Tag
+     */
     public long getID(){
         return this.id;
     }
 
+    /**
+     * Retorna nome de uma Tag
+     * @return Nome da Tag
+     */
     public String getName(){
         return this.name;
     }
 
-    public void setID(long id){
-        this.id = id;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
+    /**
+     * Clone de uma Tag
+     * @return Tag
+     */
     public Tag clone(){
         return new Tag(this);
     }

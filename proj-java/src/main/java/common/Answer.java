@@ -40,18 +40,27 @@ public class Answer extends Post {
         this.parentID = object.getParentID();
     }
 
+    /**
+     * Retorna o ID da Questão a que esta Resposta estám associada
+     * @return ID de Questão
+     */
     public long getParentID(){
         return this.parentID;
     }
 
-    public void setParentID(long parentID){
-        this.parentID = parentID;
-    }
-
+    /**
+     * Clona uma Resposta
+     * @return Resposta
+     */
     public Answer clone(){
         return new Answer(this);
     }
 
+    /**
+     * Verifica se uma Resposta é igual a outra
+     * @param o Resposta
+     * @return Boolean
+     */
     public boolean equals(Object o){
        
         if (super.equals(o)){

@@ -69,50 +69,58 @@ public abstract class Post {
         this.date = object.getDate();
     }
 
-    
-    
+
+    /**
+     * Retorna o ID de um Post
+     * @return ID do post
+     */
     public long getID(){
         return this.id;
     }
 
+    /**
+     * Retorna o ID do User que fez o Post
+     * @return ID do User
+     */
     public long getOwnerID(){
         return this.ownerID;
     }
 
+    /**
+     * Retorna o Score de um Post
+     * @return Score de um Post
+     */
     public long getScore(){
         return this.score;
     }
 
+    /**
+     * Retorna o numero de comentarios de um Post
+     * @return Numero de comentarios de um Post
+     */
     public long getCommentCount(){
         return this.commentCount;
     }
 
+    /**
+     * Retorna a data do Post
+     * @return Data do Post
+     */
     public LocalDate getDate(){
         return this.date;
     }
 
-    public void setID(long id){
-        this.id = id;
-    }
-
-    public void setOwnerID(long id){
-        this.ownerID = id;
-    }
-
-    public void setScore(long score){
-        this.score = score;
-    }
-
-    public void setCommentCount(int number){
-        this.commentCount = number;
-    }
-
-    public void setDate(LocalDate date){
-        this.date = date;
-    }
-
+    /**
+     * Clona um Post
+     * @return Post
+     */
     public abstract Post clone();
 
+    /**
+     * Verifica de dois Posts são iguais
+     * @param o Post
+     * @return Boolean
+     */
     public boolean equals(Object o){
         if (this == o)
             return true;

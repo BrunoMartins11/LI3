@@ -34,15 +34,8 @@ public class Pair<X,Y> {
         return fst;
     }
 
-    public void setFst(X fst) {
-        this.fst = fst;
-    }
-
     public Y getSnd() {
         return snd;
     }
 
-    public void setSecond(Y snd) {
-        this.snd = snd;
-    }
 }

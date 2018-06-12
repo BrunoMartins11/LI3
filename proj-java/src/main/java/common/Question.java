@@ -129,14 +129,28 @@ public class Question extends Post {
         this.answers.add(answer);
     }
 
+    /**
+     * Verifica se uma Questão tem uma Tag
+     * @param tag Tag a verificar
+     * @return Boolean
+     */
     public boolean containsTag(String tag){
         return this.tags.contains(tag);
     }
 
+    /**
+     * Clona uma Questão
+     * @return Questão
+     */
     public Question clone(){
         return new Question(this);
     }
 
+    /**
+     * Verifica se duas questões são iguais
+     * @param o Questão a comparar
+     * @return Boolean
+     */
     public boolean equal(Object o){
 
         if (super.equals(o)){
