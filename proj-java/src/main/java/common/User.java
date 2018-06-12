@@ -5,13 +5,35 @@ import java.util.List;
 
 public class User {
     
+    /**
+     * Nome do utilizador
+     */
     private String name;
+
+    /**
+     * Informação sobre o utilizador
+     */
     private String about;
+
+    /**
+     * ID do utlizador
+     */
     private long id;
+
+    /**
+     * Reputação
+     */
     private long reputation;
+
+    /**
+     * Lista com os ID's de todos os posts feitos pelo utlizador
+     */
     private List<Long> posts;
 
 
+    /**
+     * Construtor vazio
+     */
     public User(){
         this.name = "";
         this.about = "";
@@ -20,6 +42,13 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
+    /**
+     * Construtor parametrizado
+     * @param name Nome
+     * @param about Informação sobre o utilizador
+     * @param id ID do utilizador
+     * @param reputation Reputação
+     */
     public User(String name, String about, long id, long reputation){
         this.name = name;
         this.about = about;
@@ -29,6 +58,10 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
+    /**
+     * Construtor cópia
+     * @param object User a ser copiado
+     */
     public User(User object){
         this.name = object.getName();
         this.about = object.getAboutMe();

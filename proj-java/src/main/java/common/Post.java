@@ -4,12 +4,35 @@ import java.time.LocalDate;
 
 public abstract class Post {
 
+    /**
+     * Id do post
+     */
     private long id;
-    private long ownerID;
-    private long score;
-    private long commentCount;
-    private LocalDate date;
 
+    /**
+     * ID do utilizador que criou o post
+     */
+    private long ownerID;
+
+    /**
+     * Pontuação do post
+     */
+    private long score;
+
+    /**
+     * Quantidade de comentários
+     */
+    private long commentCount;
+
+    /**
+     * Data de criação
+     */
+    private LocalDate date;
+    
+
+    /**
+     * Contrutor vazio
+     */
     public Post(){
         this.id = 0;
         this.ownerID = 0;
@@ -18,6 +41,14 @@ public abstract class Post {
         this.date = LocalDate.now();
     }
 
+    /**
+     * Construtor parametrizado
+     * @param id ID do post
+     * @param owner_id ID do utilizador que criou o post
+     * @param score Pontuação do post
+     * @param cc Quantidade de comentários
+     * @param date Data de criação do post
+     */
     public Post(long id, long owner_id, long score, long cc, LocalDate date){
         this.id = id;
         this.ownerID = owner_id;
@@ -26,6 +57,10 @@ public abstract class Post {
         this.date = date;
     }
 
+    /**
+     * Construtor de cópia
+     * @param object Post a ser copiado
+     */
     public Post(Post object){
         this.id = object.getID();
         this.ownerID = object.getOwnerID();
@@ -35,7 +70,7 @@ public abstract class Post {
     }
 
     
-
+    
     public long getID(){
         return this.id;
     }

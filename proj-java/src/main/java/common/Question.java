@@ -8,10 +8,25 @@ import java.util.regex.Pattern;
 
 public class Question extends Post {
 
+    /**
+     * Título da pergunta
+     */
     private String title;
+
+    /**
+     * Tags da pergunta
+     */
     private List<String> tags;
+
+    /**
+     * ID's das respostas a esta pergunta
+     */
     private List<Long> answers;
 
+
+    /**
+     * Construtor vazio
+     */
     public Question(){
         super();
         this.title = "";
@@ -19,6 +34,17 @@ public class Question extends Post {
         this.answers = new ArrayList<>();
     }
 
+
+    /**
+     * Construtor parametrizado
+     * @param id ID do post
+     * @param owner_id ID do utilizador que criou o post
+     * @param score Pontuação do post
+     * @param cc Quantidade de comentários
+     * @param date Data de criação do post
+     * @param title Título do post
+     * @param tags Tags do post
+     */
     public Question(long id, long owner_id, long score, long cc, LocalDate date,
                     String title, String tags){//Sai daqui a lista de answers, porque so adiciono nas answers
 
@@ -31,6 +57,10 @@ public class Question extends Post {
 
     }
 
+    /**
+     * Construtor de cópia
+     * @param object Pergunta a ser copiada
+     */
     public Question(Question object){
         super(object);
         this.title = object.getTitle();
@@ -42,6 +72,11 @@ public class Question extends Post {
         this.answers.addAll(object.getAnswers());
     }
 
+    /**
+     * Parser das tags extraídas do xml no formato <tag1><tag2>...
+     * @param tags String com as tags
+     * @return Lista com as tags
+     */
     public List<String> filterTags(String tags){
         String finString = Pattern.quote("<") + "(.*?)" + Pattern.quote(">");
         Pattern pat = Pattern.compile(finString);
