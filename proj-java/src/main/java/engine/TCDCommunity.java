@@ -154,7 +154,7 @@ public class TCDCommunity implements TADCommunity {
         for (Long l: laux1){
             laux2.add(posts.get(l));
         }
-        List<Long> l = laux2.stream().sorted(new PostDateComparator().reversed())
+        List<Long> l = laux2.stream().sorted(new PostDateComparator())
                 .limit(10).map(Post::getID).collect(Collectors.toList());
 
         return new Pair<>(users.get(id).getAboutMe(),l);
@@ -320,20 +320,26 @@ public class TCDCommunity implements TADCommunity {
         List<Long> tags_id = new ArrayList<>();
         Set<Long> hs = new HashSet<>();
 
+        //Lista com os N utilizadores com maior reputação
         List<Long> user_list = this.users.values().stream().sorted(new UserReputationComparator()).
             limit(N).map(User::getID).collect(Collectors.toList());
 
+        //Posts feitos pelos N utilizadores com maior reputação compreendidos entre as datas passadas
+        //como argumento
         List<Question> posts_date = this.posts.values().stream().filter(p -> p instanceof Question).
             filter(p -> p.getDate().isAfter(begin) && p.getDate().isBefore(end)).
             filter(p -> user_list.contains(p.getOwnerID())).map(p -> (Question) p).
             collect(Collectors.toList());
 
+        //Adiciono o id de todas as tags em uma lista
         for (Question q : posts_date)
             for (String tag : q.getTags())
                 tags_id.add(tags.get(tag).getID());
-            
+        
+        //Adiciono todas os id's das tags em um HashSet, que não aceita valor repetido
         hs.addAll(tags_id);
 
+        //Por cada id no HashSet, vejo quantas vezes ele aparece na lista tags_id
         for (Long id : hs){
             long occ = (long) Collections.frequency(hs, id);
             Pair<Long,Long> pair = new Pair<>(id, occ);
